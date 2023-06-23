@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./features/auth/components/register/register";
+import Login from "./features/auth/components/login/Login";
+import Navbar from "./features/layout/navbar/navbar";
+import Fotter from "./features/layout/fotter/fotter";
+import NotFound from "./features/404/404";
+// import Profile from "./features/auth/components/profile/Profile";
+import ProtectedRoutes from "./ProtectedRoutes";
+
+import "./App.css";
+// import Home from "./features/home/homePage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/">
+          <Route
+            element={<ProtectedRoutes requiresLogin={false} redirectTo="/" />}
+          >
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoutes requiresLogin={true} redirectTo="/login" />
+            }
+          >
+            {/* <Route path="home" element={<Home />} />
+            <Route path="" element={<Home />} /> */}
+            {/* <Route path="profile" element={<Profile />} /> */}
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+      <Fotter />
+    </BrowserRouter>
   );
 }
 

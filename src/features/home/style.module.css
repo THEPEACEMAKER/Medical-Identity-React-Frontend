@@ -1,0 +1,71 @@
+.body {
+  background-color: #f5f5f5;
+  position: relative;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.productOffer {
+  position: relative;
+  overflow: hidden;
+}
+
+.productOffer img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
+
+.productOffer:hover img {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.productOffer .offerText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(61, 70, 77, 0.5);
+  z-index: 1;
+}
+
+.sectionTitle span {
+  background-color: #f5f5f5;
+  z-index: 22;
+  position: relative;
+}
+
+.sectionTitle::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0;
+  top: 50%;
+  left: 0;
+  border-top: 1px dashed #2d2f30;
+  z-index: 1;
+}
+
+.catItem {
+  background: #ffffff;
+  transition: 0.5s;
+}
+
+.catItem:hover {
+  background: #ffd333;
+}
+
+.catItem img {
+  transition: 0.5s;
+}
+
+.catItem:hover img {
+  transform: scale(1.2) rotate(5deg);
+}

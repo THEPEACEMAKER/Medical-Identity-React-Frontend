@@ -1,0 +1,95 @@
+.logo {
+  width: 120px;
+}
+.top {
+  background-color: #f5f5f5;
+}
+
+/* .search::after {
+  content: "";
+  width: 10%;
+  height: 100%;
+  background-color: rgb(216, 215, 215);
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  left: -4%;
+  z-index: -1;
+}
+
+.search::before {
+  content: "";
+  width: 10%;
+  height: 100%;
+  background-color: rgb(216, 215, 215);
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  right: -4%;
+  z-index: -1;
+} */
+
+.select,
+.btnSearch {
+  outline: none !important;
+  border: none !important;
+  position: relative;
+  background-color: rgb(216, 215, 215);
+}
+
+.select::selection,
+.btnSearch:focus {
+  outline: none !important;
+  border: none !important;
+  background-color: rgb(216, 215, 215);
+}
+
+.select:focus,
+.btnSearch:focus {
+  outline: none !important;
+  border: none !important;
+  background-color: rgb(216, 215, 215);
+}
+
+.btnNew {
+  position: relative;
+}
+
+.btnNew span {
+  position: absolute;
+  padding: 1px 4px;
+  font-size: 10px;
+  font-weight: 900;
+  border-radius: 50%;
+  background-color: blanchedalmond;
+  top: 0;
+  right: 1%;
+  color: black;
+}
+.i {
+  color: black;
+}
+
+i:hover {
+  font-weight: bold;
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.ulNavbar .active {
+  font-weight: 600;
+  color: gold !important;
+}
+
+nav a {
+  color: white !important;
+}
+.dropdownMenu li span {
+  color: black !important;
+}
+@media screen and (max-width: 1000px) {
+  .ulNavbar a {
+    color: black !important;
+  }
+}
