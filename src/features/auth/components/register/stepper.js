@@ -18,7 +18,8 @@ import styles from "./stylee.module.css";
 
 const steps = [
   { title: "First", description: "Personal Info" },
-  { title: "Second", description: "Password" },
+  { title: "Second", description: "Contact Info" },
+  { title: "Third", description: "Password" },
 ];
 
 function StepperComp(props) {

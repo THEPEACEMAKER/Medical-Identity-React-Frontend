@@ -112,8 +112,7 @@ export default function App() {
         <div className="col-md-6 px-xl-0">
           <p className="mb-md-0 text-center text-md-start text-secondary">
             &copy; <span className="text-primary">Domain</span>. All Rights
-            Reserved. Designed by{" "}
-            <span className="text-primary"> Ali Saad</span>
+            Reserved.
           </p>
         </div>
 

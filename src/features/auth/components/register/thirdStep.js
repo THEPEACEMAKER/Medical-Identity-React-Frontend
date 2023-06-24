@@ -15,7 +15,7 @@ function ThirdStep(props) {
   const [showError, setshowError] = useState(false);
 
   const registertien = () => {
-    if (!props.form.touched.confirmPassword) {
+    if (!props.form.touched.confirm_password) {
       setshowError(true);
       setTimeout(() => {
         setshowError(false);
@@ -79,21 +79,21 @@ function ThirdStep(props) {
         <div className="w-100 position-relative">
           <MDBInput
             label="Repeat your password"
-            id="confirmPassword"
+            id="confirm_password"
             type={showRPassword ? "text" : "password"}
-            value={props.form.values.confirmPassword}
+            value={props.form.values.confirm_password}
             onChange={props.form.handleChange}
             className={`${
-              props.form.touched.confirmPassword &&
-              props.form.errors.confirmPassword &&
+              props.form.touched.confirm_password &&
+              props.form.errors.confirm_password &&
               styles.inputErr
             } `}
             onBlur={props.form.handleBlur}
           />
-          {props.form.touched.confirmPassword &&
-            props.form.errors.confirmPassword && (
+          {props.form.touched.confirm_password &&
+            props.form.errors.confirm_password && (
               <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
-                {props.form.errors.confirmPassword}
+                {props.form.errors.confirm_password}
               </p>
             )}{" "}
           <button
