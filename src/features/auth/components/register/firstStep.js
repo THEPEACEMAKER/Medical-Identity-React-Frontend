@@ -1,7 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useState } from "react";
 
-import { MDBSpinner, MDBIcon, MDBBtn, MDBInput } from "mdb-react-ui-kit";
+import {
+  MDBSpinner,
+  MDBIcon,
+  MDBBtn,
+  MDBInput,
+  MDBRadio,
+} from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
 
@@ -26,7 +32,7 @@ function FirstStep(props) {
   const onClick = () => {
     if (
       Object.keys(props.form.errors).filter((el) =>
-        ["first_name", "last_name", "username", "email"].includes(el)
+        ["first_name", "last_name", "email", "gender"].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
     ) {
@@ -34,7 +40,7 @@ function FirstStep(props) {
     } else {
       if (
         Object.keys(props.form.errors).filter((el) =>
-          ["first_name", "last_name", "username", "email"].includes(el)
+          ["first_name", "last_name", "email", "gender"].includes(el)
         ).length !== 4
       ) {
         setshowError(true);
@@ -126,30 +132,6 @@ function FirstStep(props) {
       </div>
 
       <div className="d-flex flex-row align-items-center mb-5 w-100 ">
-        <MDBIcon fas icon="at me-3" size="lg" />
-        <div className="w-100 position-relative">
-          <MDBInput
-            label="User Name"
-            id="username"
-            type="text"
-            value={props.form.values.username}
-            onChange={props.form.handleChange}
-            className={`${
-              props.form.touched.username &&
-              props.form.errors.username &&
-              styles.inputErr
-            }`}
-            onBlur={props.form.handleBlur}
-          />
-          {props.form.touched.username && props.form.errors.username && (
-            <p className={`${styles.error}  ${animate ? styles.animate : ""}`}>
-              {props.form.errors.username}
-            </p>
-          )}
-        </div>
-      </div>
-
-      <div className="d-flex flex-row align-items-center mb-5 w-100 ">
         <MDBIcon fas icon="envelope me-3" size="lg" />
         <div className="w-100 position-relative">
           <MDBInput
@@ -168,6 +150,39 @@ function FirstStep(props) {
           {props.form.touched.email && props.form.errors.email && (
             <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
               {props.form.errors.email}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="d-flex flex-row align-items-center mb-5 w-100 ">
+        <h6 class="fw-bold mb-0">Gender: </h6>
+        <div className="w-100 position-relative">
+          <div className="d-flex flex-fill justify-content-around">
+            <MDBRadio
+              name="gender"
+              id="inlineRadio2"
+              value="Male"
+              label="Male"
+              inline
+              onChange={props.form.handleChange}
+              onBlur={props.form.handleBlur}
+              checked={props.form.values.gender === "Male"}
+            />
+            <MDBRadio
+              name="gender"
+              id="inlineRadio1"
+              value="Female"
+              label="Female"
+              inline
+              onChange={props.form.handleChange}
+              onBlur={props.form.handleBlur}
+              checked={props.form.values.gender === "Female"}
+            />
+          </div>
+          {props.form.touched.gender && props.form.errors.gender && (
+            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
+              {props.form.errors.gender}
             </p>
           )}
         </div>

@@ -35,8 +35,8 @@ function Register() {
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
       first_name: "",
       last_name: "",
-      uname: "",
       email: "",
+      gender: "",
       phone: "",
       password: "",
       confirm_password: "",
@@ -58,17 +58,10 @@ function Register() {
         .min(3, "must be 3 Char or More")
         .matches(/^[A-Za-z]+$/, "must not contain numbers.")
         .required("Last Name is required"),
-      username: Yup.string()
-        .max(10, "User Name must be 20 Charracters or Less")
-        .min(3, "User Name must be 3 Charracters or More")
-        .matches(
-          /^[a-zA-Z][a-zA-Z0-9]*$/,
-          "User Name must start with a letter."
-        )
-        .required("User Name is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("email is required"),
+      gender: Yup.string().required("Gender is required"),
       phone: Yup.string()
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
@@ -153,31 +146,32 @@ function Register() {
     }),
 
     onSubmit: (values) => {
+      console.log("values: " + JSON.stringify(values));
       setLoding(true);
-      api
-        .post("/auth/register/", values, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          setLoding(false);
+      // api
+      //   .post("/auth/register/", values, {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   })
+      //   .then((res) => {
+      //     setLoding(false);
 
-          setPieces(200);
+      //     setPieces(200);
 
-          setTimeout(() => {
-            navigate("/login");
-          }, 3000);
-        })
-        .catch((err) => {
-          setLoding(false);
+      //     setTimeout(() => {
+      //       navigate("/login");
+      //     }, 3000);
+      //   })
+      //   .catch((err) => {
+      //     setLoding(false);
 
-          setResError([]);
-          console.log(err.originalError.response.data);
-          for (let na of Object.values(err.originalError.response.data)) {
-            setResError((data) => [...data, na[0]]);
-          }
-        });
+      //     setResError([]);
+      //     console.log(err.originalError.response.data);
+      //     for (let na of Object.values(err.originalError.response.data)) {
+      //       setResError((data) => [...data, na[0]]);
+      //     }
+      //   });
     },
   });
 
