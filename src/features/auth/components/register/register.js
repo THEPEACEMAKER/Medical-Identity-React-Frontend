@@ -37,6 +37,7 @@ function Register() {
       last_name: "",
       email: "",
       gender: "",
+      isDoctor: false,
       phone: "",
       password: "",
       confirm_password: "",

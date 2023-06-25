@@ -7,6 +7,7 @@ import {
   MDBBtn,
   MDBInput,
   MDBRadio,
+  MDBCheckbox,
 } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
@@ -156,7 +157,7 @@ function FirstStep(props) {
       </div>
 
       <div className="d-flex flex-row align-items-center mb-5 w-100 ">
-        <h6 class="fw-bold mb-0">Gender: </h6>
+        <h6 className="fw-bold mb-0">Gender: </h6>
         <div className="w-100 position-relative">
           <div className="d-flex flex-fill justify-content-around">
             <MDBRadio
@@ -186,6 +187,17 @@ function FirstStep(props) {
             </p>
           )}
         </div>
+      </div>
+
+      <div className="mb-4">
+        <MDBCheckbox
+          name="isDoctor"
+          value=""
+          id="flexCheckDefault"
+          label="Register as a Doctor."
+          checked={props.form.values.isDoctor}
+          onChange={props.form.handleChange}
+        />
       </div>
 
       <div className="d-flex flex-row flex-row-reverse mb-4 w-100">
