@@ -39,6 +39,7 @@ function Register() {
       gender: "",
       isDoctor: false,
       phone: "",
+      national_ID: "",
       password: "",
       confirm_password: "",
 
@@ -66,6 +67,12 @@ function Register() {
       phone: Yup.string()
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
+      national_ID: Yup.string()
+        .matches(
+          /^([1-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})[0-9]{3}([0-9]{1})[0-9]{1}$/,
+          "Invalid national ID"
+        )
+        .required("National ID is required"),
       address: Yup.string().max(265, "Address must be 265 Char or less"),
       password: Yup.string()
         .min(6, "Password must be at least 6 characters")

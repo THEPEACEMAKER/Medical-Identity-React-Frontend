@@ -11,14 +11,13 @@ function SecondStep(props) {
   const next = () => {
     if (
       Object.keys(props.form.errors).filter((el) =>
-        ["address", "phone"].includes(el)
+        ["address", "phone", "national_ID"].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
     ) {
       props.onClick({ index: 3 });
     } else {
-      console.log(props.form.touched.phone);
-      if (!props.form.touched.phone) {
+      if (!props.form.touched.phone || !props.form.touched.national_ID) {
         setshowError(true);
         setTimeout(() => {
           setshowError(false);
@@ -31,16 +30,15 @@ function SecondStep(props) {
     }
   };
 
-  // const skip = () => {
-  //   props.onClick({ index: 3 });
-  // };
-
   const prev = () => {
     props.onClick({ index: 1 });
   };
 
   return (
-    <div className="w-100 d-flex flex-column align-items-center my-1" data-aos="fade-left">
+    <div
+      className="w-100 d-flex flex-column align-items-center my-1"
+      data-aos="fade-left"
+    >
       <div className="d-flex flex-row align-items-center mb-5 w-100">
         <MDBIcon fas icon="phone-alt me-3" size="lg" />
         <div className="w-100 position-relative">
@@ -62,6 +60,42 @@ function SecondStep(props) {
               {props.form.errors.phone}
             </p>
           )}
+        </div>
+      </div>
+
+      <div
+        className={`d-flex align-items-center justify-content-strat w-100 ${styles.sectionTitle}`}
+      >
+        <div className={styles.elem}>
+          <MDBIcon fas icon="user me-3" size="lg" /> <span>Identity</span>
+        </div>
+      </div>
+      <div className="d-flex flex-row align-items-center mb-5 w-100 gap-1">
+        <div className="p-md-3 text-black w-100">
+          <div className="w-100 position-relative">
+            <MDBInput
+              label="National ID"
+              type="text"
+              size="lg"
+              id="national_ID"
+              value={props.form.values.national_ID}
+              onChange={props.form.handleChange}
+              className={`mb-1 ${
+                props.form.touched.national_ID &&
+                props.form.errors.national_ID &&
+                styles.inputErr
+              } `}
+              onBlur={props.form.handleBlur}
+            />
+            {props.form.touched.national_ID &&
+              props.form.errors.national_ID && (
+                <p
+                  className={`${styles.error} ${animate ? styles.animate : ""}`}
+                >
+                  {props.form.errors.national_ID}
+                </p>
+              )}
+          </div>
         </div>
       </div>
 
