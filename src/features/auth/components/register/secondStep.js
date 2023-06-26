@@ -11,13 +11,17 @@ function SecondStep(props) {
   const next = () => {
     if (
       Object.keys(props.form.errors).filter((el) =>
-        ["address", "phone", "national_ID"].includes(el)
+        ["address", "phone", "national_ID", "profession_ID"].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
     ) {
       props.onClick({ index: 3 });
     } else {
-      if (!props.form.touched.phone || !props.form.touched.national_ID) {
+      if (
+        !props.form.touched.phone ||
+        !props.form.touched.national_ID ||
+        !props.form.touched.profession_ID
+      ) {
         setshowError(true);
         setTimeout(() => {
           setshowError(false);
@@ -96,6 +100,35 @@ function SecondStep(props) {
                 </p>
               )}
           </div>
+
+          {props.form.values.isDoctor && (
+            <div className="w-100 position-relative">
+              <MDBInput
+                label="Profession ID"
+                type="text"
+                size="lg"
+                id="profession_ID"
+                value={props.form.values.profession_ID}
+                onChange={props.form.handleChange}
+                className={`mt-4 mb-1 ${
+                  props.form.touched.profession_ID &&
+                  props.form.errors.profession_ID &&
+                  styles.inputErr
+                } `}
+                onBlur={props.form.handleBlur}
+              />
+              {props.form.touched.profession_ID &&
+                props.form.errors.profession_ID && (
+                  <p
+                    className={`${styles.error} ${
+                      animate ? styles.animate : ""
+                    }`}
+                  >
+                    {props.form.errors.profession_ID}
+                  </p>
+                )}
+            </div>
+          )}
         </div>
       </div>
 
