@@ -37,6 +37,7 @@ function Register() {
       last_name: "",
       email: "",
       gender: "",
+      birth_date: "",
       isDoctor: false,
       phone: "",
       national_ID: "",
@@ -65,6 +66,9 @@ function Register() {
         .email("Invalid email address")
         .required("email is required"),
       gender: Yup.string().required("Gender is required"),
+      birth_date: Yup.date()
+        .max(new Date(), "Birth Date cannot be in the future")
+        .required("Birth Date is required"),
       phone: Yup.string()
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
