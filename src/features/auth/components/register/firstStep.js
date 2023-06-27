@@ -11,6 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
+import { Input } from "@chakra-ui/react";
 
 function FirstStep(props) {
   const [show, setShow] = useState(false);
@@ -33,7 +34,9 @@ function FirstStep(props) {
   const onClick = () => {
     if (
       Object.keys(props.form.errors).filter((el) =>
-        ["first_name", "last_name", "email", "gender"].includes(el)
+        ["first_name", "last_name", "email", "gender", "birth_date"].includes(
+          el
+        )
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
     ) {
@@ -41,7 +44,9 @@ function FirstStep(props) {
     } else {
       if (
         Object.keys(props.form.errors).filter((el) =>
-          ["first_name", "last_name", "email", "gender"].includes(el)
+          ["first_name", "last_name", "email", "gender", "birth_date"].includes(
+            el
+          )
         ).length !== 4
       ) {
         setshowError(true);
@@ -184,6 +189,34 @@ function FirstStep(props) {
           {props.form.touched.gender && props.form.errors.gender && (
             <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
               {props.form.errors.gender}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="d-flex flex-row align-items-center mb-5 w-100 ">
+        <h6 className="fw-bold mb-0">Birth Date: </h6>
+        <div className="w-100 position-relative">
+          <Input
+            placeholder="Your Birth Date"
+            size="md"
+            type="date"
+            id="birth_date"
+            name="birth_date"
+            value={props.form.values.birth_date}
+            onChange={props.form.handleChange}
+            onBlur={props.form.handleBlur}
+            min="1910-01-01"
+            max={new Date().toISOString().split("T")[0]}
+            className={`${
+              props.form.touched.birth_date &&
+              props.form.errors.birth_date &&
+              styles.inputErr
+            }`}
+          />
+          {props.form.touched.birth_date && props.form.errors.birth_date && (
+            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
+              {props.form.errors.birth_date}
             </p>
           )}
         </div>

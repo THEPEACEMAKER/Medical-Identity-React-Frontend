@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MDBInput, MDBIcon, MDBBtn, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
+import CustomeSelect from "./layout/CustomeSelect";
 
 function SecondStep(props) {
   const [animate, setAnimate] = useState(false);
@@ -11,13 +12,24 @@ function SecondStep(props) {
   const next = () => {
     if (
       Object.keys(props.form.errors).filter((el) =>
-        ["address", "phone", "national_ID"].includes(el)
+        [
+          "address",
+          "phone",
+          "national_ID",
+          "profession_ID",
+          "specialization",
+        ].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
     ) {
       props.onClick({ index: 3 });
     } else {
-      if (!props.form.touched.phone || !props.form.touched.national_ID) {
+      if (
+        !props.form.touched.phone ||
+        !props.form.touched.national_ID ||
+        !props.form.touched.profession_ID ||
+        !props.form.touched.specialization
+      ) {
         setshowError(true);
         setTimeout(() => {
           setshowError(false);
@@ -70,7 +82,7 @@ function SecondStep(props) {
           <MDBIcon fas icon="user me-3" size="lg" /> <span>Identity</span>
         </div>
       </div>
-      <div className="d-flex flex-row align-items-center mb-5 w-100 gap-1">
+      <div className="d-flex flex-row align-items-center w-100 gap-1">
         <div className="p-md-3 text-black w-100">
           <div className="w-100 position-relative">
             <MDBInput
@@ -98,6 +110,66 @@ function SecondStep(props) {
           </div>
         </div>
       </div>
+      {props.form.values.isDoctor && (
+        <>
+          <div className="d-flex flex-row align-items-center w-100 gap-1">
+            <div className="p-md-3 text-black w-100">
+              <div className="w-100 position-relative">
+                <MDBInput
+                  label="Profession ID"
+                  type="text"
+                  size="lg"
+                  id="profession_ID"
+                  value={props.form.values.profession_ID}
+                  onChange={props.form.handleChange}
+                  className={`mb-1 ${
+                    props.form.touched.profession_ID &&
+                    props.form.errors.profession_ID &&
+                    styles.inputErr
+                  } `}
+                  onBlur={props.form.handleBlur}
+                />
+                {props.form.touched.profession_ID &&
+                  props.form.errors.profession_ID && (
+                    <p
+                      className={`${styles.error} ${
+                        animate ? styles.animate : ""
+                      }`}
+                    >
+                      {props.form.errors.profession_ID}
+                    </p>
+                  )}
+              </div>
+            </div>
+          </div>
+
+          <div className="d-flex flex-row align-items-center mb-5 w-100 gap-1">
+            <div className="p-md-3 text-black w-100">
+              <div className="w-100 position-relative">
+                <CustomeSelect
+                  value={props.form.values.specialization}
+                  onChange={props.form.setFieldValue}
+                  onBlur={props.form.setFieldTouched}
+                  error={
+                    props.form.touched.specialization &&
+                    props.form.errors.specialization
+                  }
+                />
+                {props.form.touched.specialization &&
+                  props.form.errors.specialization && (
+                    <p
+                      className={`${styles.error} ${
+                        animate ? styles.animate : ""
+                      }`}
+                    >
+                      {props.form.errors.specialization}
+                    </p>
+                  )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       <div
         className={`d-flex align-items-center justify-content-strat w-100 ${styles.sectionTitle}`}

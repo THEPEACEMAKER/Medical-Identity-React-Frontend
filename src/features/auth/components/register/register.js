@@ -37,9 +37,12 @@ function Register() {
       last_name: "",
       email: "",
       gender: "",
+      birth_date: "",
       isDoctor: false,
       phone: "",
       national_ID: "",
+      profession_ID: "",
+      specialization: "",
       password: "",
       confirm_password: "",
 
@@ -64,6 +67,9 @@ function Register() {
         .email("Invalid email address")
         .required("email is required"),
       gender: Yup.string().required("Gender is required"),
+      birth_date: Yup.date()
+        .max(new Date(), "Birth Date cannot be in the future")
+        .required("Birth Date is required"),
       phone: Yup.string()
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
@@ -73,9 +79,24 @@ function Register() {
           "Invalid national ID"
         )
         .required("National ID is required"),
+      profession_ID: Yup.string().when("isDoctor", {
+        is: true,
+        then: (schema) =>
+          Yup.string()
+            .matches(
+              /^([1-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})[0-9]{3}([0-9]{1})[0-9]{1}$/,
+              "Invalid profession ID"
+            )
+            .required("Profession ID is required for doctors"),
+      }),
+      specialization: Yup.string().when("isDoctor", {
+        is: true,
+        then: (schema) =>
+          Yup.string().required("Specialization is required for doctors"),
+      }),
       address: Yup.string().max(265, "Address must be 265 Char or less"),
       password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
+        .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
