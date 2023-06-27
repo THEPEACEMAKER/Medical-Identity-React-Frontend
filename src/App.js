@@ -35,6 +35,7 @@ function App() {
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
           <Route path="doctorDashboard" element={<Dashboard />} />
+          <Route path="doctorAppointment" element={<DoctorsZone />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>

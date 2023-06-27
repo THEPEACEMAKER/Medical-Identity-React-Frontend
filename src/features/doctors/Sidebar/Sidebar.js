@@ -14,7 +14,7 @@ const Sidebar = () => {
                         <FontAwesomeIcon className="icon" icon={faTh} />
                         <p>Dashboard</p>
                     </Link>
-                    <Link to="/doctorsZone" style={{ textDecoration: "none" }} className="sideBarLink">
+                    <Link to="/doctorAppointment" style={{ textDecoration: "none" }} className="sideBarLink">
                         <FontAwesomeIcon className="icon" icon={faCalendarDay} />
                         <p>Appointment</p>
                     </Link>
