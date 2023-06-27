@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./features/auth/components/register/register";
 import Login from "./features/auth/components/login/Login";
 import Navbar from "./features/layout/navbar/navbar";
-import Fotter from "./features/layout/fotter/fotter";
+import Footer from "./features/layout/footer/Footer";
 import NotFound from "./features/404/404";
 // import Profile from "./features/auth/components/profile/Profile";
 import ProtectedRoutes from "./ProtectedRoutes";
@@ -42,7 +42,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-      <Fotter />
+      <Footer />
     </BrowserRouter>
   );
 }
