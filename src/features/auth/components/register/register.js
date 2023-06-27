@@ -43,14 +43,11 @@ function Register() {
       national_ID: "",
       profession_ID: "",
       specialization: "",
-      password: "",
-      confirm_password: "",
-
-      street: "",
       city: "",
       district: "",
-      country: "",
-      building_number: "",
+      street: "",
+      password: "",
+      confirm_password: "",
     },
     validationSchema: Yup.object({
       first_name: Yup.string()
@@ -94,84 +91,20 @@ function Register() {
         then: (schema) =>
           Yup.string().required("Specialization is required for doctors"),
       }),
-      address: Yup.string().max(265, "Address must be 265 Char or less"),
+      street: Yup.string().when("isDoctor", {
+        is: true,
+        then: (schema) =>
+          Yup.string()
+            .min(8, "Street address must be at least 8 characters")
+            .max(100, "Street address must be 100 Char or less")
+            .required("Street address is required for doctors"),
+      }),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Please confirm your password"),
-
-      street: Yup.string().test({
-        name: "address",
-        test: function (value) {
-          const { city, district, country, building_number } = this.parent;
-          return (
-            !city ||
-            !district ||
-            !country ||
-            !building_number ||
-            !!value ||
-            this.createError({ message: "Please fill in all address fields" })
-          );
-        },
-      }),
-      city: Yup.string().test({
-        name: "address",
-        test: function (value) {
-          const { street, district, country, building_number } = this.parent;
-          return (
-            !street ||
-            !district ||
-            !country ||
-            !building_number ||
-            !!value ||
-            this.createError({ message: "Please fill in all address fields" })
-          );
-        },
-      }),
-      district: Yup.string().test({
-        name: "address",
-        test: function (value) {
-          const { street, city, country, building_number } = this.parent;
-          return (
-            !street ||
-            !city ||
-            !country ||
-            !building_number ||
-            !!value ||
-            this.createError({ message: "Please fill in all address fields" })
-          );
-        },
-      }),
-      country: Yup.string().test({
-        name: "address",
-        test: function (value) {
-          const { street, city, district, building_number } = this.parent;
-          return (
-            !street ||
-            !city ||
-            !district ||
-            !building_number ||
-            !!value ||
-            this.createError({ message: "Please fill in all address fields" })
-          );
-        },
-      }),
-      building_number: Yup.string().test({
-        name: "address",
-        test: function (value) {
-          const { street, city, district, country } = this.parent;
-          return (
-            !street ||
-            !city ||
-            !district ||
-            !country ||
-            !!value ||
-            this.createError({ message: "Please fill in all address fields" })
-          );
-        },
-      }),
     }),
 
     onSubmit: (values) => {

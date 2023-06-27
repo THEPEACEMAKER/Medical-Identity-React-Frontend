@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import { MDBInput, MDBIcon, MDBBtn, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import { MDBInput, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
 
 import styles from "./stylee.module.css";
-import CustomeSelect from "./layout/CustomeSelect";
+import SpecializationSelect from "./layout/SpecializationSelect";
+import PlaceSelect from "./layout/PlaceSelect";
 
 function SecondStep(props) {
   const [animate, setAnimate] = useState(false);
@@ -18,6 +19,7 @@ function SecondStep(props) {
           "national_ID",
           "profession_ID",
           "specialization",
+          "street",
         ].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
@@ -28,7 +30,8 @@ function SecondStep(props) {
         !props.form.touched.phone ||
         !props.form.touched.national_ID ||
         !props.form.touched.profession_ID ||
-        !props.form.touched.specialization
+        !props.form.touched.specialization ||
+        !props.form.touched.street
       ) {
         setshowError(true);
         setTimeout(() => {
@@ -92,7 +95,7 @@ function SecondStep(props) {
               id="national_ID"
               value={props.form.values.national_ID}
               onChange={props.form.handleChange}
-              className={`mb-1 ${
+              className={`mb-2 ${
                 props.form.touched.national_ID &&
                 props.form.errors.national_ID &&
                 styles.inputErr
@@ -122,7 +125,7 @@ function SecondStep(props) {
                   id="profession_ID"
                   value={props.form.values.profession_ID}
                   onChange={props.form.handleChange}
-                  className={`mb-1 ${
+                  className={`mb-2 ${
                     props.form.touched.profession_ID &&
                     props.form.errors.profession_ID &&
                     styles.inputErr
@@ -146,7 +149,7 @@ function SecondStep(props) {
           <div className="d-flex flex-row align-items-center mb-5 w-100 gap-1">
             <div className="p-md-3 text-black w-100">
               <div className="w-100 position-relative">
-                <CustomeSelect
+                <SpecializationSelect
                   value={props.form.values.specialization}
                   onChange={props.form.setFieldValue}
                   onBlur={props.form.setFieldTouched}
@@ -168,134 +171,81 @@ function SecondStep(props) {
               </div>
             </div>
           </div>
-        </>
-      )}
 
-      <div
-        className={`d-flex align-items-center justify-content-strat w-100 ${styles.sectionTitle}`}
-      >
-        <div className={styles.elem}>
-          <MDBIcon fas icon="location-arrow me-3" size="lg" />{" "}
-          <span>
-            Address <span className="text-muted">(optional)</span>
-          </span>
-        </div>
-      </div>
-      <div className="d-flex flex-row align-items-center mb-5 w-100 gap-1">
-        <div className="p-md-3 text-black">
-          <MDBInput
-            label="Street"
-            type="text"
-            size="lg"
-            id="street"
-            value={props.form.values.street}
-            onChange={props.form.handleChange}
-            className={`mb-4 ${
-              props.form.touched.street &&
-              props.form.errors.street &&
-              styles.inputErr
-            } `}
-            onBlur={props.form.handleBlur}
-          />
-          {props.form.touched.street && props.form.errors.street && (
-            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
-              {props.form.errors.street}
-            </p>
-          )}
+          <div
+            className={`d-flex align-items-center justify-content-strat w-100 ${styles.sectionTitle}`}
+          >
+            <div className={styles.elem}>
+              <MDBIcon fas icon="location-arrow me-3" size="lg" />{" "}
+              <span>
+                Address <span className="text-muted">(Clinic / Hospital)</span>
+              </span>
+            </div>
+          </div>
 
-          <MDBRow>
-            <MDBCol md="6" className="mb-4">
-              <MDBInput
-                label="Building Number"
-                type="text"
-                size="lg"
-                id="building_number"
-                value={props.form.values.building_number}
-                onChange={props.form.handleChange}
-                className={`${
-                  props.form.touched.building_number &&
-                  props.form.errors.building_number &&
-                  styles.inputErr
-                } `}
-                onBlur={props.form.handleBlur}
-              />
-              {props.form.touched.building_number &&
-                props.form.errors.building_number && (
+          <div className="d-flex flex-row align-items-center w-100 gap-1">
+            <div className="p-md-3 text-black w-100">
+              <div className="w-100 position-relative">
+                <PlaceSelect
+                  value={{
+                    city: props.form.values.city,
+                    district: props.form.values.district,
+                  }}
+                  onChange={props.form.setFieldValue}
+                  onBlur={props.form.setFieldTouched}
+                  error={
+                    props.form.touched.city && props.form.errors.city
+                      ? props.form.errors.city
+                      : props.form.touched.district &&
+                        props.form.errors.district
+                      ? props.form.errors.district
+                      : ""
+                  }
+                />
+                {(props.form.touched.city || props.form.touched.district) &&
+                  (props.form.errors.city || props.form.errors.district) && (
+                    <p
+                      className={`${styles.error} ${
+                        animate ? styles.animate : ""
+                      }`}
+                    >
+                      {props.form.errors.city || props.form.errors.district}
+                    </p>
+                  )}
+              </div>
+            </div>
+          </div>
+          <div className="d-flex flex-row align-items-center mb-5 w-100">
+            <div className="p-md-3 text-black w-100">
+              <div className="w-100 position-relative">
+                <MDBInput
+                  label="Street"
+                  type="text"
+                  size="lg"
+                  id="street"
+                  value={props.form.values.street}
+                  onChange={props.form.handleChange}
+                  className={` ${
+                    props.form.touched.street &&
+                    props.form.errors.street &&
+                    styles.inputErr
+                  } `}
+                  onBlur={props.form.handleBlur}
+                />
+                {props.form.touched.street && props.form.errors.street && (
                   <p
                     className={`${styles.error} ${
                       animate ? styles.animate : ""
                     }`}
                   >
-                    {props.form.errors.building_number}
+                    {props.form.errors.street}
                   </p>
                 )}
-            </MDBCol>
-            <MDBCol md="6" className="mb-4">
-              <MDBInput
-                label="District"
-                type="text"
-                size="lg"
-                id="district"
-                value={props.form.values.district}
-                onChange={props.form.handleChange}
-                className={`${
-                  props.form.touched.district &&
-                  props.form.errors.district &&
-                  styles.inputErr
-                } `}
-                onBlur={props.form.handleBlur}
-              />
-              {props.form.touched.district && props.form.errors.district && (
-                <p
-                  className={`${styles.error} ${animate ? styles.animate : ""}`}
-                >
-                  {props.form.errors.district}
-                </p>
-              )}
-            </MDBCol>
-          </MDBRow>
-
-          <MDBInput
-            label="Country	"
-            type="text"
-            size="lg"
-            id="country"
-            value={props.form.values.country}
-            onChange={props.form.handleChange}
-            className={`mb-4 ${
-              props.form.touched.country &&
-              props.form.errors.country &&
-              styles.inputErr
-            } `}
-            onBlur={props.form.handleBlur}
-          />
-          {props.form.touched.country && props.form.errors.country && (
-            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
-              {props.form.errors.country}
-            </p>
-          )}
-
-          <MDBInput
-            label="City"
-            type="text"
-            size="lg"
-            id="city"
-            value={props.form.values.city}
-            onChange={props.form.handleChange}
-            className={` mb-4 ${
-              props.form.touched.city &&
-              props.form.errors.city &&
-              styles.inputErr
-            } `}
-            onBlur={props.form.handleBlur}
-          />
-          {props.form.touched.city && props.form.errors.city && (
-            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
-              {props.form.errors.city}
-            </p>
-          )}
-        </div>
-      </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       <div
         className={`d-flex flex-row align-items-center mb-4 justify-content-between w-100 ${styles.bttn}`}

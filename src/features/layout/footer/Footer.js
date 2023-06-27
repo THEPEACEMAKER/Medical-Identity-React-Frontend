@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./fotter.css";
+import "./footer.css";
 export default function App() {
   return (
     <div className="container-fluid bg-dark text-secondary">
