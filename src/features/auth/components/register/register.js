@@ -42,6 +42,7 @@ function Register() {
       phone: "",
       national_ID: "",
       profession_ID: "",
+      specialization: "",
       password: "",
       confirm_password: "",
 
@@ -88,9 +89,14 @@ function Register() {
             )
             .required("Profession ID is required for doctors"),
       }),
+      specialization: Yup.string().when("isDoctor", {
+        is: true,
+        then: (schema) =>
+          Yup.string().required("Specialization is required for doctors"),
+      }),
       address: Yup.string().max(265, "Address must be 265 Char or less"),
       password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
+        .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
