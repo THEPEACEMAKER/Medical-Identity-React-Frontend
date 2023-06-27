@@ -87,7 +87,6 @@ const Prescription = () => {
 
                                                     </tr>
                                             
-
                                         ))
                                     }
 

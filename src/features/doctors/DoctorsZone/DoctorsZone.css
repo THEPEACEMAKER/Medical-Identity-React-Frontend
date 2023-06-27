@@ -22,19 +22,32 @@
     border: none;
     border-radius: 4px;
 }
+
 .react-calendar__month-view__weekdays{
     margin-top: 40px;
 }
 .appointmentTable{
-    margin-top: 100px;
+    /* margin-top: 100px;
     margin-left: 40px;
     height: 600px;
     background-color: white;
+    border-radius: 4px; */
+    border-radius: 5px;
+    background-color: white;
+    margin-top: 50px;
+    margin-left: 40px;
+    width: 500px;
+    height: 600px;
+    font-size: 20px;
+    padding: 0px 5px;
+    padding-top: 80px;
+    border: none;
     border-radius: 4px;
 }
 .appointmentTable .tableHeading{
     display: flex;
     justify-content: space-between;
+    height: auto;
 }
 .appointmentTable p:first-child{
     padding: 20px;
