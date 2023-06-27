@@ -4,23 +4,22 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 // import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Select, MenuItem } from '@mui/material'
-import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { MDBBadge,MDBModal,MDBModalDialog,MDBModalContent, MDBModalBody, MDBModalFooter, MDBModalTitle, MDBModalHeader,  MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import FullHeight from "react-full-height";
 
 
 const Prescription = () => {
 
 
+    const [centredModal, setCentredModal] = useState(false);
+
     const [appointment, setAppointment] = useState([]);
     const [action1, setAction1] = useState(null);
-    // const [key, setKey] = useState(null)
-    const pendingAppointment = appointment.filter(pa => pa.action1 === "pending");
     const todaysDate = new Date();
     const day = todaysDate.getDate();
     const month = todaysDate.getMonth();
     const year = todaysDate.getFullYear();
     const fullTodaysDate = month + 1 + "/" + day + "/" + year;
-    const selectedDateAppointment = appointment.filter(appointment => appointment.details.date === fullTodaysDate);
 
 
     useEffect(() => {
@@ -32,10 +31,9 @@ const Prescription = () => {
             });
     }, [action1]);
 
-    console.log("pendingAppointment")
-    console.log(pendingAppointment)
+    const toggleShow = () => setCentredModal(!centredModal);
+
     console.log(appointment)
-    console.log(selectedDateAppointment)
 
     return (
         <div className="dashboard">
@@ -61,31 +59,34 @@ const Prescription = () => {
 
                                     {
                                         appointment.map((appoint) => (
-                                            <tr>
-                                                <td>
-                                                    <div className='d-flex align-items-center'>
-                                                    <img
-                                                        src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                                                        alt=''
-                                                        style={{ width: '45px', height: '45px' }}
-                                                        className='rounded-circle'
-                                                    />
-                                                    <div className='ms-3'>
-                                                        <p className='fw-bold mb-1'>John Doe</p>
-                                                        <p className='text-muted mb-0'>john.doe@gmail.com</p>
-                                                    </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    Male
-                                                </td>
-                                                <td>
-                                                    011326134665
-                                                </td>
-                                                <td>
-                                                    Short brief about the patient
-                                                </td>
-                                            </tr>
+
+                                                <tr>
+                                                        <td>
+                                                            <div className='d-flex align-items-center'>
+                                                            <img
+                                                                src='https://mdbootstrap.com/img/new/avatars/8.jpg'
+                                                                alt=''
+                                                                style={{ width: '45px', height: '45px' }}
+                                                                className='rounded-circle'
+                                                            />
+                                                            <div className='ms-3'>
+                                                                <p className='fw-bold mb-1'>John Doe</p>
+                                                                <p className='text-muted mb-0'>john.doe@gmail.com</p>
+                                                            </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            Male
+                                                        </td>
+                                                        <td>
+                                                            011326134665
+                                                        </td>
+                                                        <td>
+                                                        <MDBBtn onClick={toggleShow}>Short brief about the patient</MDBBtn>
+                                                        </td>
+
+                                                    </tr>
+                                            
 
                                         ))
                                     }
@@ -107,7 +108,37 @@ const Prescription = () => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>
-            </FullHeight>            }
+            </FullHeight>            
+            }
+
+
+            {/* <MDBBtn onClick={toggleShow}>Vertically centered modal</MDBBtn> */}
+
+            <MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
+            <MDBModalDialog centered>
+                <MDBModalContent>
+                <MDBModalHeader>
+                    <MDBModalTitle>Modal title</MDBModalTitle>
+                    <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+                </MDBModalHeader>
+                <MDBModalBody>
+                    <p>
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    </p>
+                </MDBModalBody>
+                <MDBModalFooter>
+                    <MDBBtn color='secondary' onClick={toggleShow}>
+                    Close
+                    </MDBBtn>
+                </MDBModalFooter>
+                </MDBModalContent>
+            </MDBModalDialog>
+            </MDBModal>
+
+
+
+
         </div>
     );
 };
