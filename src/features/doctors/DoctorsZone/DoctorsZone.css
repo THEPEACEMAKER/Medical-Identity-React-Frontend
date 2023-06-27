@@ -1,0 +1,63 @@
+.doctorsZone{
+    display: flex;
+    background-color: #e1f1f3;
+}
+.zoneAppointment{
+    display: flex;
+    margin-left: 280px;
+    flex-wrap: wrap;
+}
+.zoneAppointment h4{
+    padding-top: 20px;
+    padding-left: 40px;
+}
+.zoneAppointment .calender{
+    margin-top: 50px;
+    margin-left: 40px;
+    width: 500px;
+    height: 600px;
+    font-size: 20px;
+    padding: 0px 5px;
+    padding-top: 80px;
+    border: none;
+    border-radius: 4px;
+}
+.react-calendar__month-view__weekdays{
+    margin-top: 40px;
+}
+.appointmentTable{
+    margin-top: 100px;
+    margin-left: 40px;
+    height: 600px;
+    background-color: white;
+    border-radius: 4px;
+}
+.appointmentTable .tableHeading{
+    display: flex;
+    justify-content: space-between;
+}
+.appointmentTable p:first-child{
+    padding: 20px;
+    font-weight: 900;
+    background: -webkit-linear-gradient(45deg, #19D3AE, #0FCFEC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.appointmentTable p:last-child{
+    padding: 20px;
+    color: gray;
+}
+.appointmentTable .actionSelect{
+    background-image: linear-gradient(#19D3AE, #0FCFEC);
+    padding: 0px 5px;
+    border-radius: 4px;
+}
+
+/* @media only screen and (max-width: 1350px) {
+    .zoneAppointment .calender{
+        width: 400px;
+        height: 400px;
+        font-size: 16px;
+        padding-top: 20px;
+    }
+} */

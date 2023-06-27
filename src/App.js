@@ -6,6 +6,9 @@ import Fotter from "./features/layout/fotter/fotter";
 import NotFound from "./features/404/404";
 // import Profile from "./features/auth/components/profile/Profile";
 import ProtectedRoutes from "./ProtectedRoutes";
+import DoctorsZone from "./features/doctors/DoctorsZone/DoctorsZone";
+import Dashboard from "./features/doctors/Dashboard/Dashboard";
+
 
 import "./App.css";
 // import Home from "./features/home/homePage";
@@ -31,6 +34,7 @@ function App() {
             <Route path="" element={<Home />} /> */}
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
+          <Route path="doctorDashboard" element={<Dashboard />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>
@@ -41,3 +45,4 @@ function App() {
 }
 
 export default App;
+
