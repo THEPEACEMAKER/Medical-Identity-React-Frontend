@@ -50,6 +50,7 @@ function Register() {
       confirm_password: "",
     },
     validationSchema: Yup.object({
+      image: Yup.mixed().required("Image is required"),
       first_name: Yup.string()
         .max(10, "must be 20 Char or Less")
         .min(3, "must be 3 Char or More")

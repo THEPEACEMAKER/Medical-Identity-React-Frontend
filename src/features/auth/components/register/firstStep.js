@@ -28,15 +28,22 @@ function FirstStep(props) {
       props.form.values.imagePath = reader.result;
       props.form.values.image = file;
       setShow(false);
+      props.form.setTouched({ image: true });
     };
   };
 
   const onClick = () => {
+    props.form.setTouched({ image: true });
     if (
       Object.keys(props.form.errors).filter((el) =>
-        ["first_name", "last_name", "email", "gender", "birth_date"].includes(
-          el
-        )
+        [
+          "image",
+          "first_name",
+          "last_name",
+          "email",
+          "gender",
+          "birth_date",
+        ].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
     ) {
@@ -44,9 +51,14 @@ function FirstStep(props) {
     } else {
       if (
         Object.keys(props.form.errors).filter((el) =>
-          ["first_name", "last_name", "email", "gender", "birth_date"].includes(
-            el
-          )
+          [
+            "image",
+            "first_name",
+            "last_name",
+            "email",
+            "gender",
+            "birth_date",
+          ].includes(el)
         ).length !== 4
       ) {
         setshowError(true);
@@ -66,7 +78,7 @@ function FirstStep(props) {
       className="w-10 d-flex flex-column align-items-center my-1"
       data-aos="zoom-in-down"
     >
-      <div className={`${styles.parent}`}>
+      <div className={`${styles.parent} `}>
         <img src={props.form.values.imagePath} className={`${styles.img}`} />
 
         <div
@@ -83,9 +95,23 @@ function FirstStep(props) {
             type="file"
             name="image"
             onChange={onImgChange}
+            onBlur={props.form.handleBlur}
           />
         </label>
       </div>
+      <div className="w-100 mb-5 position-relative d-flex justify-content-center">
+        {props.form.touched.image && props.form.errors.image && (
+          <p
+            className={`${styles.error} ${animate ? styles.animate : ""}`}
+            style={{
+              left: "auto",
+            }}
+          >
+            {props.form.errors.image}
+          </p>
+        )}
+      </div>
+      {console.log(props.form.touched.image)}
 
       <div className="d-flex flex-row align-items-center mb-5 gap-1">
         <MDBIcon fas icon="user me-3" size="lg" />
