@@ -22,7 +22,7 @@ const Sidebar = () => {
                         <FontAwesomeIcon className="icon" icon={faUserFriends} />
                         <p>Patients</p>
                     </Link>
-                    <Link to="/prescription" style={{ textDecoration: "none" }} className="sideBarLink">
+                    <Link to="/doctorPrescription" style={{ textDecoration: "none" }} className="sideBarLink">
                         <FontAwesomeIcon className="icon" icon={faFileAlt} />
                         <p>Prescription</p>
                     </Link>

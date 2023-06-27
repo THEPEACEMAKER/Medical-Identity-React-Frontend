@@ -8,6 +8,7 @@ import NotFound from "./features/404/404";
 import ProtectedRoutes from "./ProtectedRoutes";
 import DoctorsZone from "./features/doctors/DoctorsZone/DoctorsZone";
 import Dashboard from "./features/doctors/Dashboard/Dashboard";
+import Prescription from "./features/doctors/Prescription/Prescription";
 
 
 import "./App.css";
@@ -36,6 +37,7 @@ function App() {
           </Route>
           <Route path="doctorDashboard" element={<Dashboard />} />
           <Route path="doctorAppointment" element={<DoctorsZone />} />
+          <Route path="doctorPrescription" element={<Prescription />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>

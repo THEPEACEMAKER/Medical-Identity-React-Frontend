@@ -8,7 +8,7 @@ import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-reac
 import FullHeight from "react-full-height";
 
 
-const Dashboard = () => {
+const Prescription = () => {
 
 
     const [appointment, setAppointment] = useState([]);
@@ -22,27 +22,6 @@ const Dashboard = () => {
     const fullTodaysDate = month + 1 + "/" + day + "/" + year;
     const selectedDateAppointment = appointment.filter(appointment => appointment.details.date === fullTodaysDate);
 
-    // const handleChange = (event) => {
-    //     let action1 = event.target.value;
-    //     const actions = { action1: action1, key };
-    //     fetch("https://guarded-anchorage-08361.herokuapp.com/modifyAction1ByKey", {
-    //         method: "post",
-    //         headers: {
-    //             "Content-type": "application/json"
-    //         },
-    //         body: JSON.stringify(actions)
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setAction1(data)
-    //             console.log(data);
-    //         })
-    // }
-    
-    console.log("pendingAppointment")
-    console.log(pendingAppointment)
-    console.log(appointment)
-    console.log(selectedDateAppointment)
 
     useEffect(() => {
         fetch("http://localhost:3500/items")
@@ -65,57 +44,17 @@ const Dashboard = () => {
                 appointment[0] ?
                 <FullHeight>
                 <div className="dashboardTable">
-                    <h4>Dashboard</h4>
-                    <div className="dashboardHeading">
-                        <div style={{ backgroundColor: "tomato" }}>
-                            <h1>{pendingAppointment.length}</h1>
-                            <p>
-                                Pending
-                            <br />
-                            Appointments
-                        </p>
-                        </div>
-                        <div style={{ backgroundColor: "deepskyblue" }}>
-                            <h1>{selectedDateAppointment.length}</h1>
-                            <p>
-                                Today's
-                            <br />
-                            Appointments
-                        </p>
-                        </div>
-                        <div style={{ backgroundColor: "mediumseagreen" }}>
-                            <h1>{appointment.length}</h1>
-                            <p>
-                                Total
-                            <br />
-                            Appointments
-                        </p>
-                        </div>
-                        <div style={{ backgroundColor: "orange" }}>
-                            <h1>{appointment.length}</h1>
-                            <p>
-                                Total
-                            <br />
-                            Patients
-                        </p>
-                        </div>
-                    </div>
+                    <h4>Prescriptions History</h4>
                     <div className="dashboardTableDetails">
                         <div>
-                            <p>Recent Appointments</p>
-
-
 
                             <MDBTable align='middle' hover>
                                 <MDBTableHead>
                                     <tr>
                                     <th scope='col'>Name</th>
-                                    {/* <th scope='col'>Title</th> */}
-                                    <th scope='col'>Status</th>
-                                    {/* <th scope='col'>Position</th> */}
-                                    <th scope='col'>Actions</th>
                                     <th scope='col'>Gender</th>
                                     <th scope='col'>Phone Number</th>
+                                    <th scope='col'>Analysis</th>
                                     </tr>
                                 </MDBTableHead>
                                 <MDBTableBody>
@@ -137,26 +76,14 @@ const Dashboard = () => {
                                                     </div>
                                                     </div>
                                                 </td>
-                                                {/* <td>
-                                                    <p className='fw-normal mb-1'>Software engineer</p>
-                                                    <p className='text-muted mb-0'>IT department</p>
-                                                </td> */}
-                                                <td>
-                                                    <MDBBadge color='success' pill>
-                                                    Active
-                                                    </MDBBadge>
-                                                </td>
-                                                {/* <td>Senior</td> */}
-                                                <td>
-                                                    <MDBBtn color='link' rounded size='sm'>
-                                                    Edit
-                                                    </MDBBtn>
-                                                </td>
                                                 <td>
                                                     Male
                                                 </td>
                                                 <td>
                                                     011326134665
+                                                </td>
+                                                <td>
+                                                    Short brief about the patient
                                                 </td>
                                             </tr>
 
@@ -185,4 +112,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Prescription;
