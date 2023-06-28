@@ -17,9 +17,10 @@ function SecondStep(props) {
           "address",
           "phone",
           "national_ID",
-          "profession_ID",
+          "profLicenseNo",
           "specialization",
           "street",
+          "city_id",
         ].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
@@ -29,9 +30,10 @@ function SecondStep(props) {
       if (
         !props.form.touched.phone ||
         !props.form.touched.national_ID ||
-        !props.form.touched.profession_ID ||
+        !props.form.touched.profLicenseNo ||
         !props.form.touched.specialization ||
-        !props.form.touched.street
+        !props.form.touched.street ||
+        !props.form.touched.city_id
       ) {
         setshowError(true);
         setTimeout(() => {
@@ -119,27 +121,27 @@ function SecondStep(props) {
             <div className="p-md-3 text-black w-100">
               <div className="w-100 position-relative">
                 <MDBInput
-                  label="Profession ID"
+                  label="Profession License Number"
                   type="text"
                   size="lg"
-                  id="profession_ID"
-                  value={props.form.values.profession_ID}
+                  id="profLicenseNo"
+                  value={props.form.values.profLicenseNo}
                   onChange={props.form.handleChange}
                   className={`mb-2 ${
-                    props.form.touched.profession_ID &&
-                    props.form.errors.profession_ID &&
+                    props.form.touched.profLicenseNo &&
+                    props.form.errors.profLicenseNo &&
                     styles.inputErr
                   } `}
                   onBlur={props.form.handleBlur}
                 />
-                {props.form.touched.profession_ID &&
-                  props.form.errors.profession_ID && (
+                {props.form.touched.profLicenseNo &&
+                  props.form.errors.profLicenseNo && (
                     <p
                       className={`${styles.error} ${
                         animate ? styles.animate : ""
                       }`}
                     >
-                      {props.form.errors.profession_ID}
+                      {props.form.errors.profLicenseNo}
                     </p>
                   )}
               </div>
@@ -188,28 +190,31 @@ function SecondStep(props) {
               <div className="w-100 position-relative">
                 <PlaceSelect
                   value={{
-                    city: props.form.values.city,
-                    district: props.form.values.district,
+                    city_id: props.form.values.city_id,
+                    district_id: props.form.values.district_id,
                   }}
                   onChange={props.form.setFieldValue}
                   onBlur={props.form.setFieldTouched}
                   error={
-                    props.form.touched.city && props.form.errors.city
-                      ? props.form.errors.city
-                      : props.form.touched.district &&
-                        props.form.errors.district
-                      ? props.form.errors.district
+                    props.form.touched.city_id && props.form.errors.city_id
+                      ? props.form.errors.city_id
+                      : props.form.touched.district_id &&
+                        props.form.errors.district_id
+                      ? props.form.errors.district_id
                       : ""
                   }
                 />
-                {(props.form.touched.city || props.form.touched.district) &&
-                  (props.form.errors.city || props.form.errors.district) && (
+                {(props.form.touched.city_id ||
+                  props.form.touched.district_id) &&
+                  (props.form.errors.city_id ||
+                    props.form.errors.district_id) && (
                     <p
                       className={`${styles.error} ${
                         animate ? styles.animate : ""
                       }`}
                     >
-                      {props.form.errors.city || props.form.errors.district}
+                      {props.form.errors.city_id ||
+                        props.form.errors.district_id}
                     </p>
                   )}
               </div>

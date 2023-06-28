@@ -30,27 +30,27 @@ function Register() {
 
   const formik = useFormik({
     initialValues: {
-      image: "",
+      profileImgUrl: "",
       imagePath:
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
       first_name: "",
       last_name: "",
       email: "",
       gender: "",
-      birth_date: "",
+      date_of_birth: "",
       isDoctor: false,
       phone: "",
       national_ID: "",
-      profession_ID: "",
+      profLicenseNo: "",
       specialization: "",
-      city: "",
-      district: "",
+      city_id: "",
+      district_id: "",
       street: "",
       password: "",
       confirm_password: "",
     },
     validationSchema: Yup.object({
-      image: Yup.mixed().required("Image is required"),
+      profileImgUrl: Yup.mixed().required("Image is required"),
       first_name: Yup.string()
         .max(10, "must be 20 Char or Less")
         .min(3, "must be 3 Char or More")
@@ -65,38 +65,49 @@ function Register() {
         .email("Invalid email address")
         .required("email is required"),
       gender: Yup.string().required("Gender is required"),
-      birth_date: Yup.date()
-        .max(new Date(), "Birth Date cannot be in the future")
-        .required("Birth Date is required"),
+      date_of_birth: Yup.date()
+        .max(new Date(), "Date of birth cannot be in the future.")
+        .required("Date of birth is required.")
+        .test(
+          "minimum-age",
+          "You must be at least 18 years old to register.",
+          function (value) {
+            const today = new Date();
+            const minimumAgeDate = new Date();
+            minimumAgeDate.setFullYear(today.getFullYear() - 18);
+            return value <= minimumAgeDate;
+          }
+        ),
       phone: Yup.string()
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
       national_ID: Yup.string()
-        .matches(
-          /^([1-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})[0-9]{3}([0-9]{1})[0-9]{1}$/,
-          "Invalid national ID"
-        )
+        .matches(/^[2|3|5][0-9]{13}$/, "Invalid national ID")
         .required("National ID is required"),
-      profession_ID: Yup.string().when("isDoctor", {
+      profLicenseNo: Yup.string().when("isDoctor", {
         is: true,
         then: (schema) =>
           Yup.string()
             .matches(
-              /^([1-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})[0-9]{3}([0-9]{1})[0-9]{1}$/,
-              "Invalid profession ID"
+              /^[02468]{2}[13579]{2}\d{2}$/,
+              "Invalid profession License Number"
             )
-            .required("Profession ID is required for doctors"),
+            .required("Profession License Number is required for doctors"),
       }),
       specialization: Yup.string().when("isDoctor", {
         is: true,
         then: (schema) =>
           Yup.string().required("Specialization is required for doctors"),
       }),
+      city_id: Yup.string().when("isDoctor", {
+        is: true,
+        then: (schema) => Yup.string().required("City is required for doctors"),
+      }),
       street: Yup.string().when("isDoctor", {
         is: true,
         then: (schema) =>
           Yup.string()
-            .min(8, "Street address must be at least 8 characters")
+            .min(5, "Street address must be at least 5 characters")
             .max(100, "Street address must be 100 Char or less")
             .required("Street address is required for doctors"),
       }),
@@ -112,7 +123,7 @@ function Register() {
       console.log("values: " + JSON.stringify(values));
       setLoding(true);
       // api
-      //   .post("/auth/register/", values, {
+      //   .post("/patientregister/", values, {
       //     headers: {
       //       "Content-Type": "multipart/form-data",
       //     },

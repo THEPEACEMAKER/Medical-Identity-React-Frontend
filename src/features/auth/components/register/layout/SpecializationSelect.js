@@ -9,25 +9,14 @@ const CustomeSelect = ({ value, onChange, onBlur, error }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await api.get("specilaizations");
-        // const data = response.data;
-        const data = [
-          {
-            value: "Dentistry",
-            label: "Dentistry",
-          },
-          {
-            value: "Cardiology",
-            label: "Cardiology",
-          },
-          {
-            value: "Forensic",
-            label: "Forensic",
-          },
-        ];
+        const response = await api.get("specializations");
+        const data = response.data.map((item) => ({
+          value: item.name,
+          label: item.name,
+        }));
         setOptions(data);
       } catch (error) {
-        console.error("Error fetching specilaizations:", error);
+        console.error("Error fetching specializations:", error);
       }
     };
 
