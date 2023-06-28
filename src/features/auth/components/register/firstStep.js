@@ -18,6 +18,10 @@ function FirstStep(props) {
   const [animate, setAnimate] = useState(false);
   const [showError, setshowError] = useState(false);
 
+  const today = new Date();
+  today.setFullYear(today.getFullYear() - 18);
+  const maxDate = today.toISOString().split("T")[0];
+
   const onImgChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -26,23 +30,23 @@ function FirstStep(props) {
 
     reader.onload = () => {
       props.form.values.imagePath = reader.result;
-      props.form.values.image = file;
+      props.form.values.profileImgUrl = file;
       setShow(false);
-      props.form.setTouched({ image: true });
+      props.form.setTouched({ profileImgUrl: true });
     };
   };
 
   const onClick = () => {
-    props.form.setTouched({ image: true });
+    props.form.setTouched({ profileImgUrl: true });
     if (
       Object.keys(props.form.errors).filter((el) =>
         [
-          "image",
+          "profileImgUrl",
           "first_name",
           "last_name",
           "email",
           "gender",
-          "birth_date",
+          "date_of_birth",
         ].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
@@ -52,12 +56,12 @@ function FirstStep(props) {
       if (
         Object.keys(props.form.errors).filter((el) =>
           [
-            "image",
+            "profileImgUrl",
             "first_name",
             "last_name",
             "email",
             "gender",
-            "birth_date",
+            "date_of_birth",
           ].includes(el)
         ).length !== 4
       ) {
@@ -93,23 +97,24 @@ function FirstStep(props) {
           <input
             id="inputTag"
             type="file"
-            name="image"
+            name="profileImgUrl"
             onChange={onImgChange}
             onBlur={props.form.handleBlur}
           />
         </label>
       </div>
       <div className="w-100 mb-5 position-relative d-flex justify-content-center">
-        {props.form.touched.image && props.form.errors.image && (
-          <p
-            className={`${styles.error} ${animate ? styles.animate : ""}`}
-            style={{
-              left: "auto",
-            }}
-          >
-            {props.form.errors.image}
-          </p>
-        )}
+        {props.form.touched.profileImgUrl &&
+          props.form.errors.profileImgUrl && (
+            <p
+              className={`${styles.error} ${animate ? styles.animate : ""}`}
+              style={{
+                left: "auto",
+              }}
+            >
+              {props.form.errors.profileImgUrl}
+            </p>
+          )}
       </div>
 
       <div className="d-flex flex-row align-items-center mb-5 gap-1">
@@ -193,22 +198,22 @@ function FirstStep(props) {
             <MDBRadio
               name="gender"
               id="inlineRadio2"
-              value="Male"
+              value="male"
               label="Male"
               inline
               onChange={props.form.handleChange}
               onBlur={props.form.handleBlur}
-              checked={props.form.values.gender === "Male"}
+              checked={props.form.values.gender === "male"}
             />
             <MDBRadio
               name="gender"
               id="inlineRadio1"
-              value="Female"
+              value="female"
               label="Female"
               inline
               onChange={props.form.handleChange}
               onBlur={props.form.handleBlur}
-              checked={props.form.values.gender === "Female"}
+              checked={props.form.values.gender === "female"}
             />
           </div>
           {props.form.touched.gender && props.form.errors.gender && (
@@ -226,24 +231,25 @@ function FirstStep(props) {
             placeholder="Your Birth Date"
             size="md"
             type="date"
-            id="birth_date"
-            name="birth_date"
-            value={props.form.values.birth_date}
+            id="date_of_birth"
+            name="date_of_birth"
+            value={props.form.values.date_of_birth}
             onChange={props.form.handleChange}
             onBlur={props.form.handleBlur}
             min="1910-01-01"
-            max={new Date().toISOString().split("T")[0]}
+            max={maxDate}
             className={`${
-              props.form.touched.birth_date &&
-              props.form.errors.birth_date &&
+              props.form.touched.date_of_birth &&
+              props.form.errors.date_of_birth &&
               styles.inputErr
             }`}
           />
-          {props.form.touched.birth_date && props.form.errors.birth_date && (
-            <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
-              {props.form.errors.birth_date}
-            </p>
-          )}
+          {props.form.touched.date_of_birth &&
+            props.form.errors.date_of_birth && (
+              <p className={`${styles.error} ${animate ? styles.animate : ""}`}>
+                {props.form.errors.date_of_birth}
+              </p>
+            )}
         </div>
       </div>
 
