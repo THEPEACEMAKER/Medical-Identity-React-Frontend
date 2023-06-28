@@ -20,6 +20,7 @@ function SecondStep(props) {
           "profession_ID",
           "specialization",
           "street",
+          "city_id",
         ].includes(el)
       ).length === 0 &&
       Object.keys(props.form.touched).length !== 0
@@ -31,7 +32,8 @@ function SecondStep(props) {
         !props.form.touched.national_ID ||
         !props.form.touched.profession_ID ||
         !props.form.touched.specialization ||
-        !props.form.touched.street
+        !props.form.touched.street ||
+        !props.form.touched.city_id
       ) {
         setshowError(true);
         setTimeout(() => {
@@ -188,28 +190,31 @@ function SecondStep(props) {
               <div className="w-100 position-relative">
                 <PlaceSelect
                   value={{
-                    city: props.form.values.city,
-                    district: props.form.values.district,
+                    city_id: props.form.values.city_id,
+                    district_id: props.form.values.district_id,
                   }}
                   onChange={props.form.setFieldValue}
                   onBlur={props.form.setFieldTouched}
                   error={
-                    props.form.touched.city && props.form.errors.city
-                      ? props.form.errors.city
-                      : props.form.touched.district &&
-                        props.form.errors.district
-                      ? props.form.errors.district
+                    props.form.touched.city_id && props.form.errors.city_id
+                      ? props.form.errors.city_id
+                      : props.form.touched.district_id &&
+                        props.form.errors.district_id
+                      ? props.form.errors.district_id
                       : ""
                   }
                 />
-                {(props.form.touched.city || props.form.touched.district) &&
-                  (props.form.errors.city || props.form.errors.district) && (
+                {(props.form.touched.city_id ||
+                  props.form.touched.district_id) &&
+                  (props.form.errors.city_id ||
+                    props.form.errors.district_id) && (
                     <p
                       className={`${styles.error} ${
                         animate ? styles.animate : ""
                       }`}
                     >
-                      {props.form.errors.city || props.form.errors.district}
+                      {props.form.errors.city_id ||
+                        props.form.errors.district_id}
                     </p>
                   )}
               </div>

@@ -43,8 +43,8 @@ function Register() {
       national_ID: "",
       profession_ID: "",
       specialization: "",
-      city: "",
-      district: "",
+      city_id: "",
+      district_id: "",
       street: "",
       password: "",
       confirm_password: "",
@@ -91,6 +91,10 @@ function Register() {
         is: true,
         then: (schema) =>
           Yup.string().required("Specialization is required for doctors"),
+      }),
+      city_id: Yup.string().when("isDoctor", {
+        is: true,
+        then: (schema) => Yup.string().required("City is required for doctors"),
       }),
       street: Yup.string().when("isDoctor", {
         is: true,
