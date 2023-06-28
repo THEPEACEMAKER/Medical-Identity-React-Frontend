@@ -111,7 +111,6 @@ function FirstStep(props) {
           </p>
         )}
       </div>
-      {console.log(props.form.touched.image)}
 
       <div className="d-flex flex-row align-items-center mb-5 gap-1">
         <MDBIcon fas icon="user me-3" size="lg" />
