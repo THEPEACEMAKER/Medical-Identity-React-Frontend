@@ -16,8 +16,8 @@ function SecondStep(props) {
         [
           "address",
           "phone",
-          "national_ID",
-          "profession_ID",
+          "national_id",
+          "profLicenseNo",
           "specialization",
           "street",
           "city_id",
@@ -29,8 +29,8 @@ function SecondStep(props) {
     } else {
       if (
         !props.form.touched.phone ||
-        !props.form.touched.national_ID ||
-        !props.form.touched.profession_ID ||
+        !props.form.touched.national_id ||
+        !props.form.touched.profLicenseNo ||
         !props.form.touched.specialization ||
         !props.form.touched.street ||
         !props.form.touched.city_id
@@ -94,22 +94,22 @@ function SecondStep(props) {
               label="National ID"
               type="text"
               size="lg"
-              id="national_ID"
-              value={props.form.values.national_ID}
+              id="national_id"
+              value={props.form.values.national_id}
               onChange={props.form.handleChange}
               className={`mb-2 ${
-                props.form.touched.national_ID &&
-                props.form.errors.national_ID &&
+                props.form.touched.national_id &&
+                props.form.errors.national_id &&
                 styles.inputErr
               } `}
               onBlur={props.form.handleBlur}
             />
-            {props.form.touched.national_ID &&
-              props.form.errors.national_ID && (
+            {props.form.touched.national_id &&
+              props.form.errors.national_id && (
                 <p
                   className={`${styles.error} ${animate ? styles.animate : ""}`}
                 >
-                  {props.form.errors.national_ID}
+                  {props.form.errors.national_id}
                 </p>
               )}
           </div>
@@ -121,27 +121,27 @@ function SecondStep(props) {
             <div className="p-md-3 text-black w-100">
               <div className="w-100 position-relative">
                 <MDBInput
-                  label="Profession ID"
+                  label="Profession License Number"
                   type="text"
                   size="lg"
-                  id="profession_ID"
-                  value={props.form.values.profession_ID}
+                  id="profLicenseNo"
+                  value={props.form.values.profLicenseNo}
                   onChange={props.form.handleChange}
                   className={`mb-2 ${
-                    props.form.touched.profession_ID &&
-                    props.form.errors.profession_ID &&
+                    props.form.touched.profLicenseNo &&
+                    props.form.errors.profLicenseNo &&
                     styles.inputErr
                   } `}
                   onBlur={props.form.handleBlur}
                 />
-                {props.form.touched.profession_ID &&
-                  props.form.errors.profession_ID && (
+                {props.form.touched.profLicenseNo &&
+                  props.form.errors.profLicenseNo && (
                     <p
                       className={`${styles.error} ${
                         animate ? styles.animate : ""
                       }`}
                     >
-                      {props.form.errors.profession_ID}
+                      {props.form.errors.profLicenseNo}
                     </p>
                   )}
               </div>
