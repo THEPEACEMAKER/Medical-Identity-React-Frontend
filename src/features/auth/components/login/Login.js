@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -13,6 +13,7 @@ import {
   MDBInput,
   MDBValidation,
   MDBValidationItem,
+  MDBCheckbox,
 } from "mdb-react-ui-kit";
 import api from "../../../../api/api";
 import { useDispatch } from "react-redux";
@@ -21,6 +22,8 @@ import { login } from "../../authSlice";
 import styles from "./stylee.module.css";
 
 function Login() {
+  const [isDoctor, setIsDoctor] = useState(false);
+  const [resError, setResError] = useState("");
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -31,19 +34,77 @@ function Login() {
     formState: { errors },
   } = useForm();
 
+  const handleCheckboxChange = (event) => {
+    setIsDoctor(event.target.checked);
+  };
+
   const onSubmit = (data) => {
+    const loginEndpoint = isDoctor
+      ? "/account/doctor/login/"
+      : "/account/patient/login/";
+
     api
-      .post("/auth/login", data)
+      .post(loginEndpoint, data)
       .then((res) => {
-        const { token, user } = res.data;
-        dispatch(login({ token, user }));
-        // redirect to Home page
+        const {
+          tokens,
+          patient_id,
+          patient_first_name,
+          patient_last_name,
+          patient_email,
+          patient_date_of_birth,
+          patient_phone,
+          patient_national_id,
+          patient_gender,
+          doctor_id,
+          doctor_first_name,
+          doctor_last_name,
+          doctor_email,
+          doctor_date_of_birth,
+          doctor_phone,
+          doctor_national_id,
+          doctor_gender,
+          doctor_specialization,
+          doctor_profLicenseNo,
+          doctor_city,
+          doctor_district,
+          doctor_address,
+        } = res.data;
+        const { access, refresh } = tokens;
+
+        const userData = {
+          access,
+          refresh,
+          user: {
+            isDoctor,
+            id: isDoctor ? doctor_id : patient_id,
+            firstName: isDoctor ? doctor_first_name : patient_first_name,
+            lastName: isDoctor ? doctor_last_name : patient_last_name,
+            email: isDoctor ? doctor_email : patient_email,
+            dateOfBirth: isDoctor
+              ? doctor_date_of_birth
+              : patient_date_of_birth,
+            phone: isDoctor ? doctor_phone : patient_phone,
+            nationalId: isDoctor ? doctor_national_id : patient_national_id,
+            gender: isDoctor ? doctor_gender : patient_gender,
+            // Additional properties for doctor
+            specialization: isDoctor ? doctor_specialization : "",
+            profLicenseNo: isDoctor ? doctor_profLicenseNo : "",
+            city: isDoctor ? doctor_city : "",
+            district: isDoctor ? doctor_district : "",
+            address: isDoctor ? doctor_address : "",
+          },
+        };
+
+        dispatch(login(userData));
+
+        // // redirect to Home page
         setTimeout(() => {
           navigate("/home");
         }, 1000);
       })
       .catch((err) => {
-        console.log(err);
+        setResError(err.originalError.response.data.message);
       });
   };
 
@@ -118,6 +179,14 @@ function Login() {
                     />
                   </MDBValidationItem>
 
+                  <MDBCheckbox
+                    name="isDoctor"
+                    id="flexCheckDefault"
+                    label="Login as a Doctor."
+                    checked={isDoctor}
+                    onChange={handleCheckboxChange}
+                  />
+
                   <MDBBtn
                     className="mt-2 mb-4 px-5 mx-auto"
                     color="dark"
@@ -126,6 +195,12 @@ function Login() {
                   >
                     Login
                   </MDBBtn>
+
+                  {resError && (
+                    <div className="alert alert-danger">
+                      <p className="m-0">{resError}</p>
+                    </div>
+                  )}
 
                   <p className="small fw-bold mt-2 pt-1 mb-2">
                     Don't have an account?{" "}

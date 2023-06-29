@@ -18,10 +18,7 @@ import Home from "./features/home/homePage";
 import "./App.css";
 
 function App() {
-
   // const dispatch = useDispatch();
-
-
 
   // useEffect(() => {
   //   // fetch("http://localhost:3500/items")
@@ -62,10 +59,9 @@ function App() {
   //   console.log(err);
   // });
 
+  // console.log("after useEffect")
 
-  console.log("after useEffect")
-
-  console.log("App")
+  // console.log("App")
 
   return (
     <BrowserRouter>
@@ -80,18 +76,18 @@ function App() {
           </Route>
           <Route
             element={
-              <ProtectedRoutes requiresLogin={false} redirectTo="/login" />
+              <ProtectedRoutes requiresLogin={true} redirectTo="/login" />
             }
           >
-            <Route path="home" element={<Home />} />
-            <Route path="" element={<Home />} />
+            <Route path="doctorDashboard" element={<Dashboard />} />
+            <Route path="doctorAppointment" element={<DoctorsZone />} />
+            <Route path="doctorPrescription" element={<Prescription />} />
+
+            <Route path="patientDashboard" element={<PatientDashboard />} />
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
-          <Route path="doctorDashboard" element={<Dashboard />} />
-          <Route path="doctorAppointment" element={<DoctorsZone />} />
-          <Route path="doctorPrescription" element={<Prescription />} />
-
-          <Route path="patientDashboard" element={<PatientDashboard />} />
+          <Route path="home" element={<Home />} />
+          <Route path="" element={<Home />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>
