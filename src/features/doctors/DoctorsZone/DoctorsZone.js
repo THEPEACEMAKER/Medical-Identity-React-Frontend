@@ -3,48 +3,68 @@ import './DoctorsZone.css';
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
-// import { TableContainer, Paper, Table, makeStyles, TableHead, TableRow, TableCell, TableBody, Select, MenuItem } from '@material-ui/core'
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Select, MenuItem } from '@mui/material'
-// import { makeStyles } from '@mui/styles';
+import { TableContainer } from '@mui/material'
 import FullHeight from "react-full-height";
 import Sidebar from '../Sidebar/Sidebar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MDBModal, MDBBtn, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBInput, MDBModalFooter, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
+import api from '../../../api/api';
+import { useSelector,useDispatch } from 'react-redux';
+// import { doctorActions } from '../../../store/doctor/doctor-slice';
 
 
-const hours = [
-    { id: 1, label: '9:00 AM' },
-    { id: 2, label: '10:00 AM' },
-    { id: 3, label: '11:00 AM' },
-    { id: 4, label: '12:00 PM' },
-    { id: 5, label: '1:00 PM' },
-    { id: 6, label: '2:00 PM' },
-    { id: 7, label: '3:00 PM' },
-    { id: 8, label: '4:00 PM' },
-    { id: 9, label: '5:00 PM' },
-    { id: 10, label: '6:00 PM' },
-    { id: 11, label: '7:00 PM' },
-    { id: 12, label: '8:00 PM' },
-    { id: 13, label: '9:00 PM' },
-    { id: 14, label: '10:00 PM' },
-    { id: 15, label: '11:00 PM' },
+
+// const hours = [
+//     { id: 1, label: '9:00 AM' },
+//     { id: 2, label: '10:00 AM' },
+//     { id: 3, label: '11:00 AM' },
+//     { id: 4, label: '12:00 PM' },
+//     { id: 5, label: '1:00 PM' },
+//     { id: 6, label: '2:00 PM' },
+//     { id: 7, label: '3:00 PM' },
+//     { id: 8, label: '4:00 PM' },
+//     { id: 9, label: '5:00 PM' },
+//     { id: 10, label: '6:00 PM' },
+//     { id: 11, label: '7:00 PM' },
+//     { id: 12, label: '8:00 PM' },
+//     { id: 13, label: '9:00 PM' },
+//     { id: 14, label: '10:00 PM' },
+//     { id: 15, label: '11:00 PM' },
+
+//   ];
+
+  const hours = [
+    { id: 1, label: '9:00:00' },
+    { id: 2, label: '10:00:00' },
+    { id: 3, label: '11:00:00' },
+    { id: 4, label: '12:00:00' },
+    { id: 5, label: '13:00:00' },
+    { id: 6, label: '14:00:00' },
+    { id: 7, label: '15:00:00' },
+    { id: 8, label: '16:00:00' },
+    { id: 9, label: '17:00:00' },
+    { id: 10, label: '18:00:00' },
+    { id: 11, label: '19:00:00' },
+    { id: 12, label: '20:00:00' },
+    { id: 13, label: '21:00:00' },
+    { id: 14, label: '22:00:00' },
+    { id: 15, label: '23:00:00' },
 
   ];
 
+
 const DoctorsZone = () => {
+    const dispatch = useDispatch();
 
 
-    const [isAnimating, setIsAnimating] = useState(false);
+
     const [initialDate, setInitialDate] = useState(new Date());
     const [appointment, setAppointment] = useState([]);
-    const [key, setKey] = useState(null);
     const [action, setAction] = useState(null);
-    // const classes = useStyles();
     const day = initialDate.getDate();
     const month = initialDate.getMonth();
     const year = initialDate.getFullYear();
-    const fullDate = month + 1 + "/" + day + "/" + year;
+    // const fullDate = month + 1 + "/" + day + "/" + year;    //"2023-06-29"
+    const fullDate = `${year}-${month+1}-${day}`    //"2023-06-29"
 
     const [selectedHour, setSelectedHour] = useState(null);
 
@@ -57,23 +77,32 @@ const DoctorsZone = () => {
         setPrice(event.target.value);
     };
   
-
-    // const handleChange = (event) => {
-    //     let action = event.target.value;
-    //     const actions = { action: action, key };
-    //     fetch("https://guarded-anchorage-08361.herokuapp.com/modifyActionByKey", {
-    //         method: "post",
-    //         headers: {
-    //             "Content-type": "application/json"
-    //         },
-    //         body: JSON.stringify(actions)
+    // const onSetNewAppointment = () =>{
+    //     api.post("/appointment/doctor/add/")
+    //     .then((res)=> {
+    //       const newData = res.data
+    //       console.log("newData")
+    //       console.log(newData)
+    //     //   dispatch(doctorActions.replaceApointments({
+    //     //     appointmentCount: newData
+    //     //   }))
     //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setAction(data);
-    //             console.log(data);
-    //         })
+
     // }
+
+    const tileDisabled = ({ date, view }) => {
+        // Disable all dates before today
+        if (date < new Date()) {
+          return true;
+        }
+        // Disable all dates after 6 days from today
+        const maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() + 6);
+        if (date > maxDate) {
+          return true;
+        }
+        return false;
+      };
 
     useEffect(() => {
         fetch("http://localhost:3500/items")
@@ -90,13 +119,41 @@ const DoctorsZone = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault(); // This line prevents the default form submission
+        // onSetNewAppointment();
         // Do something with the form data
+        if(selectedHour.label){
+            let data = {
+                date:fullDate,
+                start_time: selectedHour.label,
+                duration: 60,
+                price: parseInt(event.target[0].value)
+            }
+    
+            console.log("data inside submit")
+            console.log(data)
+    
+            api.post("/appointment/doctor/add/",data)
+            .then((res)=> {
+              const newData = res.data
+              console.log("newData")
+              console.log(newData)
+            //   dispatch(doctorActions.replaceApointments({
+            //     appointmentCount: newData
+            //   }))
+            })
+        }
+ 
+        // setVaryingModal(!varyingModal)
     };
+
+    const onKeyPressPrice = (event) => {
+        if (event.key === '-' || event.key === 'Minus') {
+          event.preventDefault();
+        }
+      };
 
     console.log("appointment")
     console.log(appointment)
-
-    const selectedDateAppointment = appointment.filter(appointment => appointment.details.date === fullDate);
 
     return (
         <div className="doctorsZone">
@@ -109,6 +166,7 @@ const DoctorsZone = () => {
                         className="calender"
                         selected={initialDate}
                         onChange={date => setInitialDate(date)}
+                        tileDisabled={tileDisabled}
                     >
                     </Calendar>
                 </div>
@@ -120,9 +178,7 @@ const DoctorsZone = () => {
                                     <p>Appointment</p>
                                     <MDBBtn
                                         onClick={() => {
-                                        // setVaryingState('@mdo');
                                         setVaryingModal(!varyingModal);
-                                        // setVaryingRecipient('@mdo');
                                         }}
                                     >
                                         Add
@@ -176,7 +232,7 @@ const DoctorsZone = () => {
                 <MDBModalDialog>
                 <MDBModalContent>
                     <MDBModalHeader>
-                    <MDBModalTitle>New message to {varyingState}</MDBModalTitle>
+                    <MDBModalTitle>New Appointment </MDBModalTitle>
                     <MDBBtn className='btn-close' color='none' onClick={() => setVaryingModal(!varyingModal)}></MDBBtn>
                     </MDBModalHeader>
                     <MDBModalBody>
@@ -186,19 +242,24 @@ const DoctorsZone = () => {
                                 <MDBInput
                                 value={price}
                                 onChange={onChangePrice}
+                                onKeyPress={onKeyPressPrice}
                                 labelClass='col-form-label'
                                 label='Price:'
                                 type='number'
+                                placeholder='Positive numbers only'
                                 />
                             )}
                             </div>
                             <div className='mb-3'>
                             {varyingModal && (
+
+
+
                                 <MDBDropdown>
-                                <MDBDropdownToggle>
+                                <MDBDropdownToggle type="button">
                                 {selectedHour ? selectedHour.label : 'Select an hour'}
                                 </MDBDropdownToggle>
-                                <MDBDropdownMenu>
+                                <MDBDropdownMenu type="dropdown">
                                 {hours.map((hour) => (
                                     <MDBDropdownItem key={hour.id} onClick={() => handleHourSelect(hour)}>
                                     {hour.label}
@@ -208,20 +269,19 @@ const DoctorsZone = () => {
                             </MDBDropdown>
                             )}
                             </div>
+                            <MDBModalFooter>
+                            <MDBBtn type="button" color='secondary' onClick={() => setVaryingModal(!varyingModal)}>
+                                Close
+                            </MDBBtn>
+                            <MDBBtn >Set Appointment</MDBBtn>
+                            </MDBModalFooter>
                         </form>
 
                     </MDBModalBody>
-                    <MDBModalFooter>
-                    <MDBBtn color='secondary' onClick={() => setVaryingModal(!varyingModal)}>
-                        Close
-                    </MDBBtn>
-                    <MDBBtn>Save changes</MDBBtn>
-                    </MDBModalFooter>
+
                 </MDBModalContent>
                 </MDBModalDialog>
             </MDBModal>
-
-
 
         </div>
         
