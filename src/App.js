@@ -76,13 +76,27 @@ function App() {
           </Route>
           <Route
             element={
-              <ProtectedRoutes requiresLogin={true} redirectTo="/login" />
+              <ProtectedRoutes
+                requiresLogin={true}
+                requiresDoctor={true}
+                redirectTo="/login"
+              />
             }
           >
             <Route path="doctorDashboard" element={<Dashboard />} />
             <Route path="doctorAppointment" element={<DoctorsZone />} />
             <Route path="doctorPrescription" element={<Prescription />} />
+          </Route>
 
+          <Route
+            element={
+              <ProtectedRoutes
+                requiresLogin={true}
+                requiresPatient={true}
+                redirectTo="/login"
+              />
+            }
+          >
             <Route path="patientDashboard" element={<PatientDashboard />} />
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
