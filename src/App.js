@@ -10,9 +10,8 @@ import DoctorsZone from "./features/doctors/DoctorsZone/DoctorsZone";
 import Dashboard from "./features/doctors/Dashboard/Dashboard";
 import Prescription from "./features/doctors/Prescription/Prescription";
 
-
 import "./App.css";
-// import Home from "./features/home/homePage";
+import Home from "./features/home/homePage";
 
 function App() {
   return (
@@ -28,11 +27,11 @@ function App() {
           </Route>
           <Route
             element={
-              <ProtectedRoutes requiresLogin={true} redirectTo="/login" />
+              <ProtectedRoutes requiresLogin={false} redirectTo="/login" />
             }
           >
-            {/* <Route path="home" element={<Home />} />
-            <Route path="" element={<Home />} /> */}
+            <Route path="home" element={<Home />} />
+            <Route path="" element={<Home />} />
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
           <Route path="doctorDashboard" element={<Dashboard />} />
@@ -48,4 +47,3 @@ function App() {
 }
 
 export default App;
-
