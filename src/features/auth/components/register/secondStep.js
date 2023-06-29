@@ -17,7 +17,7 @@ function SecondStep(props) {
           "address",
           "phone",
           "national_ID",
-          "profession_ID",
+          "profLicenseNo",
           "specialization",
           "street",
           "city_id",
@@ -30,7 +30,7 @@ function SecondStep(props) {
       if (
         !props.form.touched.phone ||
         !props.form.touched.national_ID ||
-        !props.form.touched.profession_ID ||
+        !props.form.touched.profLicenseNo ||
         !props.form.touched.specialization ||
         !props.form.touched.street ||
         !props.form.touched.city_id

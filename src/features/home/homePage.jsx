@@ -1,27 +1,11 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 
 import styles from "./style.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { useSelector, useDispatch } from "react-redux";
-
-import { fetchProductHomePage } from "./productHomePageSlice";
 // Import Swiper styles
 import "swiper/css";
-import ProductCard from "../layout/ProductCard/ProductCard";
 function Home() {
-  const { categories } = useSelector((state) => state.categories);
-  const { productHomePage } = useSelector((state) => state.productHomePage);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchProductHomePage());
-  }, []);
-
-  console.log(productHomePage);
 
   return (
     <div className={`${styles.body}`}>
@@ -35,7 +19,7 @@ function Home() {
             <Carousel.Item interval={1000}>
               <img
                 className="d-block w-100"
-                src={process.env.PUBLIC_URL + "assets/carousel-1.jpg"}
+                src={process.env.PUBLIC_URL + "assets/carousel-1.webp"}
                 alt="First slide"
               />
               <div
@@ -53,7 +37,7 @@ function Home() {
             <Carousel.Item interval={500}>
               <img
                 className="d-block w-100"
-                src={process.env.PUBLIC_URL + "assets/carousel-2.jpg"}
+                src={process.env.PUBLIC_URL + "assets/carousel-2.webp"}
                 alt="Second slide"
               />
               <div
@@ -102,9 +86,9 @@ function Home() {
                 alt=""
               />
               <div className={styles.offerText}>
-                <h6 className="text-white text-uppercase">Save 20%</h6>
-                <h3 className="text-white mb-3">Special Offer</h3>
-                <span className="btn btn-primary">Shop Now</span>
+                <h6 className="text-white text-uppercase">Learn More</h6>
+                <h3 className="text-white mb-3">Cardiology</h3>
+                <span className="btn btn-primary">Find Doctors</span>
               </div>
             </div>
             <div
@@ -117,9 +101,9 @@ function Home() {
                 alt=""
               />
               <div className={styles.offerText}>
-                <h6 className="text-white text-uppercase">Save 20%</h6>
-                <h3 className="text-white mb-3">Special Offer</h3>
-                <span className="btn btn-primary">Shop Now</span>
+                <h6 className="text-white text-uppercase">Learn More</h6>
+                <h3 className="text-white mb-3">Ocular oncology</h3>
+                <span className="btn btn-primary">Find Doctors</span>
               </div>
             </div>
           </div>
@@ -140,7 +124,7 @@ function Home() {
                 style={{ padding: "30px" }}
               >
                 <h1 className="fa fa-check text-primary m-0 mx-3"></h1>
-                <h5 className="font-weight-semi-bold m-0">Quality Product</h5>
+                <h5 className="font-weight-semi-bold m-0">Accessible</h5>
               </div>
             </div>
             <div
@@ -151,8 +135,8 @@ function Home() {
                 className="d-flex align-items-center bg-light mb-4"
                 style={{ padding: "30px" }}
               >
-                <h1 className="fa fa-shipping-fast text-primary m-0 mx-2"></h1>
-                <h5 className="font-weight-semi-bold m-0">Free Shipping</h5>
+                <h1 className="fa fa-history text-primary m-0 mx-2"></h1>
+                <h5 className="font-weight-semi-bold m-0">Medical History</h5>
               </div>
             </div>
             <div
@@ -164,7 +148,7 @@ function Home() {
                 style={{ padding: "30px" }}
               >
                 <h1 className="fas fa-exchange-alt text-primary m-0 mx-3"></h1>
-                <h5 className="font-weight-semi-bold m-0">14-Day Return</h5>
+                <h5 className="font-weight-semi-bold m-0">Appointments</h5>
               </div>
             </div>
             <div
@@ -183,7 +167,7 @@ function Home() {
         </div>
 
         {
-          // Categories
+          // Doctors
         }
 
         <div className="container-fluid pt-5">
@@ -191,11 +175,11 @@ function Home() {
             className={`${styles.sectionTitle} position-relative text-uppercase mx-xl-5 mb-4`}
             data-aos="fade-right"
           >
-            <span className="p-3 ps-0">Categories</span>
+            <span className="p-3 ps-0">Doctors</span>
           </h2>
 
           <div className="row px-xl-5 pb-3">
-            {categories.map((category) => (
+            {/* {categories.map((category) => (
               <div
                 className="col-lg-3 col-md-4 col-sm-6 p-2"
                 key={category.id}
@@ -229,7 +213,7 @@ function Home() {
                   </div>
                 </Link>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
 
@@ -242,22 +226,10 @@ function Home() {
             className={`${styles.sectionTitle} position-relative text-uppercase mx-xl-5 mb-4`}
             data-aos="fade-right"
           >
-            <span className="p-3 ps-0">FEATURED PRODUCTS</span>
+            <span className="p-3 ps-0">Departments</span>
           </h2>
           <div className="row px-xl-5">
-            {productHomePage &&
-              productHomePage.results.map((el, i) => {
-                if (i <= 11) {
-                  return (
-                    <div
-                      class="col-lg-3 col-md-4 col-sm-6 pb-1"
-                      data-aos="zoom-in-down"
-                    >
-                      <ProductCard product={el} />
-                    </div>
-                  );
-                }
-              })}
+            
           </div>
         </div>
 
@@ -278,9 +250,9 @@ function Home() {
                   alt=""
                 />
                 <div className={styles.offerText}>
-                  <h6 className="text-white text-uppercase">Save 20%</h6>
-                  <h3 className="text-white mb-3">Special Offer</h3>
-                  <span className="btn btn-primary">Shop Now</span>
+                  <h6 className="text-white text-uppercase">Learn More</h6>
+                  <h3 className="text-white mb-3">Cardiology</h3>
+                  <span className="btn btn-primary">Find Doctors</span>
                 </div>
               </div>
             </div>
@@ -295,9 +267,9 @@ function Home() {
                   alt=""
                 />
                 <div className={styles.offerText}>
-                  <h6 className="text-white text-uppercase">Save 20%</h6>
-                  <h3 className="text-white mb-3">Special Offer</h3>
-                  <span className="btn btn-primary">Shop Now</span>
+                  <h6 className="text-white text-uppercase">Learn More</h6>
+                  <h3 className="text-white mb-3">Ocular oncology</h3>
+                  <span className="btn btn-primary">Find Doctors</span>
                 </div>
               </div>
             </div>
@@ -305,7 +277,7 @@ function Home() {
         </div>
 
         {
-          // RECENT PRODUCTS
+          // RECENT COLLABORATIONS
         }
 
         <div className="container-fluid pt-5">
@@ -313,23 +285,10 @@ function Home() {
             className={`${styles.sectionTitle} position-relative text-uppercase mx-xl-5 mb-4`}
             data-aos="fade-right"
           >
-            <span className="p-3 ps-0">RECENT PRODUCTS</span>
+            <span className="p-3 ps-0">RECENT COLLABORATIONS</span>
           </h2>
           <div className="row px-xl-5">
-            {productHomePage &&
-              productHomePage.results.map((el, i) => {
-                if (i > 10) {
-                  return (
-                    <div
-                      class="col-lg-3 col-md-4 col-sm-6 pb-1"
-                      data-aos="fade-up"
-                      data-aos-anchor-placement="top-bottom"
-                    >
-                      <ProductCard product={el} />
-                    </div>
-                  );
-                }
-              })}{" "}
+            
           </div>
         </div>
 
@@ -345,18 +304,20 @@ function Home() {
           <SwiperSlide>
             <div className="bg-light p-4">
               <img
-                src={process.env.PUBLIC_URL + "assets/vendor-1.jpg"}
+                src={process.env.PUBLIC_URL + "assets/vendor-1.png"}
                 alt=""
                 className="m-auto"
+                style={{ width: "200px", height: "150px" }}
               />
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="bg-light p-4">
               <img
-                src={process.env.PUBLIC_URL + "assets/vendor-2.jpg"}
+                src={process.env.PUBLIC_URL + "assets/vendor-2.png"}
                 alt="image1"
                 className="m-auto"
+                style={{ width: "200px", height: "150px" }}
               />
             </div>
           </SwiperSlide>
@@ -366,6 +327,7 @@ function Home() {
                 src={process.env.PUBLIC_URL + "assets/vendor-3.jpg"}
                 alt="image2"
                 className="m-auto"
+                style={{ width: "200px", height: "150px" }}
               />
             </div>
           </SwiperSlide>
@@ -375,6 +337,7 @@ function Home() {
                 src={process.env.PUBLIC_URL + "assets/vendor-4.jpg"}
                 alt="image3"
                 className="m-auto"
+                style={{ width: "200px", height: "150px" }}
               />
             </div>
           </SwiperSlide>

@@ -14,7 +14,7 @@ import PatientDashboard from "./features/patient/Dashboard/PatientDashboard";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { doctorActions } from "./store/doctor/doctor-slice";
-
+import Home from "./features/home/homePage";
 import "./App.css";
 
 function App() {
@@ -65,10 +65,8 @@ function App() {
 
   console.log("after useEffect")
 
-
-
-
   console.log("App")
+
   return (
     <BrowserRouter>
       <Navbar />
@@ -82,11 +80,11 @@ function App() {
           </Route>
           <Route
             element={
-              <ProtectedRoutes requiresLogin={true} redirectTo="/login" />
+              <ProtectedRoutes requiresLogin={false} redirectTo="/login" />
             }
           >
-            {/* <Route path="home" element={<Home />} />
-            <Route path="" element={<Home />} /> */}
+            <Route path="home" element={<Home />} />
+            <Route path="" element={<Home />} />
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
           <Route path="doctorDashboard" element={<Dashboard />} />
@@ -104,4 +102,3 @@ function App() {
 }
 
 export default App;
-
