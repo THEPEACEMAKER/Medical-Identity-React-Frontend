@@ -9,14 +9,65 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import DoctorsZone from "./features/doctors/DoctorsZone/DoctorsZone";
 import Dashboard from "./features/doctors/Dashboard/Dashboard";
 import Prescription from "./features/doctors/Prescription/Prescription";
-
+import api from "./api/api";
 import PatientDashboard from "./features/patient/Dashboard/PatientDashboard";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { doctorActions } from "./store/doctor/doctor-slice";
 
 import "./App.css";
-// import Home from "./features/home/homePage";
 
 function App() {
+
+  // const dispatch = useDispatch();
+
+
+
+  // useEffect(() => {
+  //   // fetch("http://localhost:3500/items")
+  //   //     .then(res => res.json())
+  //   //     .then(data => {
+  //   //         const fetchedData = data.reverse()
+  //   //         setAppointment(fetchedData);
+  //   //     });
+  //   console.log("Inside useeffect")
+  //   api.get("/appointment/doctor/list-all/")
+  //   .then((res)=> {
+  //     const data = res.data
+  //     console.log(data)
+  //     dispatch(doctorActions.replaceApointments({
+  //       data: data || [],
+  //       isLoading: false,
+  //       next: null,
+  //       previous: null
+  //     }))
+  //   })
+  // }, [dispatch]);
+
+  // console.log("Inside useeffect")
+  // api.get("/appointment/doctor/list-all/")
+  // .then((res)=> {
+  //   const data = res.data
+  //   console.log("data in app")
+  //   console.log(data)
+  //   dispatch(doctorActions.replaceApointments({
+  //     data: data || [],
+  //     isLoading: false,
+  //     next: null,
+  //     previous: null
+  //   }))
+  // })
+  // .catch((err) => {
+  //   console.log("inside error")
+  //   console.log(err);
+  // });
+
+
+  console.log("after useEffect")
+
+
+
+
   console.log("App")
   return (
     <BrowserRouter>
