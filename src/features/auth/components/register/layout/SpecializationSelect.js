@@ -11,7 +11,7 @@ const CustomeSelect = ({ value, onChange, onBlur, error }) => {
       try {
         const response = await api.get("specializations");
         const data = response.data.map((item) => ({
-          value: item.name,
+          value: item.id,
           label: item.name,
         }));
         setOptions(data);
