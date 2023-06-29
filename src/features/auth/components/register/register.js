@@ -41,7 +41,7 @@ function Register() {
       isDoctor: false,
       phone: "",
       national_ID: "",
-      profLicenseNo: "",
+      profession_ID: "",
       specialization: "",
       city_id: "",
       district_id: "",
@@ -82,7 +82,10 @@ function Register() {
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
       national_ID: Yup.string()
-        .matches(/^[2|3|5][0-9]{13}$/, "Invalid national ID")
+        .matches(
+          /^([1-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})[0-9]{3}([0-9]{1})[0-9]{1}$/,
+          "Invalid national ID"
+        )
         .required("National ID is required"),
       profLicenseNo: Yup.string().when("isDoctor", {
         is: true,

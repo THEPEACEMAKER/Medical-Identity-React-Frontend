@@ -17,7 +17,7 @@ function SecondStep(props) {
           "address",
           "phone",
           "national_ID",
-          "profLicenseNo",
+          "profession_ID",
           "specialization",
           "street",
           "city_id",
@@ -30,7 +30,7 @@ function SecondStep(props) {
       if (
         !props.form.touched.phone ||
         !props.form.touched.national_ID ||
-        !props.form.touched.profLicenseNo ||
+        !props.form.touched.profession_ID ||
         !props.form.touched.specialization ||
         !props.form.touched.street ||
         !props.form.touched.city_id
@@ -94,22 +94,22 @@ function SecondStep(props) {
               label="National ID"
               type="text"
               size="lg"
-              id="national_ID"
-              value={props.form.values.national_ID}
+              id="national_id"
+              value={props.form.values.national_id}
               onChange={props.form.handleChange}
               className={`mb-2 ${
-                props.form.touched.national_ID &&
-                props.form.errors.national_ID &&
+                props.form.touched.national_id &&
+                props.form.errors.national_id &&
                 styles.inputErr
               } `}
               onBlur={props.form.handleBlur}
             />
-            {props.form.touched.national_ID &&
-              props.form.errors.national_ID && (
+            {props.form.touched.national_id &&
+              props.form.errors.national_id && (
                 <p
                   className={`${styles.error} ${animate ? styles.animate : ""}`}
                 >
-                  {props.form.errors.national_ID}
+                  {props.form.errors.national_id}
                 </p>
               )}
           </div>
