@@ -40,7 +40,7 @@ function Register() {
       date_of_birth: "",
       isDoctor: false,
       phone: "",
-      national_id: "",
+      national_ID: "",
       profLicenseNo: "",
       specialization: "",
       city_id: "",
@@ -81,7 +81,7 @@ function Register() {
       phone: Yup.string()
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
-      national_id: Yup.string()
+      national_ID: Yup.string()
         .matches(/^[2|3|5][0-9]{13}$/, "Invalid national ID")
         .required("National ID is required"),
       profLicenseNo: Yup.string().when("isDoctor", {
