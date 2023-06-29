@@ -10,11 +10,14 @@ import DoctorsZone from "./features/doctors/DoctorsZone/DoctorsZone";
 import Dashboard from "./features/doctors/Dashboard/Dashboard";
 import Prescription from "./features/doctors/Prescription/Prescription";
 
+import PatientDashboard from "./features/patient/Dashboard/PatientDashboard";
+
 
 import "./App.css";
 // import Home from "./features/home/homePage";
 
 function App() {
+  console.log("App")
   return (
     <BrowserRouter>
       <Navbar />
@@ -38,6 +41,8 @@ function App() {
           <Route path="doctorDashboard" element={<Dashboard />} />
           <Route path="doctorAppointment" element={<DoctorsZone />} />
           <Route path="doctorPrescription" element={<Prescription />} />
+
+          <Route path="patientDashboard" element={<PatientDashboard />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>

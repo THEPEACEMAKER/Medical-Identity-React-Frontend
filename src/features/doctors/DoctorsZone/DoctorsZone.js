@@ -23,7 +23,13 @@ const hours = [
     { id: 7, label: '3:00 PM' },
     { id: 8, label: '4:00 PM' },
     { id: 9, label: '5:00 PM' },
-    { id: 10, label: '6:00 PM' }
+    { id: 10, label: '6:00 PM' },
+    { id: 11, label: '7:00 PM' },
+    { id: 12, label: '8:00 PM' },
+    { id: 13, label: '9:00 PM' },
+    { id: 14, label: '10:00 PM' },
+    { id: 15, label: '11:00 PM' },
+
   ];
 
 const DoctorsZone = () => {

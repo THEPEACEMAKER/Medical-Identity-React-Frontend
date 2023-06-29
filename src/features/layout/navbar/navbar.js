@@ -41,6 +41,11 @@ function Navbar() {
                     <span> Doctors</span>
                   </Link>
 
+                  <Link to="/patientDashboard" className="mx-2 text-dark">
+                    <i className="fas fa-bed-pulse"></i>
+                    <span> Patients</span>
+                  </Link>
+
               {!isLoggedIn && (
                 <>
                   <Link to="/login" className="mx-2 text-dark">
