@@ -4,6 +4,7 @@ const doctorSlice = createSlice({
     name : "doctor",
     initialState:{
         appointments: [],
+        availableAppointments: [],
         appointmentCount:null,
         isLoading: true,
         next: null,
@@ -12,6 +13,7 @@ const doctorSlice = createSlice({
     reducers:{
         replaceApointments(state, action){
             state.appointments = action.payload.data;
+            state.availableAppointments = action.payload.availableAppointments;
             state.appointmentCount = action.payload.appointmentCount;
             state.isLoading = false
             state.next = action.payload.next;

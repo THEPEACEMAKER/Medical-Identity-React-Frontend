@@ -10,6 +10,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import api from '../../../api/api';
 import { doctorActions } from '../../../store/doctor/doctor-slice';
 import { fetchAppointments } from '../../../store/doctor/doctor-action';
+import { helpers } from '../../utils/helpers';
 
 
 
@@ -29,37 +30,6 @@ const Dashboard = () => {
     const month = todaysDate.getMonth();
     const year = todaysDate.getFullYear();
     const fullTodaysDate = month + 1 + "/" + day + "/" + year;
-    const selectedDateAppointment = appointment.filter(appointment => appointment.details.date === fullTodaysDate);
-
-
-    function convertTimeTo12HourFormat(timeStr) {
-        // Create a Date object with the time string
-        const dateObj = new Date(`2000-01-01T${timeStr}`);
-      
-        // Get the hours and minutes from the Date object
-        let hours = dateObj.getHours();
-        let minutes = dateObj.getMinutes();
-      
-        // Determine if the time is AM or PM
-        let amOrPm = hours < 12 ? "AM" : "PM";
-      
-        // Convert hours to 12-hour format
-        if (hours > 12) {
-          hours -= 12;
-        } else if (hours === 0) {
-          hours = 12;
-        }
-      
-        // Pad the minutes with a leading zero if necessary
-        if (minutes < 10) {
-          minutes = "0" + minutes;
-        }
-      
-        // Construct the new time string in 12-hour format
-        const time12Hour = `${hours}:${minutes} ${amOrPm}`;
-      
-        return time12Hour;
-      }
 
 
     useEffect(() => {
@@ -102,6 +72,7 @@ const Dashboard = () => {
             dispatch(doctorActions.replaceApointments({
               data: appointments,
               appointmentCount: count,
+              availableAppointments:appointments,
             }));
           })
           .catch((error) => {
@@ -123,18 +94,18 @@ const Dashboard = () => {
     //         });
     // }, [action1]);
 
-    console.log("pendingAppointment")
-    console.log(pendingAppointment)
-    console.log(appointment)
-    console.log(selectedDateAppointment)
+    // console.log("pendingAppointment")
+    // console.log(pendingAppointment)
+    // console.log(appointment)
+    // console.log(selectedDateAppointment)
 
     appointment = useSelector((state) => state.doctor.appointments)
-    console.log("myAppointment")
-    console.log(appointment)
+    // console.log("myAppointment")
+    // console.log(appointment)
 
     const totalCount = useSelector((state) => state.doctor.appointmentCount)
-    console.log("totalCount")
-    console.log(totalCount)
+    // console.log("totalCount")
+    // console.log(totalCount)
 
 
 
@@ -239,10 +210,10 @@ const Dashboard = () => {
                                                 {/* <td>Senior</td> */}
 
                                                 <td>
-                                                    {convertTimeTo12HourFormat(appoint.start_time)}
+                                                    {helpers.convertTimeTo12HourFormat(appoint.start_time)}
                                                 </td>
                                                 <td>
-                                                {convertTimeTo12HourFormat(appoint.end_time)}
+                                                {helpers.convertTimeTo12HourFormat(appoint.end_time)}
                                                 </td>
                                             </tr>
 
