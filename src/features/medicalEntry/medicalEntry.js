@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon, MDBCardTitle, } from 'mdb-react-ui-kit';
-
+import Card from '../../UI/card/Card'; 
 export default function PersonalProfile() {
   return (
     <section className="vh-100" style={{ backgroundColor: '#f4f5f7' }}>
@@ -37,8 +37,62 @@ export default function PersonalProfile() {
                     <MDBRow className="pt-1">
                       
                     </MDBRow>
-
-                    
+                    <Card>
+                        <div style={{ maxWidth: '40rem' }}>
+                            <MDBRow className='g-0'>
+                                <MDBCol md='3'>
+                                    <MDBCardImage src='https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg' alt='...' fluid />
+                                </MDBCol>
+                                <MDBCol md='8'>
+                                    <div>
+                                        <div >Doctor Name</div>
+                                        <div>
+                                            This is a wider card with supporting text below as a natural lead-in to additional content. This
+                                            content is a little bit longer.
+                                        </div>
+                                    </div>
+                                </MDBCol>
+                            </MDBRow>
+                        </div>
+                    </Card>
+                    <br></br>
+                    <Card>
+                        <div style={{ maxWidth: '40rem' }}>
+                            <MDBRow className='g-0'>
+                                <MDBCol md='3'>
+                                    <MDBCardImage src='https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg' alt='...' fluid />
+                                </MDBCol>
+                                <MDBCol md='9'>
+                                    <div>
+                                        <div >Doctor Name</div>
+                                        <div>
+                                            This is a wider card with supporting text below as a natural lead-in to additional content. This
+                                            content is a little bit longer.
+                                        </div>
+                                    </div>
+                                </MDBCol>
+                            </MDBRow>
+                        </div>
+                    </Card>
+                    <br></br>
+                    <Card>
+                        <div style={{ maxWidth: '40rem' }}>
+                            <MDBRow className='g-0'>
+                                <MDBCol md='3'>
+                                    <MDBCardImage src='https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg' alt='...' fluid />
+                                </MDBCol>
+                                <MDBCol md='9'>
+                                    <div>
+                                        <div >Doctor Name</div>
+                                        <div>
+                                            This is a wider card with supporting text below as a natural lead-in to additional content. This
+                                            content is a little bit longer.
+                                        </div>
+                                    </div>
+                                </MDBCol>
+                            </MDBRow>
+                        </div>
+                    </Card>
 
                         
                   </MDBCardBody>
