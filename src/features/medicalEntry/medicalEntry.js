@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon, MDBCardTitle, } from 'mdb-react-ui-kit';
 
 export default function PersonalProfile() {
   return (
@@ -32,14 +32,15 @@ export default function PersonalProfile() {
                       </MDBCol>
                     </MDBRow>
 
-                    <MDBTypography tag="h6">Information</MDBTypography>
+                    <MDBTypography tag="h6">History</MDBTypography>
                     <hr className="mt-0 mb-4" />
                     <MDBRow className="pt-1">
                       
                     </MDBRow>
-                        <div className="medical">
-                            <p>history history history history history</p>
-                        </div>
+
+                    
+
+                        
                   </MDBCardBody>
                 </MDBCol>
               </MDBRow>
