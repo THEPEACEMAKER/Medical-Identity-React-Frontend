@@ -1,9 +1,7 @@
 import React from 'react';
 import './Dashboard.css';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
-// import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Select, MenuItem } from '@mui/material'
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import FullHeight from "react-full-height";
 import { useSelector,useDispatch } from 'react-redux';
@@ -19,49 +17,17 @@ const Dashboard = () => {
 
     const dispatch = useDispatch();
 
-
     // const [appointment, setAppointment] = useState([]);
     let appointment = []
-    const [action1, setAction1] = useState(null);
+
+    // const [action1, setAction1] = useState(null);
     // const [key, setKey] = useState(null)
-    const pendingAppointment = appointment.filter(pa => pa.action1 === "pending");
-    const todaysDate = new Date();
-    const day = todaysDate.getDate();
-    const month = todaysDate.getMonth();
-    const year = todaysDate.getFullYear();
-    const fullTodaysDate = month + 1 + "/" + day + "/" + year;
-
-
-    useEffect(() => {
-
-        const endpoint1 = "/appointment/doctor/list-all/";
-        const endpoint2 = "/appointment/doctor/list/count/status/";
-        
-        Promise.all([
-          api.get(endpoint1),
-          api.get(endpoint2),
-        ])
-          .then(([appointmentsRes, countRes]) => {
-            const appointments = appointmentsRes.data || [];
-            const count = countRes.data || 0;
-        
-            console.log(appointments, count);
-            dispatch(doctorActions.replaceApointments({
-              data: appointments,
-              appointmentCount: count,
-              availableAppointments:appointments,
-              isLoading : false,
-            }));
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-        
-        console.log("Inside useeffect after dispatch")
-
-      }, [dispatch]);
-
-
+    // const pendingAppointment = appointment.filter(pa => pa.action1 === "pending");
+    // const todaysDate = new Date();
+    // const day = todaysDate.getDate();
+    // const month = todaysDate.getMonth();
+    // const year = todaysDate.getFullYear();
+    // const fullTodaysDate = month + 1 + "/" + day + "/" + year;
 
     appointment = useSelector((state) => state.doctor.appointments)
 
@@ -116,9 +82,6 @@ const Dashboard = () => {
                     <div className="dashboardTableDetails">
                         <div>
                             <p>Recent Appointments</p>
-
-
-
                             <MDBTable align='middle' hover>
                                 <MDBTableHead>
                                     <tr>
