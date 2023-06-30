@@ -9,11 +9,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import {MDBTable, MDBTableHead, MDBTableBody, MDBModal, MDBBtn, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBInput, MDBModalFooter, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
 import api from '../../../api/api';
 import { useSelector,useDispatch } from 'react-redux';
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// import { MDBTable } from 'mdb-react-ui-kit';
 import { helpers } from '../../utils/helpers';
-import { color } from 'framer-motion';
 import { doctorActions } from '../../../store/doctor/doctor-slice';
 
 // const hours = [
@@ -91,9 +87,28 @@ const DoctorsZone = () => {
     };
 
 
+    // const tileDisabled = ({ date, view }) => {
+    //     // Disable all dates before today
+    //     console.log("tile disabple")
+    //     console.log(date)
+    //     console.log(new Date())
+    //     if (date < new Date()) {
+    //       return true;
+    //     }
+    //     // Disable all dates after 6 days from today
+    //     const maxDate = new Date();
+    //     maxDate.setDate(maxDate.getDate() + 6);
+    //     if (date > maxDate) {
+    //       return true;
+    //     }
+    //     return false;
+    // };
+
     const tileDisabled = ({ date, view }) => {
-        // Disable all dates before today
-        if (date < new Date()) {
+        // Disable all dates before today (excluding today)
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set time to midnight
+        if (date < today) {
           return true;
         }
         // Disable all dates after 6 days from today
@@ -103,7 +118,7 @@ const DoctorsZone = () => {
           return true;
         }
         return false;
-    };
+      };
 
 
     const handleHourSelect = (hour) => {
@@ -219,15 +234,6 @@ const DoctorsZone = () => {
             helpers.fetchDoctorData(dispatch)
         })
     }
-
-
-    const availbleAppointments = useSelector((state) => state.doctor.availableAppointments)
-
-    function availableAppointment () {
-
-    }
-
-
 
     return (
         <div className="doctorsZone">
