@@ -1,46 +1,48 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import { Link, useParams } from "react-router-dom";
 import styles from "./stylee.module.css";
-
+import { useSelector, useDispatch } from "react-redux";
+import {
+  MDBPagination,
+  MDBPaginationItem,
+  MDBPaginationLink,
+} from "mdb-react-ui-kit";
 import DoctorCard from "../layout/DoctorCard/DoctorCard";
+import { fetchDoctorsBySpecializations } from "./DoctorsListSlice";
 
 function DoctorsListPage() {
   const { specializationId } = useParams();
-  const doctors = [
-    {
-      id: 7,
-      first_name: "Adel",
-      last_name: "Kenawy",
-      email: "adel@doctor.com",
-      date_of_birth: "2005-06-03",
-      phone: "01013552661",
-      national_id: "21232324243231",
-      profileImgUrl: "image/upload/v1688068062/vv7drw0atyjwofhpufmx.webp",
-      gender: "male",
-      specialization: 2,
-      profLicenseNo: "221112",
-      city: 5,
-      district: 161,
-      address: null,
-    },
-    {
-      id: 8,
-      first_name: "Adel",
-      last_name: "Kenawy",
-      email: "adel3@doctor.com",
-      date_of_birth: "2005-06-08",
-      phone: "01073552667",
-      national_id: "21232324243733",
-      profileImgUrl: "image/upload/v1688068185/q8tmxjzbuuzbyk5j1pz0.webp",
-      gender: "male",
-      specialization: 2,
-      profLicenseNo: "221112",
-      city: 7,
-      district: 185,
-      address: null,
-    },
-  ];
+  const dispatch = useDispatch();
+  const { doctors, status, error, totaldoctorsCount } = useSelector(
+    (state) => state.doctorsPage
+  );
+
+  const [pageSize, setPageSize] = useState(8);
+  const [page, setPage] = useState(1);
+  const [pagesQuantity, setPagesQuantity] = useState(0);
+  useEffect(() => {
+    dispatch(
+      fetchDoctorsBySpecializations({ specializationId, pageSize, page })
+    );
+  }, [specializationId, dispatch, page, pageSize]);
+
+  useEffect(() => {
+    // calculate the total number of pages
+    const totalPages = Math.ceil(totaldoctorsCount / pageSize);
+
+    setPagesQuantity(totalPages);
+  }, [pageSize, totaldoctorsCount]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  useEffect(() => {
+    if (status === "failed") {
+      console.log("DoctorsListPage Error:", error);
+    }
+  }, [status, error]);
 
   return (
     <MDBContainer fluid className="my-5">
@@ -56,6 +58,22 @@ function DoctorsListPage() {
             {doctors.map((doctor) => (
               <DoctorCard key={doctor.id} doctor={doctor} />
             ))}
+            <nav aria-label="..." className={`${styles.pagination}`}>
+              <MDBPagination center size="lg" className="mb-0">
+                {Array.from({ length: pagesQuantity }, (_, index) => (
+                  <MDBPaginationItem key={index} active={index + 1 === page}>
+                    <MDBPaginationLink
+                      onClick={() => handlePageChange(index + 1)}
+                    >
+                      {index + 1}
+                      {index + 1 === page && (
+                        <span className="visually-hidden">(current)</span>
+                      )}
+                    </MDBPaginationLink>
+                  </MDBPaginationItem>
+                ))}
+              </MDBPagination>
+            </nav>
           </>
         ) : (
           <div
