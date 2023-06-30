@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { doctorActions } from "./store/doctor/doctor-slice";
 import Home from "./features/home/homePage";
 import "./App.css";
+import DoctorsListPage from "./features/DoctorsListPage/DoctorsListPage";
 
 function App() {
 
@@ -86,6 +87,12 @@ function App() {
             <Route path="patientDashboard" element={<PatientDashboard />} />
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
+
+          <Route
+            path="doctors/:specializationId"
+            element={<DoctorsListPage />}
+          />
+
           <Route path="home" element={<Home />} />
           <Route path="" element={<Home />} />
 
