@@ -5,8 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
+import DoctorCard from "../layout/DoctorCard/DoctorCard";
 function Home() {
-
   return (
     <div className={`${styles.body}`}>
       {" "}
@@ -178,6 +179,88 @@ function Home() {
             <span className="p-3 ps-0">Doctors</span>
           </h2>
 
+          <MDBContainer fluid className="my-5 text-center">
+            <MDBRow>
+              {console.log("process.env.PUBLIC_URL: " + process.env.PUBLIC_URL)}
+              <DoctorCard
+                doctor={{
+                  id: 7,
+                  first_name: "Adel",
+                  last_name: "Kenawy",
+                  email: "adel@doctor.com",
+                  date_of_birth: "2005-06-03",
+                  phone: "01013552661",
+                  national_id: "21232324243231",
+                  profileImgUrl:
+                    "image/upload/v1688068062/vv7drw0atyjwofhpufmx.webp",
+                  gender: "male",
+                  specialization: 2,
+                  profLicenseNo: "221112",
+                  city: 5,
+                  district: 161,
+                  address: null,
+                }}
+              />
+              <DoctorCard
+                doctor={{
+                  id: 7,
+                  first_name: "Adel",
+                  last_name: "Kenawy",
+                  email: "adel@doctor.com",
+                  date_of_birth: "2005-06-03",
+                  phone: "01013552661",
+                  national_id: "21232324243231",
+                  profileImgUrl:
+                    "image/upload/v1688068062/vv7drw0atyjwofhpufmx.webp",
+                  gender: "male",
+                  specialization: 2,
+                  profLicenseNo: "221112",
+                  city: 5,
+                  district: 161,
+                  address: null,
+                }}
+              />
+              <DoctorCard
+                doctor={{
+                  id: 7,
+                  first_name: "Adel",
+                  last_name: "Kenawy",
+                  email: "adel@doctor.com",
+                  date_of_birth: "2005-06-03",
+                  phone: "01013552661",
+                  national_id: "21232324243231",
+                  profileImgUrl:
+                    "image/upload/v1688068062/vv7drw0atyjwofhpufmx.webp",
+                  gender: "male",
+                  specialization: 2,
+                  profLicenseNo: "221112",
+                  city: 5,
+                  district: 161,
+                  address: null,
+                }}
+              />
+              <DoctorCard
+                doctor={{
+                  id: 7,
+                  first_name: "Adel",
+                  last_name: "Kenawy",
+                  email: "adel@doctor.com",
+                  date_of_birth: "2005-06-03",
+                  phone: "01013552661",
+                  national_id: "21232324243231",
+                  profileImgUrl:
+                    "image/upload/v1688068062/vv7drw0atyjwofhpufmx.webp",
+                  gender: "male",
+                  specialization: 2,
+                  profLicenseNo: "221112",
+                  city: 5,
+                  district: 161,
+                  address: null,
+                }}
+              />
+            </MDBRow>
+          </MDBContainer>
+
           <div className="row px-xl-5 pb-3">
             {/* {categories.map((category) => (
               <div
@@ -228,9 +311,7 @@ function Home() {
           >
             <span className="p-3 ps-0">Departments</span>
           </h2>
-          <div className="row px-xl-5">
-            
-          </div>
+          <div className="row px-xl-5"></div>
         </div>
 
         {
@@ -287,9 +368,7 @@ function Home() {
           >
             <span className="p-3 ps-0">RECENT COLLABORATIONS</span>
           </h2>
-          <div className="row px-xl-5">
-            
-          </div>
+          <div className="row px-xl-5"></div>
         </div>
 
         {
