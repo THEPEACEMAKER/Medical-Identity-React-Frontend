@@ -10,6 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 import DoctorCard from "../layout/DoctorCard/DoctorCard";
 import { fetchDoctorsBySpecializations } from "./DoctorsListSlice";
+import PlaceSelect_DoctorsListPage from "./layout/PlaceSelect-DoctorsListPage";
 
 function DoctorsListPage() {
   const { specializationId } = useParams();
@@ -46,6 +47,8 @@ function DoctorsListPage() {
 
   return (
     <MDBContainer fluid className="my-5">
+      <PlaceSelect_DoctorsListPage specializationId={specializationId} />
+
       <h1 className="">
         {/* {status === "succeeded" && doctors.length
           ? doctors[0].specialization.name
