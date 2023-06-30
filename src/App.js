@@ -4,7 +4,6 @@ import Login from "./features/auth/components/login/Login";
 import Navbar from "./features/layout/navbar/navbar";
 import Footer from "./features/layout/footer/Footer";
 import NotFound from "./features/404/404";
-// import Profile from "./features/auth/components/profile/Profile";
 import ProtectedRoutes from "./ProtectedRoutes";
 import DoctorsZone from "./features/doctors/DoctorsZone/DoctorsZone";
 import Dashboard from "./features/doctors/Dashboard/Dashboard";
@@ -36,9 +35,9 @@ function App() {
     
         console.log(appointments, count);
         dispatch(doctorActions.replaceApointments({
-          data: appointments,
+          data: appointments.result,
           appointmentCount: count,
-          availableAppointments:appointments,
+          availableAppointments:appointments.result,
           isLoading : false,
         }));
       })
@@ -49,49 +48,6 @@ function App() {
     console.log("Inside useeffect after dispatch")
 
 }, [dispatch]);
-
-  // useEffect(() => {
-  //   // fetch("http://localhost:3500/items")
-  //   //     .then(res => res.json())
-  //   //     .then(data => {
-  //   //         const fetchedData = data.reverse()
-  //   //         setAppointment(fetchedData);
-  //   //     });
-  //   console.log("Inside useeffect")
-  //   api.get("/appointment/doctor/list-all/")
-  //   .then((res)=> {
-  //     const data = res.data
-  //     console.log(data)
-  //     dispatch(doctorActions.replaceApointments({
-  //       data: data || [],
-  //       isLoading: false,
-  //       next: null,
-  //       previous: null
-  //     }))
-  //   })
-  // }, [dispatch]);
-
-  // console.log("Inside useeffect")
-  // api.get("/appointment/doctor/list-all/")
-  // .then((res)=> {
-  //   const data = res.data
-  //   console.log("data in app")
-  //   console.log(data)
-  //   dispatch(doctorActions.replaceApointments({
-  //     data: data || [],
-  //     isLoading: false,
-  //     next: null,
-  //     previous: null
-  //   }))
-  // })
-  // .catch((err) => {
-  //   console.log("inside error")
-  //   console.log(err);
-  // });
-
-  // console.log("after useEffect")
-
-  // console.log("App")
 
   return (
     <BrowserRouter>

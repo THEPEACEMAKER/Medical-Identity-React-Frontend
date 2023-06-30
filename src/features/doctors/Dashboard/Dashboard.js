@@ -29,7 +29,41 @@ const Dashboard = () => {
     // const year = todaysDate.getFullYear();
     // const fullTodaysDate = month + 1 + "/" + day + "/" + year;
 
+
+    useEffect(() => {
+
+        const endpoint1 = "/appointment/doctor/list-all/";
+        const endpoint2 = "/appointment/doctor/list/count/status/";
+        
+        Promise.all([
+          api.get(endpoint1),
+          api.get(endpoint2),
+        ])
+          .then(([appointmentsRes, countRes]) => {
+            const appointments = appointmentsRes.data || [];
+            const count = countRes.data || 0;
+        
+            console.log("inside app")
+            console.log(appointments, count);
+            dispatch(doctorActions.replaceApointments({
+              data: appointments.result,
+              appointmentCount: count,
+              availableAppointments:appointments.result,
+              isLoading : false,
+            }));
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        
+        console.log("Inside useeffect after dispatch")
+    
+    }, [dispatch]);
+
     appointment = useSelector((state) => state.doctor.appointments)
+
+    console.log("Appointment")
+    console.log(appointment)
 
     const totalCount = useSelector((state) => state.doctor.appointmentCount)
     const isLoading = useSelector((state) => state.doctor.isLoading)
