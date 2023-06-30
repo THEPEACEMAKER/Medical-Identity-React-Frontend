@@ -40,7 +40,7 @@ function Register() {
       date_of_birth: "",
       isDoctor: false,
       phone: "",
-      national_ID: "",
+      national_id: "",
       profLicenseNo: "",
       specialization: "",
       city_id: "",
@@ -81,7 +81,7 @@ function Register() {
       phone: Yup.string()
         .matches(/^01[0-9]{9}$/, "Invalid phone number")
         .required("Phone number is required"),
-      national_ID: Yup.string()
+      national_id: Yup.string()
         .matches(/^[2|3|5][0-9]{13}$/, "Invalid national ID")
         .required("National ID is required"),
       profLicenseNo: Yup.string().when("isDoctor", {
@@ -113,6 +113,10 @@ function Register() {
       }),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+          "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character"
+        )
         .required("Password is required"),
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -120,32 +124,57 @@ function Register() {
     }),
 
     onSubmit: (values) => {
-      console.log("values: " + JSON.stringify(values));
       setLoding(true);
-      // api
-      //   .post("/patientregister/", values, {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   })
-      //   .then((res) => {
-      //     setLoding(false);
 
-      //     setPieces(200);
+      let url = "/account/patient/register/";
+      let payload = {
+        profileImgUrl: values.profileImgUrl,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        gender: values.gender,
+        date_of_birth: values.date_of_birth,
+        phone: values.phone,
+        national_id: values.national_id,
+        password: values.password,
+        confirm_password: values.confirm_password,
+      };
 
-      //     setTimeout(() => {
-      //       navigate("/login");
-      //     }, 3000);
-      //   })
-      //   .catch((err) => {
-      //     setLoding(false);
+      if (values.isDoctor) {
+        url = "/account/doctor/register/";
+        payload = {
+          ...payload,
+          specialization: values.specialization,
+          profLicenseNo: values.profLicenseNo,
+          city: values.city_id,
+          district: values.district_id,
+          address: values.street,
+        };
+      }
 
-      //     setResError([]);
-      //     console.log(err.originalError.response.data);
-      //     for (let na of Object.values(err.originalError.response.data)) {
-      //       setResError((data) => [...data, na[0]]);
-      //     }
-      //   });
+      api
+        .post(url, payload, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setLoding(false);
+
+          setPieces(200);
+
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+        })
+        .catch((err) => {
+          setLoding(false);
+
+          setResError([]);
+          for (let na of Object.values(err.originalError.response.data)) {
+            setResError((data) => [...data, na[0]]);
+          }
+        });
     },
   });
 

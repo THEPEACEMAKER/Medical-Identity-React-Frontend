@@ -5,7 +5,9 @@ import { logout } from "../../auth/authSlice";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn, isDoctor, isPatient } = useSelector(
+    (state) => state.auth
+  );
 
   const handleLogout = () => {
     dispatch(logout());
@@ -35,16 +37,23 @@ function Navbar() {
             </div>
 
             <div className="my-2">
-
+              {isDoctor && (
+                <>
                   <Link to="/doctorDashboard" className="mx-2 text-dark">
                     <i className="fas fa-book-medical"></i>
                     <span> Doctors</span>
                   </Link>
+                </>
+              )}
 
+              {isPatient && (
+                <>
                   <Link to="/patientDashboard" className="mx-2 text-dark">
                     <i className="fas fa-bed-pulse"></i>
                     <span> Patients</span>
-                  </Link>
+                  </Link>{" "}
+                </>
+              )}
 
               {!isLoggedIn && (
                 <>
