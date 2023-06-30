@@ -130,13 +130,8 @@ const DoctorsZone = () => {
                     setPrice("Enter price")
                     setSelectedHour("")
 
-                    if(res.status === 201){
-                        toast.success("Form submitted successfully!", {
-                            position: toast.POSITION.TOP_RIGHT,
-                        });
-                    }
+                    helpers.fetchDoctorData(dispatch)
 
-                
                 }).catch((error) => {
                     console.log("inside error")
                     alert("Error: Missing data")
