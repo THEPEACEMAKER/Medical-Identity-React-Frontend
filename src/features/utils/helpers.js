@@ -35,7 +35,6 @@ function convertTimeTo12HourFormat(timeStr) {
     return time12Hour;
 }
 
-
 function fetchDoctorData (dispatch) {
   
   const endpoint1 = "/appointment/doctor/list-all/";
@@ -51,10 +50,15 @@ function fetchDoctorData (dispatch) {
   
       console.log("inside app")
       console.log(appointments, count);
+
+      const available = appointments.result.filter((appoint)=> appoint.status === "A")
+      console.log("available")
+      console.log(available)
+
       dispatch(doctorActions.replaceApointments({
         data: appointments.result,
         appointmentCount: count,
-        availableAppointments:appointments.result,
+        availableAppointments:available,
         isLoading : false,
       }));
     })

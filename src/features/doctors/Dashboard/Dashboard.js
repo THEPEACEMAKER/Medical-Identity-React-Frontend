@@ -106,7 +106,6 @@ const Dashboard = () => {
                         </p>
                         </div>
                         <div style={{ backgroundColor: "orange" }}>
-                            {/* <h1>{appointment.length}</h1> */}
                             <p>
                                 All
                             <br />
@@ -121,11 +120,11 @@ const Dashboard = () => {
                                 <MDBTableHead>
                                     <tr>
                                     <th scope='col'>Name</th>
-                                    {/* <th scope='col'>Title</th> */}
                                     <th scope='col'>Status</th>
-                                    {/* <th scope='col'>Position</th> */}
+                                    <th scope='col'>Date</th>
                                     <th scope='col'>Session Start </th>
                                     <th scope='col'>Session End</th>
+                                    <th scope='col'>Price</th>
                                     </tr>
                                 </MDBTableHead>
                                 <MDBTableBody>
@@ -167,13 +166,16 @@ const Dashboard = () => {
                                                     }
 
                                                 </td>
-                                                {/* <td>Senior</td> */}
+                                                <td>{appoint.date}</td>
 
                                                 <td>
                                                     {helpers.convertTimeTo12HourFormat(appoint.start_time)}
                                                 </td>
                                                 <td>
                                                 {helpers.convertTimeTo12HourFormat(appoint.end_time)}
+                                                </td>
+                                                <td>
+                                                {appoint.price}
                                                 </td>
                                             </tr>
 

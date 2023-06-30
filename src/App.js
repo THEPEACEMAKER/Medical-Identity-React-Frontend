@@ -16,37 +16,14 @@ import { doctorActions } from "./store/doctor/doctor-slice";
 import Home from "./features/home/homePage";
 import "./App.css";
 import DoctorsListPage from "./features/DoctorsListPage/DoctorsListPage";
+import { helpers } from "./features/utils/helpers";
 
 function App() {
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    const endpoint1 = "/appointment/doctor/list-all/";
-    const endpoint2 = "/appointment/doctor/list/count/status/";
-    
-    Promise.all([
-      api.get(endpoint1),
-      api.get(endpoint2),
-    ])
-      .then(([appointmentsRes, countRes]) => {
-        const appointments = appointmentsRes.data || [];
-        const count = countRes.data || 0;
-    
-        console.log(appointments, count);
-        dispatch(doctorActions.replaceApointments({
-          data: appointments.result,
-          appointmentCount: count,
-          availableAppointments:appointments.result,
-          isLoading : false,
-        }));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    
-    console.log("Inside useeffect after dispatch")
+    helpers.fetchDoctorData(dispatch)
 
 }, [dispatch]);
 

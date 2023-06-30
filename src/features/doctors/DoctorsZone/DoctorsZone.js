@@ -218,7 +218,16 @@ const DoctorsZone = () => {
             console.log(res)
             helpers.fetchDoctorData(dispatch)
         })
-      }
+    }
+
+
+    const availbleAppointments = useSelector((state) => state.doctor.availableAppointments)
+
+    function availableAppointment () {
+
+    }
+
+
 
     return (
         <div className="doctorsZone">
@@ -347,7 +356,7 @@ const DoctorsZone = () => {
 
 
 
-                                <MDBDropdown>
+                            <MDBDropdown>
                                 <MDBDropdownToggle type="button">
                                 {selectedHour ? selectedHour.label : 'Select an hour'}
                                 </MDBDropdownToggle>
