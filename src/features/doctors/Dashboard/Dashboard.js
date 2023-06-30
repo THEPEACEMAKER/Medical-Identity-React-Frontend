@@ -34,29 +34,6 @@ const Dashboard = () => {
 
     useEffect(() => {
 
-        // console.log("Inside useeffect")
-        // api.get("/appointment/doctor/list-all/")
-        // .then((res)=> {
-        //   const data = res.data
-        //   console.log(data)
-        //   dispatch(doctorActions.replaceApointments({
-        //     data: data || [],
-        //   }))
-        // })
-
-        // api.get("/appointment/doctor/list/count/status/")
-        // .then((res)=> {
-        //   const newData = res.data
-        //   console.log("Count")
-        //   console.log(newData)
-        //   dispatch(doctorActions.replaceApointments({
-        //     appointmentCount: newData
-        //   }))
-        // })
-
-
-
-
         const endpoint1 = "/appointment/doctor/list-all/";
         const endpoint2 = "/appointment/doctor/list/count/status/";
         
@@ -73,6 +50,7 @@ const Dashboard = () => {
               data: appointments,
               appointmentCount: count,
               availableAppointments:appointments,
+              isLoading : false,
             }));
           })
           .catch((error) => {
@@ -85,27 +63,11 @@ const Dashboard = () => {
 
 
 
-    // useEffect(() => {
-    //     fetch("http://localhost:3500/items")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             const fetchedData = data.reverse()
-    //             setAppointment(fetchedData);
-    //         });
-    // }, [action1]);
-
-    // console.log("pendingAppointment")
-    // console.log(pendingAppointment)
-    // console.log(appointment)
-    // console.log(selectedDateAppointment)
-
     appointment = useSelector((state) => state.doctor.appointments)
-    // console.log("myAppointment")
-    // console.log(appointment)
 
     const totalCount = useSelector((state) => state.doctor.appointmentCount)
-    // console.log("totalCount")
-    // console.log(totalCount)
+    const isLoading = useSelector((state) => state.doctor.isLoading)
+
 
 
 
@@ -113,7 +75,7 @@ const Dashboard = () => {
         <div className="dashboard">
             <Sidebar></Sidebar>
             {
-                appointment[0] ?
+                !isLoading ?
                 <FullHeight>
                 <div className="dashboardTable">
                     <h4>Dashboard</h4>

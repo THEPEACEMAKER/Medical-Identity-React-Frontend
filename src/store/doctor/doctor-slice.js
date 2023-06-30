@@ -15,7 +15,7 @@ const doctorSlice = createSlice({
             state.appointments = action.payload.data;
             state.availableAppointments = action.payload.availableAppointments;
             state.appointmentCount = action.payload.appointmentCount;
-            state.isLoading = false
+            state.isLoading = action.payload.isLoading;
             state.next = action.payload.next;
             state.previous = action.payload.previous;
         },

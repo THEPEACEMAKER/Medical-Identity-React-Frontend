@@ -64,8 +64,12 @@ const DoctorsZone = () => {
     let appointment = []
     let todaysAppointment = []
 
-    const [initialDate, setInitialDate] = useState(new Date());
     // const [appointment, setAppointment] = useState([]);
+    // const [todaysAppointment, setTodaysAppointment] = useState([]);
+    const [key, setKey] = useState(0)
+
+
+    const [initialDate, setInitialDate] = useState(new Date());
     const [action, setAction] = useState(null);
     const [next, setNext] = useState(0);
     const [previous, setPrevious] = useState(0);
@@ -76,14 +80,16 @@ const DoctorsZone = () => {
     const day = initialDate.getDate();
     const month = initialDate.getMonth();
     const year = initialDate.getFullYear();
-    // const fullDate = month + 1 + "/" + day + "/" + year;    //"2023-06-29"
     const fullDate = `${year}-${month+1}-${day}`    //"2023-06-29"
 
-    console.log("date")
-    console.log(fullDate)
+    let reload = true;
+
+
+    useEffect(()=>{
+
+    },[reload])
 
     const [selectedHour, setSelectedHour] = useState("");
-
 
     const [varyingState, setVaryingState] = useState('');
     const [varyingModal, setVaryingModal] = useState(false);
@@ -92,19 +98,7 @@ const DoctorsZone = () => {
     const onChangePrice = (event) => {
         setPrice(event.target.value);
     };
-  
-    // const onSetNewAppointment = () =>{
-    //     api.post("/appointment/doctor/add/")
-    //     .then((res)=> {
-    //       const newData = res.data
-    //       console.log("newData")
-    //       console.log(newData)
-    //     //   dispatch(doctorActions.replaceApointments({
-    //     //     appointmentCount: newData
-    //     //   }))
-    //     })
 
-    // }
 
     const tileDisabled = ({ date, view }) => {
         // Disable all dates before today
@@ -120,14 +114,6 @@ const DoctorsZone = () => {
         return false;
     };
 
-    // useEffect(() => {
-    //     fetch("http://localhost:3500/items")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             const fetchedData = data.reverse();
-    //             setAppointment(fetchedData);
-    //         })
-    // }, [action]);
 
     const handleHourSelect = (hour) => {
         setSelectedHour(hour);
@@ -135,8 +121,7 @@ const DoctorsZone = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault(); // This line prevents the default form submission
-        // onSetNewAppointment();
-        // Do something with the form data
+
         if(selectedHour.label !== null){
             let data = {
                 date:fullDate,
@@ -144,34 +129,6 @@ const DoctorsZone = () => {
                 duration: 60,
                 price: parseInt(event.target[0].value)
             }
-    
-            console.log("data inside submit")
-            console.log(data)
-    
-            // try {
-            //     api.post("/appointment/doctor/add/",data)
-            //     .then((res)=> {
-            //     const newData = res.data
-            //     console.log("res")
-            //     console.log(res)
-            //     setVaryingModal(!varyingModal);
-
-            //     })
-            //     toast.success("Form submitted successfully!", {
-            //         position: toast.POSITION.TOP_RIGHT,
-            //       });
-                
-            // } catch (error) {
-            //     setVaryingModal(!varyingModal);
-            //     console.log("inside error")
-            //     console.log(error)
-                
-            //     toast.error("Failed to submit the form, please try again later.", {
-            //         position: toast.POSITION.TOP_RIGHT,
-            //     });
-                
-            // }
-
 
                 api.post("/appointment/doctor/add/",data)
                 .then((res)=> {
@@ -222,12 +179,16 @@ const DoctorsZone = () => {
       }
 
     appointment= useSelector((state) => state.doctor.availableAppointments)
-    // if (appointment[0]){
-        todaysAppointment = appointment.filter((appointment) => appointment.date === "2023-06-30" )//formatDate(fullDate));
-    // }  
- 
 
-    // console.log(`${appointment[8].date} : ${fullDate}`)
+
+    // setAppointment(useSelector((state) => state.doctor.availableAppointments))
+
+    todaysAppointment = appointment.filter((appointment) => appointment.date === formatDate(fullDate))//formatDate(fullDate));
+    
+    // setTodaysAppointment(appointment.filter((appointment) => appointment.date === "2023-06-30" ))
+
+    const isLoading = useSelector((state) => state.doctor.isLoading)
+ 
 
     console.log("todaysAppointment")
     console.log(todaysAppointment)
@@ -252,6 +213,8 @@ const DoctorsZone = () => {
         // todaysAppointment = todaysAppointment.slice(((skip*limit)-limit),(skip*limit))
         todaysAppointment = todaysAppointment.slice(lowerLimit, upperLimit)
 
+        
+
         console.log("todaysAppointment in next")
         console.log(todaysAppointment)
         
@@ -270,8 +233,21 @@ const DoctorsZone = () => {
         console.log(previous)
     }
 
+    function handleDeleteRecord( recordId) {
+        console.log(recordId)
+
+        api.delete(`appointment/doctor/delete/${recordId}/`)
+        .then((res)=> {
+            const newData = res.data
+            console.log("res")
+            console.log(res.status)
+            
+        })
+        // setKey(key+1)
+      }
+
     return (
-        <div className="doctorsZone">
+        <div key={key} className="doctorsZone">
             <Sidebar></Sidebar>
             <div className="zoneAppointment">
             <h4>Appointment</h4>
@@ -286,7 +262,7 @@ const DoctorsZone = () => {
                     </Calendar>
                 </div>
                 {
-                    appointment[0] ?
+                    !isLoading ?
                         <FullHeight>
                             <div className="appointmentTable">
                                 <div className="tableHeading">
@@ -310,6 +286,7 @@ const DoctorsZone = () => {
                                             <th scope='col'>Session End</th>
                                             <th scope='col'>Price</th>
                                             <th scope='col'>Date</th>
+                                            <th scope='col'>Delete</th>
                                             </tr>
                                         </MDBTableHead>
                                         <MDBTableBody>
@@ -331,21 +308,17 @@ const DoctorsZone = () => {
                                                     <td>
                                                         {appoint.date}
                                                     </td>
+                                                    <td>
+                                                        <MDBBtn type="button" rounded className='mx-2' color='danger' onClick={() => handleDeleteRecord(appoint.id)}>
+                                                            Delete
+                                                        </MDBBtn>
+                                                    </td>
                                                     </tr>
                                                 
 
                                                 ))
                                             }
-                                            {/* <div >
-                                                <button onClick={prevPage} class=" items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                                    <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
-                                                    Prev
-                                                </button>
-                                                <button  onClick={nextPage} class=" items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                                    Next
-                                                    <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                                </button>
-                                            </div> */}
+
 
 
 
@@ -353,16 +326,16 @@ const DoctorsZone = () => {
                                         </MDBTableBody>
                                     </MDBTable>
 
-                                    <div>
-  <button onClick={prevPage} class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 rounded-l dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-    <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="black" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
-    <span class="text-black hover:text-white">Prev</span>
-  </button>
-  <button onClick={nextPage} class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 border-0 border-l border-gray-700 rounded-r dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-    <span class="text-black hover:text-white">Next</span>
-    <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="black" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-  </button>
-</div>
+                                        <div>
+                                            <button onClick={prevPage} class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 rounded-l dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="black" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                                                <span class="text-black hover:text-white">Prev</span>
+                                            </button>
+                                            <button onClick={nextPage} class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 border-0 border-l border-gray-700 rounded-r dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                <span class="text-black hover:text-white">Next</span>
+                                                <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="black" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            </button>
+                                        </div>
                                 </TableContainer>
                             </div>
                         </FullHeight> :
