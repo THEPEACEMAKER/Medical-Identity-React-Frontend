@@ -2,16 +2,32 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./stylee.module.css";
 import { logout } from "../../auth/authSlice";
+import { useEffect, useState } from "react";
+import api from "../../../api/api";
 
 function Navbar() {
   const dispatch = useDispatch();
   const { isLoggedIn, isDoctor, isPatient } = useSelector(
     (state) => state.auth
   );
+  const [specializations, setSpecializations] = useState([]);
 
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("specializations");
+        setSpecializations(response.data);
+      } catch (error) {
+        console.error("Error fetching specializations:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <nav className={`navbar navbar-expand-lg bg-body-tertiary p-0`}>
@@ -113,6 +129,67 @@ function Navbar() {
               >
                 <i className="fa-solid fa-bars text-black"></i>
               </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-dark py-2 mt-3">
+          {" "}
+          <div
+            className="offcanvas offcanvas-end align-self-start container m-auto"
+            tabIndex="-1"
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+          >
+            <div className="offcanvas-body ">
+              <ul
+                className={`navbar-nav ${styles.ulNavbar} d-lg-flex align-items-lg-center gap-lg-3`}
+              >
+                <li className="nav-item dropdown">
+                  <Link
+                    className="btn d-flex align-items-center justify-content-between  bg-primary"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style={{
+                      height: "65px",
+                      padding: "0 30px",
+                      width: "300px",
+                    }}
+                  >
+                    <h6 className="text-dark m-0">
+                      <i className="fa fa-bars mx-2"></i>Specializations
+                    </h6>
+                    <i className="fa fa-angle-down text-dark mx-2"></i>{" "}
+                  </Link>
+                  <ul
+                    className={`dropdown-menu ${styles.dropdownMenu}`}
+                    style={{ padding: "0 30px", width: "300px" }}
+                  >
+                    {specializations &&
+                      specializations.map((el, i) => (
+                        <li key={el.id}>
+                          <Link
+                            to={`/doctors/${el.id}`}
+                            className="dropdown-item"
+                          >
+                            <span>{el.name}</span>
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    className={`nav-link ${styles.active}`}
+                    aria-current="page"
+                    to="/home"
+                  >
+                    Home
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
