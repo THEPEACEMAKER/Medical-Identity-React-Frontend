@@ -6,11 +6,14 @@ import 'react-calendar/dist/Calendar.css';
 import { TableContainer } from '@mui/material'
 import FullHeight from "react-full-height";
 import Sidebar from '../Sidebar/Sidebar';
-import { MDBModal, MDBBtn, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBInput, MDBModalFooter, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
+import {MDBTable, MDBTableHead, MDBTableBody, MDBModal, MDBBtn, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBInput, MDBModalFooter, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
 import api from '../../../api/api';
 import { useSelector,useDispatch } from 'react-redux';
-// import { doctorActions } from '../../../store/doctor/doctor-slice';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import { MDBTable } from 'mdb-react-ui-kit';
+import { helpers } from '../../utils/helpers';
+import { color } from 'framer-motion';
 
 
 // const hours = [
@@ -57,16 +60,29 @@ const DoctorsZone = () => {
 
 
 
+
+    let appointment = []
+    let todaysAppointment = []
+
     const [initialDate, setInitialDate] = useState(new Date());
-    const [appointment, setAppointment] = useState([]);
+    // const [appointment, setAppointment] = useState([]);
     const [action, setAction] = useState(null);
+    const [next, setNext] = useState(0);
+    const [previous, setPrevious] = useState(0);
+
+    const [skip, setSkip] = useState(1);
+    const [limit, setPLimit] = useState(2);
+
     const day = initialDate.getDate();
     const month = initialDate.getMonth();
     const year = initialDate.getFullYear();
     // const fullDate = month + 1 + "/" + day + "/" + year;    //"2023-06-29"
     const fullDate = `${year}-${month+1}-${day}`    //"2023-06-29"
 
-    const [selectedHour, setSelectedHour] = useState(null);
+    console.log("date")
+    console.log(fullDate)
+
+    const [selectedHour, setSelectedHour] = useState("");
 
 
     const [varyingState, setVaryingState] = useState('');
@@ -102,16 +118,16 @@ const DoctorsZone = () => {
           return true;
         }
         return false;
-      };
+    };
 
-    useEffect(() => {
-        fetch("http://localhost:3500/items")
-            .then(res => res.json())
-            .then(data => {
-                const fetchedData = data.reverse();
-                setAppointment(fetchedData);
-            })
-    }, [action]);
+    // useEffect(() => {
+    //     fetch("http://localhost:3500/items")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             const fetchedData = data.reverse();
+    //             setAppointment(fetchedData);
+    //         })
+    // }, [action]);
 
     const handleHourSelect = (hour) => {
         setSelectedHour(hour);
@@ -121,7 +137,7 @@ const DoctorsZone = () => {
         event.preventDefault(); // This line prevents the default form submission
         // onSetNewAppointment();
         // Do something with the form data
-        if(selectedHour.label){
+        if(selectedHour.label !== null){
             let data = {
                 date:fullDate,
                 start_time: selectedHour.label,
@@ -132,15 +148,61 @@ const DoctorsZone = () => {
             console.log("data inside submit")
             console.log(data)
     
-            api.post("/appointment/doctor/add/",data)
-            .then((res)=> {
-              const newData = res.data
-              console.log("newData")
-              console.log(newData)
-            //   dispatch(doctorActions.replaceApointments({
-            //     appointmentCount: newData
-            //   }))
-            })
+            // try {
+            //     api.post("/appointment/doctor/add/",data)
+            //     .then((res)=> {
+            //     const newData = res.data
+            //     console.log("res")
+            //     console.log(res)
+            //     setVaryingModal(!varyingModal);
+
+            //     })
+            //     toast.success("Form submitted successfully!", {
+            //         position: toast.POSITION.TOP_RIGHT,
+            //       });
+                
+            // } catch (error) {
+            //     setVaryingModal(!varyingModal);
+            //     console.log("inside error")
+            //     console.log(error)
+                
+            //     toast.error("Failed to submit the form, please try again later.", {
+            //         position: toast.POSITION.TOP_RIGHT,
+            //     });
+                
+            // }
+
+
+                api.post("/appointment/doctor/add/",data)
+                .then((res)=> {
+                    const newData = res.data
+                    console.log("res")
+                    console.log(res.status)
+                    setVaryingModal(!varyingModal);
+                    setPrice("Enter price")
+                    setSelectedHour("")
+
+                    if(res.status === 201){
+                        toast.success("Form submitted successfully!", {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    }
+
+                
+                }).catch((error) => {
+                    // if(error.originalError.response.status === 400) {
+                        console.log("inside error")
+                        setVaryingModal(!varyingModal);
+                        toast.error("Failed to submit the form, please try again later.", {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    // }
+
+
+                        
+                    
+                    console.log(error)
+                })
         }
  
         // setVaryingModal(!varyingModal)
@@ -150,10 +212,63 @@ const DoctorsZone = () => {
         if (event.key === '-' || event.key === 'Minus') {
           event.preventDefault();
         }
-      };
+    };
 
-    console.log("appointment")
+    function formatDate(dateString) {
+        const [year, month, day] = dateString.split("-");
+        const formattedMonth = parseInt(month, 10) < 10 ? `0${month}` : month;
+        const formattedDay = parseInt(day, 10) < 10 ? `0${day}` : day;
+        return `${year}-${formattedMonth}-${formattedDay}`;
+      }
+
+    appointment= useSelector((state) => state.doctor.availableAppointments)
+    // if (appointment[0]){
+        todaysAppointment = appointment.filter((appointment) => appointment.date === "2023-06-30" )//formatDate(fullDate));
+    // }  
+ 
+
+    // console.log(`${appointment[8].date} : ${fullDate}`)
+
+    console.log("todaysAppointment")
+    console.log(todaysAppointment)
+
+    console.log("appointment 1")
     console.log(appointment)
+
+    let upperLimit = 0;
+    let lowerLimit = appointment.length
+
+    const nextPage = () => {
+        // sessionStorage.setItem('urlValue', next);
+        // dispatch(productActions.replaceProducts({ isLoading: true }))
+        // dispatch(fetchProducts(next))
+        if((skip*limit) <= appointment.length){
+            setSkip(skip+1)
+        } 
+
+         upperLimit = (skip*limit) >= appointment.length ? appointment.length : (skip*limit)
+         lowerLimit = ((skip*limit)-limit) <= 0 ? 0 : ((skip*limit)-limit)
+
+        // todaysAppointment = todaysAppointment.slice(((skip*limit)-limit),(skip*limit))
+        todaysAppointment = todaysAppointment.slice(lowerLimit, upperLimit)
+
+        console.log("todaysAppointment in next")
+        console.log(todaysAppointment)
+        
+        console.log(skip)
+        // console.log(((skip*limit)-2))
+        // console.log((skip*limit))
+        console.log(upperLimit)
+        console.log(lowerLimit)
+    }
+
+    const prevPage = () => {
+        // sessionStorage.setItem('urlValue', previous);
+        // dispatch(productActions.replaceProducts({ isLoading: true }))
+        // dispatch(fetchProducts(previous))
+        setPrevious(previous+1)
+        console.log(previous)
+    }
 
     return (
         <div className="doctorsZone">
@@ -186,38 +301,68 @@ const DoctorsZone = () => {
                                     <p>{fullDate}</p>
                                 </div>
                                 <TableContainer >
-                                    {/* <Table >
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">Name</TableCell>
-                                                <TableCell align="center">Schedule</TableCell>
-                                                <TableCell align="right">Action</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
+
+                                    <MDBTable striped hover>
+                                        <MDBTableHead>
+                                            <tr>
+                                            <th scope='col'>#</th>
+                                            <th scope='col'>Session Start</th>
+                                            <th scope='col'>Session End</th>
+                                            <th scope='col'>Price</th>
+                                            <th scope='col'>Date</th>
+                                            </tr>
+                                        </MDBTableHead>
+                                        <MDBTableBody>
+
+
                                             {
-                                                selectedDateAppointment.map((appointment) => (
-                                                    <TableRow key={appointment._id}>
-                                                        <TableCell align="left">
-                                                            {appointment.details.name}
-                                                        </TableCell>
-                                                        <TableCell align="center">{appointment.details.time}</TableCell>
-                                                        <TableCell onMouseOver={() => setKey(appointment.key)} align="right">
-                                                            <Select
-                                                                style={{ color: "white" }}
-                                                                className="actionSelect"
-                                                                value={appointment.action}
-                                                                onChange={handleChange}
-                                                            >
-                                                                <MenuItem value={"notVisited"}>Not Visited</MenuItem>
-                                                                <MenuItem value={"visited"}>Visited</MenuItem>
-                                                            </Select>
-                                                        </TableCell>
-                                                    </TableRow>
+                                                todaysAppointment.map((appoint) => (
+                                                    <tr>
+                                                    <th scope='row'>1</th>
+                                                    <td>
+                                                        {helpers.convertTimeTo12HourFormat(appoint.start_time) }
+                                                    </td>
+                                                    <td>
+                                                        {helpers.convertTimeTo12HourFormat(appoint.end_time) }
+                                                    </td>
+                                                    <td>
+                                                        {appoint.price}
+                                                    </td>
+                                                    <td>
+                                                        {appoint.date}
+                                                    </td>
+                                                    </tr>
+                                                
+
                                                 ))
                                             }
-                                        </TableBody>
-                                    </Table> */}
+                                            {/* <div >
+                                                <button onClick={prevPage} class=" items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                    <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                                                    Prev
+                                                </button>
+                                                <button  onClick={nextPage} class=" items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                    Next
+                                                    <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                </button>
+                                            </div> */}
+
+
+
+
+                                        </MDBTableBody>
+                                    </MDBTable>
+
+                                    <div>
+  <button onClick={prevPage} class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 rounded-l dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="black" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+    <span class="text-black hover:text-white">Prev</span>
+  </button>
+  <button onClick={nextPage} class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 border-0 border-l border-gray-700 rounded-r dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    <span class="text-black hover:text-white">Next</span>
+    <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="black" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  </button>
+</div>
                                 </TableContainer>
                             </div>
                         </FullHeight> :
