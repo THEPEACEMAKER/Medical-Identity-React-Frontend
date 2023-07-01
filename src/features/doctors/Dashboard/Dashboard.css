@@ -54,6 +54,41 @@
     border-radius: 4px;
 }
 
+.my-All-Appointment-component {
+    background-color: rgb(60, 179, 113);
+    padding: 20px;
+    border: 1px solid rgb(35, 136, 80);
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .my-All-Appointment-component:hover {
+    background-color:  rgb(35, 136, 80);
+  }
+
+
+  .my-available-Appointment-component {
+    background-color: #00bfff;
+    padding: 20px;
+    border: 1px solid #006e92;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .my-available-Appointment-component:hover {
+    background-color:  #006e92;
+  }
+
+
+  .my-reserved-Appointment-component {
+    background-color: #ff6347;
+    padding: 20px;
+    border: 1px solid #912310;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .my-reserved-Appointment-component:hover {
+    background-color:  #912310;
+  }
+
 @media only screen and (max-width: 1200px) {
     .dashboardHeading{
         margin-right: 0px;

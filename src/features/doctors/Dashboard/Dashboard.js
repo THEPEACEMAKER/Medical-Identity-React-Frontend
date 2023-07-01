@@ -5,189 +5,19 @@ import Sidebar from '../Sidebar/Sidebar';
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import FullHeight from "react-full-height";
 import { useSelector,useDispatch } from 'react-redux';
-import api from '../../../api/api';
-import { doctorActions } from '../../../store/doctor/doctor-slice';
-import { fetchAppointments } from '../../../store/doctor/doctor-action';
 import { helpers } from '../../utils/helpers';
-
-
 
 
 const Dashboard = () => {
 
+    const getAllAppointment = useSelector((state) => state.doctor.appointments)
+
+    const [appointment, setAppointment] = useState([])
+
     const dispatch = useDispatch();
 
-    // const [appointment, setAppointment] = useState([]);
-    let appointment = [
-        {
-            "id": 1,
-            "doctor": "omar",
-            "date": "2023-07-01",
-            "start_time": "14:00:00",
-            "duration": 60,
-            "price": "500.00",
-            "status": "R",
-            "end_time": "15:00:00",
-            "reservation_data": {
-                "patient": {
-                    "id": 3,
-                    "first_name": "Islam",
-                    "last_name": "sulaiman",
-                    "date_of_birth": "1990-12-12",
-                    "phone": "01013552667",
-                    "gender": "Male",
-                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
-                }
-            }
-        },
-        {
-            "id": 1,
-            "doctor": "omar",
-            "date": "2023-07-01",
-            "start_time": "14:00:00",
-            "duration": 60,
-            "price": "500.00",
-            "status": "R",
-            "end_time": "15:00:00",
-            "reservation_data": {
-                "patient": {
-                    "id": 4,
-                    "first_name": "omar",
-                    "last_name": "amgad",
-                    "date_of_birth": "1990-12-12",
-                    "phone": "01013552667",
-                    "gender": "Male",
-                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
-                }
-            }
-        },
-        {
-            "id": 1,
-            "doctor": "omar",
-            "date": "2023-07-01",
-            "start_time": "14:00:00",
-            "duration": 60,
-            "price": "500.00",
-            "status": "R",
-            "end_time": "15:00:00",
-            "reservation_data": {
-                "patient": {
-                    "id": 3,
-                    "first_name": "salah",
-                    "last_name": "mo",
-                    "date_of_birth": "1990-12-12",
-                    "phone": "01013552667",
-                    "gender": "Male",
-                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
-                }
-            }
-        },
-        {
-            "id": 1,
-            "doctor": "omar",
-            "date": "2023-07-01",
-            "start_time": "14:00:00",
-            "duration": 60,
-            "price": "500.00",
-            "status": "R",
-            "end_time": "15:00:00",
-            "reservation_data": {
-                "patient": {
-                    "id": 3,
-                    "first_name": "dar4",
-                    "last_name": "hoda",
-                    "date_of_birth": "1990-12-12",
-                    "phone": "01013552667",
-                    "gender": "Male",
-                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
-                }
-            }
-        },
-        {
-            "id": 1,
-            "doctor": "omar",
-            "date": "2023-07-01",
-            "start_time": "16:00:00",
-            "duration": 60,
-            "price": "570.00",
-            "status": "R",
-            "end_time": "15:00:00",
-            "reservation_data": {
-                "patient": {
-                    "id": 3,
-                    "first_name": "adel",
-                    "last_name": "elmogadel",
-                    "date_of_birth": "1990-12-12",
-                    "phone": "01013552667",
-                    "gender": "Male",
-                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
-                }
-            }
-        },
-        {
-            "id": 1,
-            "doctor": "omar",
-            "date": "2023-07-01",
-            "start_time": "16:00:00",
-            "duration": 60,
-            "price": "570.00",
-            "status": "A",
-            "end_time": "15:00:00",
-            "reservation_data": {
-                "patient": {
-                    "id": 3,
-                    "first_name": "adel",
-                    "last_name": "elmogadel",
-                    "date_of_birth": "1990-12-12",
-                    "phone": "01013552667",
-                    "gender": "Male",
-                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
-                }
-            }
-        },
-    ]
-
-    // const [action1, setAction1] = useState(null);
-    // const [key, setKey] = useState(null)
-    // const pendingAppointment = appointment.filter(pa => pa.action1 === "pending");
-    // const todaysDate = new Date();
-    // const day = todaysDate.getDate();
-    // const month = todaysDate.getMonth();
-    // const year = todaysDate.getFullYear();
-    // const fullTodaysDate = month + 1 + "/" + day + "/" + year;
-
-
-    useEffect(() => {
-
-        const endpoint1 = "/appointment/doctor/list-all/";
-        const endpoint2 = "/appointment/doctor/list/count/status/";
-        
-        Promise.all([
-          api.get(endpoint1),
-          api.get(endpoint2),
-        ])
-          .then(([appointmentsRes, countRes]) => {
-            const appointments = appointmentsRes.data || [];
-            const count = countRes.data || 0;
-        
-            console.log("inside app")
-            console.log(appointments, count);
-            dispatch(doctorActions.replaceApointments({
-              data: appointments.result,
-              appointmentCount: count,
-              availableAppointments:appointments.result,
-              isLoading : false,
-            }));
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-        
-        console.log("Inside useeffect after dispatch")
-    
-    }, [dispatch]);
-
-    // appointment = useSelector((state) => state.doctor.appointments)
+    const availableAppointments = useSelector((state) => state.doctor.availableAppointments)
+    const reservedAppointments = useSelector((state) => state.doctor.reservedAppointment)
 
     console.log("Dashboard appointment")
     console.log(appointment)
@@ -198,6 +28,29 @@ const Dashboard = () => {
 
 
 
+    useEffect(() => {
+
+        setAppointment(getAllAppointment)
+
+    }, [dispatch, getAllAppointment]);
+
+
+    function allAppointment (){
+        helpers.fetchDoctorData(dispatch)
+        setAppointment(getAllAppointment)
+
+    }
+
+    function availableAppointment (){
+        helpers.fetchDoctorData(dispatch)
+        setAppointment(availableAppointments)
+    }
+
+    function reservedAppointment (){
+        helpers.fetchDoctorData(dispatch)
+        setAppointment(reservedAppointments)
+        
+    }
 
     return (
         <div className="dashboard">
@@ -208,36 +61,35 @@ const Dashboard = () => {
                 <div className="dashboardTable">
                     <h4>Dashboard</h4>
                     <div className="dashboardHeading">
-                        <div style={{ backgroundColor: "tomato" }}>
-                            <h1>{totalCount.Reserved}</h1>
+                        <div
+                              className="my-All-Appointment-component"
+                              onClick={allAppointment}>
+                            <h1>{totalCount.total}</h1>
                             <p>
-                                Reserved
+                                All
                             <br />
                             Appointments
-                        </p>
+                            </p>
                         </div>
-                        <div style={{ backgroundColor: "deepskyblue" }}>
+                        <div 
+                            className="my-available-Appointment-component"
+                            onClick={availableAppointment}>
                             <h1>{totalCount.Available}</h1>
                             <p>
                                 Available
                             <br />
                             Appointments
-                        </p>
+                            </p>
                         </div>
-                        <div style={{ backgroundColor: "mediumseagreen" }}>
-                            <h1>{totalCount.total}</h1>
+                        <div 
+                            className='my-reserved-Appointment-component'
+                        onClick={reservedAppointment}>
+                            <h1>{totalCount.Reserved}</h1>
                             <p>
-                                Total
+                                Reserved
                             <br />
                             Appointments
-                        </p>
-                        </div>
-                        <div style={{ backgroundColor: "orange" }}>
-                            <p>
-                                All
-                            <br />
-                            Appointments
-                        </p>
+                            </p>
                         </div>
                     </div>
                     <div className="dashboardTableDetails">

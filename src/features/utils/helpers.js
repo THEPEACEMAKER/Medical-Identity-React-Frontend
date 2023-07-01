@@ -39,26 +39,43 @@ function fetchDoctorData (dispatch) {
   
   const endpoint1 = "/appointment/doctor/list-all/";
   const endpoint2 = "/appointment/doctor/list/count/status/";
+  const endpoint3 = "/appointment/doctor/list/available/";
+  const endpoint4 = "/appointment/doctor/list/reserved/";
   
   Promise.all([
     api.get(endpoint1),
     api.get(endpoint2),
+    api.get(endpoint3),
+    api.get(endpoint4)
   ])
-    .then(([appointmentsRes, countRes]) => {
+    .then(([appointmentsRes, countRes, availableResponse, reservedResponse]) => {
       const appointments = appointmentsRes.data || [];
       const count = countRes.data || 0;
+      const availabelAppoint = availableResponse.data || [];
+      const reservedAppoint = reservedResponse.data || [];
   
-      console.log("inside app")
+      console.log("inside api")
       console.log(appointments, count);
 
+      console.log("available in api")
+      console.log(availabelAppoint)
+
+      console.log("reserved in api")
+      console.log(reservedAppoint)
+
       const available = appointments.result.filter((appoint)=> appoint.status === "A")
+
+      console.log(appointments.result)
+      console.log(available)
+
       console.log("available")
       console.log(available)
 
       dispatch(doctorActions.replaceApointments({
         data: appointments.result,
         appointmentCount: count,
-        availableAppointments:available,
+        reservedAppointment: reservedAppoint.result,
+        availableAppointments:availabelAppoint.result,
         isLoading : false,
       }));
     })
