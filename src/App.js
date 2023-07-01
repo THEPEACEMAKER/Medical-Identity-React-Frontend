@@ -20,15 +20,14 @@ import { helpers } from "./features/utils/helpers";
 import MedicalEntry from "./features/medicalEntry/medicalEntry";
 import Entry from "./features/doctors/Entry/Entry";
 
+import Reservations from "./features/patient/Reservations/Reservations";
 
 function App() {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    helpers.fetchDoctorData(dispatch)
-
-}, [dispatch]);
+    helpers.fetchDoctorData(dispatch);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -66,6 +65,7 @@ function App() {
             }
           >
             <Route path="patientDashboard" element={<PatientDashboard />} />
+            <Route path="reservations" element={<Reservations />} />
             {/* <Route path="profile" element={<Profile />} /> */}
           </Route>
 

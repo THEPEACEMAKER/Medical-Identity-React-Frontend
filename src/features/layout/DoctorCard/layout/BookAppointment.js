@@ -15,10 +15,8 @@ const BookAppointment = ({ doctorID }) => {
     const fetchDates = async () => {
       try {
         const datesAfterToday = [];
-        for (let i = 0; i < 6; i++) {
-          const date = moment()
-            .add(i + 1, "days")
-            .format("YYYY-MM-DD");
+        for (let i = 0; i < 7; i++) {
+          const date = moment().add(i, "days").format("YYYY-MM-DD");
           datesAfterToday.push(date);
         }
         setDates(datesAfterToday);
@@ -69,7 +67,7 @@ const BookAppointment = ({ doctorID }) => {
       <div>
         <Select
           style={{
-            width: 265,
+            width: "100%",
           }}
           className="date-select"
           defaultValue={null}
@@ -85,7 +83,7 @@ const BookAppointment = ({ doctorID }) => {
       <div>
         <Select
           style={{
-            width: 265,
+            width: "100%",
           }}
           className="time-select mt-2"
           placeholder="Select a Time | Price"

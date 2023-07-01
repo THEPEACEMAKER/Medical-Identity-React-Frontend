@@ -68,6 +68,10 @@ function Navbar() {
                     <i className="fas fa-bed-pulse"></i>
                     <span> Patients</span>
                   </Link>{" "}
+                  <Link to="/reservations" className="mx-2 text-dark">
+                    <i className="fas fa-calendar-check"></i>
+                    <span> Reservations</span>
+                  </Link>{" "}
                 </>
               )}
 

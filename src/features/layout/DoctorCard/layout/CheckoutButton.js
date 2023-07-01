@@ -6,15 +6,15 @@ function CheckoutButton({ appointmentId }) {
 
   const handleCheckout = () => {
     api
-      .post("/payment/", { appointmentid: appointmentId })
+      .post(`/payment/create-checkout-session/${appointmentId}/`)
       .then((res) => {
-        setCheckoutUrl(res.data.sessionId);
+        setCheckoutUrl(res.data.url);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
+  
   useEffect(() => {
     if (checkoutUrl) {
       // Redirect the user to the Stripe checkout page
