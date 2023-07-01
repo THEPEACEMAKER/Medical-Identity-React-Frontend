@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import { MDBTable } from 'mdb-react-ui-kit';
 import { helpers } from '../../utils/helpers';
 import { color } from 'framer-motion';
-
+import { doctorActions } from '../../../store/doctor/doctor-slice';
 
 // const hours = [
 //     { id: 1, label: '9:00 AM' },
@@ -66,8 +66,6 @@ const DoctorsZone = () => {
 
     // const [appointment, setAppointment] = useState([]);
     // const [todaysAppointment, setTodaysAppointment] = useState([]);
-    const [key, setKey] = useState(0)
-
 
     const [initialDate, setInitialDate] = useState(new Date());
     const [action, setAction] = useState(null);
@@ -81,13 +79,6 @@ const DoctorsZone = () => {
     const month = initialDate.getMonth();
     const year = initialDate.getFullYear();
     const fullDate = `${year}-${month+1}-${day}`    //"2023-06-29"
-
-    let reload = true;
-
-
-    useEffect(()=>{
-
-    },[reload])
 
     const [selectedHour, setSelectedHour] = useState("");
 
@@ -147,23 +138,12 @@ const DoctorsZone = () => {
 
                 
                 }).catch((error) => {
-                    // if(error.originalError.response.status === 400) {
-                        console.log("inside error")
-                        setVaryingModal(!varyingModal);
-                        toast.error("Failed to submit the form, please try again later.", {
-                            position: toast.POSITION.TOP_RIGHT,
-                        });
-                    // }
-
-
-                        
-                    
-                    console.log(error)
+                    console.log("inside error")
+                    alert("Error: Missing data")
+ 
                 })
         }
- 
-        // setVaryingModal(!varyingModal)
-    };
+     };
 
     const onKeyPressPrice = (event) => {
         if (event.key === '-' || event.key === 'Minus') {
@@ -239,15 +219,14 @@ const DoctorsZone = () => {
         api.delete(`appointment/doctor/delete/${recordId}/`)
         .then((res)=> {
             const newData = res.data
-            console.log("res")
-            console.log(res.status)
-            
+            console.log("delete res")
+            console.log(res)
+            helpers.fetchDoctorData(dispatch)
         })
-        // setKey(key+1)
       }
 
     return (
-        <div key={key} className="doctorsZone">
+        <div className="doctorsZone">
             <Sidebar></Sidebar>
             <div className="zoneAppointment">
             <h4>Appointment</h4>

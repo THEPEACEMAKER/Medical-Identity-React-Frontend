@@ -62,8 +62,9 @@ const Dashboard = () => {
 
     appointment = useSelector((state) => state.doctor.appointments)
 
-    console.log("Appointment")
+    console.log("Dashboard appointment")
     console.log(appointment)
+
 
     const totalCount = useSelector((state) => state.doctor.appointmentCount)
     const isLoading = useSelector((state) => state.doctor.isLoading)
