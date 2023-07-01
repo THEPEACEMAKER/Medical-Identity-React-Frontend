@@ -37,7 +37,7 @@ function DoctorCard({ doctor }) {
         </MDBRipple>
         <MDBCardBody>
           <h5 className="card-title mb-3">{`${first_name} ${last_name}`}</h5>
-          <p>{specialization}</p>
+          <p>{specialization.name}</p>
 
           {isPatient && <BookAppointment doctorID={id} />}
         </MDBCardBody>
