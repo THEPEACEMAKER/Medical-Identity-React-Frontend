@@ -86,24 +86,6 @@ const DoctorsZone = () => {
         setPrice(event.target.value);
     };
 
-
-    // const tileDisabled = ({ date, view }) => {
-    //     // Disable all dates before today
-    //     console.log("tile disabple")
-    //     console.log(date)
-    //     console.log(new Date())
-    //     if (date < new Date()) {
-    //       return true;
-    //     }
-    //     // Disable all dates after 6 days from today
-    //     const maxDate = new Date();
-    //     maxDate.setDate(maxDate.getDate() + 6);
-    //     if (date > maxDate) {
-    //       return true;
-    //     }
-    //     return false;
-    // };
-
     const tileDisabled = ({ date, view }) => {
         // Disable all dates before today (excluding today)
         const today = new Date();
