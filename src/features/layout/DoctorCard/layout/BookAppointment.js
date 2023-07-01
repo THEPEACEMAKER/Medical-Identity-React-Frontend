@@ -69,7 +69,7 @@ const BookAppointment = ({ doctorID }) => {
       <div>
         <Select
           style={{
-            width: 265,
+            width: "100%",
           }}
           className="date-select"
           defaultValue={null}
@@ -85,7 +85,7 @@ const BookAppointment = ({ doctorID }) => {
       <div>
         <Select
           style={{
-            width: 265,
+            width: "100%",
           }}
           className="time-select mt-2"
           placeholder="Select a Time | Price"
