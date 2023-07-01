@@ -3,17 +3,23 @@ import api from "../../api/api";
 
 export const fetchDoctorsBySpecializations = createAsyncThunk(
   "doctorsPage/fetchDoctorsBySpecializations",
-  async ({ specializationId, pageSize, page }, thunkAPI) => {
+  async (
+    { selectedCity, selectedDistrict, specializationId, pageSize, page },
+    thunkAPI
+  ) => {
     try {
-      const response = await api.get(
-        `/account/doctor/specialization/${specializationId}/`,
-        {
-          params: {
-            page,
-            size: pageSize,
-          },
-        }
-      );
+      let url = `/account/doctor/specialization/${specializationId}/`;
+
+      if (selectedDistrict) {
+        url = `/account/doctor/city/${selectedCity}/district/${selectedDistrict}/specialization/${specializationId}/`;
+      }
+
+      const response = await api.get(url, {
+        params: {
+          page,
+          size: pageSize,
+        },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

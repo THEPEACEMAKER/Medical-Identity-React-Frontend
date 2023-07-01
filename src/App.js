@@ -18,6 +18,8 @@ import "./App.css";
 import DoctorsListPage from "./features/DoctorsListPage/DoctorsListPage";
 import { helpers } from "./features/utils/helpers";
 
+import MedicalEntry from "./features/medicalEntry/medicalEntry";
+
 function App() {
 
   const dispatch = useDispatch();
@@ -69,6 +71,8 @@ function App() {
             path="doctors/:specializationId"
             element={<DoctorsListPage />}
           />
+
+          <Route path="medicalEntry" element={<MedicalEntry />} />
 
           <Route path="home" element={<Home />} />
           <Route path="" element={<Home />} />

@@ -10,6 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 import DoctorCard from "../layout/DoctorCard/DoctorCard";
 import { fetchDoctorsBySpecializations } from "./DoctorsListSlice";
+import PlaceSelect_DoctorsListPage from "./layout/PlaceSelect-DoctorsListPage";
 
 function DoctorsListPage() {
   const { specializationId } = useParams();
@@ -17,15 +18,33 @@ function DoctorsListPage() {
   const { doctors, status, error, totaldoctorsCount } = useSelector(
     (state) => state.doctorsPage
   );
+  // select place
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
 
+  const handleCityChange = (value) => {
+    setSelectedCity(value);
+  };
+
+  const handleDistrictChange = (value) => {
+    setSelectedDistrict(value);
+  };
+
+  // pagination
   const [pageSize, setPageSize] = useState(8);
   const [page, setPage] = useState(1);
   const [pagesQuantity, setPagesQuantity] = useState(0);
   useEffect(() => {
     dispatch(
-      fetchDoctorsBySpecializations({ specializationId, pageSize, page })
+      fetchDoctorsBySpecializations({
+        selectedCity,
+        selectedDistrict,
+        specializationId,
+        pageSize,
+        page,
+      })
     );
-  }, [specializationId, dispatch, page, pageSize]);
+  }, [specializationId, dispatch, page, pageSize, selectedDistrict]);
 
   useEffect(() => {
     // calculate the total number of pages
@@ -46,6 +65,13 @@ function DoctorsListPage() {
 
   return (
     <MDBContainer fluid className="my-5">
+      <PlaceSelect_DoctorsListPage
+        selectedCity={selectedCity}
+        setSelectedCity={handleCityChange}
+        selectedDistrict={selectedDistrict}
+        setSelectedDistrict={handleDistrictChange}
+      />
+
       <h1 className="">
         {/* {status === "succeeded" && doctors.length
           ? doctors[0].specialization.name
