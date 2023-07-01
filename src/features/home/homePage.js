@@ -181,10 +181,9 @@ function Home() {
 
           <MDBContainer fluid className="my-5 text-center">
             <MDBRow>
-              {console.log("process.env.PUBLIC_URL: " + process.env.PUBLIC_URL)}
               <DoctorCard
                 doctor={{
-                  id: 7,
+                  id: 10,
                   first_name: "Adel",
                   last_name: "Kenawy",
                   email: "adel@doctor.com",
