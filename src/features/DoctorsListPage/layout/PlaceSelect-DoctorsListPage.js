@@ -2,11 +2,13 @@ import { Select, Space } from "antd";
 import { useState, useEffect } from "react";
 import api from "../../../api/api";
 
-const PlaceSelect_DoctorsListPage = ({ specializationId }) => {
+const PlaceSelect_DoctorsListPage = ({
+  setSelectedCity,
+  selectedDistrict,
+  setSelectedDistrict,
+}) => {
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +33,7 @@ const PlaceSelect_DoctorsListPage = ({ specializationId }) => {
     const selectedCityData = cities.find((city) => city.value === value);
     if (selectedCityData) {
       setDistricts(selectedCityData.districts);
-      setSelectedDistrict(selectedCityData.districts[0]?.value || "");
+      setSelectedDistrict(null);
     }
   };
 
@@ -68,13 +70,13 @@ const PlaceSelect_DoctorsListPage = ({ specializationId }) => {
                 width: "200px",
               }}
               className="district-select"
-              defaultValue={null}
               placeholder="Select a District"
               onChange={handleDistrictChange}
               options={districts.map((district) => ({
                 label: district.name_en,
                 value: district.id,
               }))}
+              value={selectedDistrict}
               size="large"
             />
           </Space>
