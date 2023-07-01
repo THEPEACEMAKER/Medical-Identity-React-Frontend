@@ -27,6 +27,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         
+        if (!notAll) setNotAll(true)
         setAppointment(getAllAppointment)
         if(notAll){
             helpers.fetchDoctorData(dispatch)
@@ -37,7 +38,9 @@ const Dashboard = () => {
     }, [dispatch, getAllAppointment, notAll]);
 
     function allAppointment (){
+        helpers.fetchDoctorData(dispatch)
         setAppointment(getAllAppointment)
+
 
     }
 
@@ -103,6 +106,7 @@ const Dashboard = () => {
                                     <th scope='col'>Session Start </th>
                                     <th scope='col'>Session End</th>
                                     <th scope='col'>Price</th>
+                                    <th scope='col'>Start Session</th>
                                     </tr>
                                 </MDBTableHead>
                                 <MDBTableBody>
@@ -151,20 +155,23 @@ const Dashboard = () => {
                                                     {helpers.convertTimeTo12HourFormat(appoint.start_time)}
                                                 </td>
                                                 <td>
-                                                {helpers.convertTimeTo12HourFormat(appoint.end_time)}
+                                                    {helpers.convertTimeTo12HourFormat(appoint.end_time)}
                                                 </td>
                                                 <td>
-                                                {appoint.price}
+                                                    {appoint.price}
+                                                </td>
+                                                <td>
+                                                    <MDBBtn disabled={appoint.status === "A"} type='button' className='me-1' color='success'>
+                                                        Start
+                                                    </MDBBtn>
                                                 </td>
                                             </tr>
 
                                         ))
                                     }
 
-                                   
                                 </MDBTableBody>
                                 </MDBTable>
-
                         </div>
                     </div>
                 </div>
