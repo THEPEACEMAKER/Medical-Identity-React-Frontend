@@ -7,47 +7,46 @@ import FullHeight from "react-full-height";
 import { useSelector,useDispatch } from 'react-redux';
 import { helpers } from '../../utils/helpers';
 
-
 const Dashboard = () => {
-
-    const getAllAppointment = useSelector((state) => state.doctor.appointments)
 
     const [appointment, setAppointment] = useState([])
 
+    const [notAll, setNotAll] = useState(true)
+
     const dispatch = useDispatch();
 
+    const getAllAppointment = useSelector((state) => state.doctor.appointments)
     const availableAppointments = useSelector((state) => state.doctor.availableAppointments)
     const reservedAppointments = useSelector((state) => state.doctor.reservedAppointment)
 
     console.log("Dashboard appointment")
     console.log(appointment)
 
-
     const totalCount = useSelector((state) => state.doctor.appointmentCount)
     const isLoading = useSelector((state) => state.doctor.isLoading)
 
-
-
     useEffect(() => {
-
+        
         setAppointment(getAllAppointment)
+        if(notAll){
+            helpers.fetchDoctorData(dispatch)
+            console.log("inside useEfect notAll")
+        }
+        setNotAll(false)
 
-    }, [dispatch, getAllAppointment]);
-
+    }, [dispatch, getAllAppointment, notAll]);
 
     function allAppointment (){
-        helpers.fetchDoctorData(dispatch)
         setAppointment(getAllAppointment)
 
     }
 
-    function availableAppointment (){
-        helpers.fetchDoctorData(dispatch)
+    function availableAppointment  (){
         setAppointment(availableAppointments)
+        
     }
 
     function reservedAppointment (){
-        helpers.fetchDoctorData(dispatch)
         setAppointment(reservedAppointments)
         
     }
