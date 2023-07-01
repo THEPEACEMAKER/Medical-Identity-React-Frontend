@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBBtn,
   MDBTable,
@@ -6,9 +6,13 @@ import {
   MDBTableBody,
   MDBContainer,
   MDBCard,
+  MDBPagination,
+  MDBPaginationItem,
+  MDBPaginationLink,
 } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReservations } from "./ReservationsSlice";
+import styles from "./stylee.module.css";
 
 export default function Reservations() {
   const dispatch = useDispatch();
@@ -16,14 +20,30 @@ export default function Reservations() {
     (state) => state.patientReservations
   );
 
+  // pagination
+  const [pageSize, setPageSize] = useState(6);
+  const [page, setPage] = useState(1);
+  const [pagesQuantity, setPagesQuantity] = useState(0);
+
   useEffect(() => {
-    // dispatch(fetchReservations());
-  }, [dispatch]);
+    // dispatch(fetchReservations({pageSize,page}));
+  }, [dispatch, page, pageSize]);
+
+  useEffect(() => {
+    // calculate the total number of pages
+    const totalPages = Math.ceil(totalCount / pageSize);
+
+    setPagesQuantity(totalPages);
+  }, [pageSize, totalCount]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   return (
     <MDBContainer fluid className="my-5">
       <h4>Reservations</h4>
-      <MDBCard className="mb-3" style={{ height: "40rem" }}>
+      <MDBCard className="mb-3" style={{ minHeight: "30rem" }}>
         {/* <div className="dashboardHeading">
           <div className="my-All-Appointment-component" onClick="function">
             <h1>5</h1>
@@ -53,6 +73,7 @@ export default function Reservations() {
             </p>
           </div>
         </div> */}
+
         <div className="dashboardTableDetails">
           <div>
             <MDBTable align="middle" hover>
@@ -124,6 +145,21 @@ export default function Reservations() {
             </MDBTable>
           </div>
         </div>
+
+        <nav aria-label="..." className={`${styles.pagination}`}>
+          <MDBPagination center size="lg" className="mb-0">
+            {Array.from({ length: pagesQuantity }, (_, index) => (
+              <MDBPaginationItem key={index} active={index + 1 === page}>
+                <MDBPaginationLink onClick={() => handlePageChange(index + 1)}>
+                  {index + 1}
+                  {index + 1 === page && (
+                    <span className="visually-hidden">(current)</span>
+                  )}
+                </MDBPaginationLink>
+              </MDBPaginationItem>
+            ))}
+          </MDBPagination>
+        </nav>
       </MDBCard>
     </MDBContainer>
   );

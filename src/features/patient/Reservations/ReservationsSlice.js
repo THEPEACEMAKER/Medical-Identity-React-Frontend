@@ -3,9 +3,14 @@ import api from "../../../api/api";
 
 export const fetchReservations = createAsyncThunk(
   "patientReservations/fetchReservations",
-  async (thunkAPI) => {
+  async ({ pageSize, page }, thunkAPI) => {
     try {
-      const response = await api.get("/reservation/");
+      const response = await api.get("/reservation/", {
+        params: {
+          page,
+          size: pageSize,
+        },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -50,7 +55,7 @@ const reservationsSlice = createSlice({
     ],
     status: "idle",
     error: null,
-    totalCount: 0,
+    totalCount: 5,
   },
   reducers: {},
   extraReducers: (builder) => {
