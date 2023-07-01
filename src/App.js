@@ -17,8 +17,9 @@ import Home from "./features/home/homePage";
 import "./App.css";
 import DoctorsListPage from "./features/DoctorsListPage/DoctorsListPage";
 import { helpers } from "./features/utils/helpers";
-
 import MedicalEntry from "./features/medicalEntry/medicalEntry";
+import Entry from "./features/doctors/Entry/Entry";
+
 import Reservations from "./features/patient/Reservations/Reservations";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Route path="doctorDashboard" element={<Dashboard />} />
             <Route path="doctorAppointment" element={<DoctorsZone />} />
             <Route path="doctorPrescription" element={<Prescription />} />
+            <Route path="doctorMidicalEntry" element={<Entry />} />
           </Route>
 
           <Route

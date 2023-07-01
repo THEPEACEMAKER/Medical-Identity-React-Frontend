@@ -10,7 +10,6 @@ import {MDBTable, MDBTableHead, MDBTableBody, MDBModal, MDBBtn, MDBModalDialog, 
 import api from '../../../api/api';
 import { useSelector,useDispatch } from 'react-redux';
 import { helpers } from '../../utils/helpers';
-import { doctorActions } from '../../../store/doctor/doctor-slice';
 
 // const hours = [
 //     { id: 1, label: '9:00 AM' },
