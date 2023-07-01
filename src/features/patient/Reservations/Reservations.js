@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MDBBtn,
   MDBTable,
@@ -7,40 +7,18 @@ import {
   MDBContainer,
   MDBCard,
 } from "mdb-react-ui-kit";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchReservations } from "./ReservationsSlice";
 
 export default function Reservations() {
-  const appointments = [
-    {
-      id: 1,
-      appointment_time: "08:00 PM",
-      appointment_duration: 60,
-      appointment_date: "2023-07-02",
-      appointment_price: 1111.0,
-      doctor_name: "Adel Kenawy",
-      status: "R",
-      patient: 3,
-      appointment: 2,
-      doctor: {
-        id: 2,
-        first_name: "moustafa",
-        last_name: "mohamed",
-        email: "moustafa@gmail.com",
-        date_of_birth: "1990-12-12",
-        phone: "01033022410",
-        national_id: "29510010402099",
-        profileImgUrl: "image/upload/v1688058547/jyqnachpltnpmc0ucaid.webp",
-        gender: "male",
-        specialization: {
-          id: 1,
-          name: "assd",
-        },
-        profLicenseNo: "221133",
-        city: 1,
-        district: 2,
-        address: "street 9",
-      },
-    },
-  ];
+  const dispatch = useDispatch();
+  const { reservations, status, error, totalCount } = useSelector(
+    (state) => state.patientReservations
+  );
+
+  useEffect(() => {
+    // dispatch(fetchReservations());
+  }, [dispatch]);
 
   return (
     <MDBContainer fluid className="my-5">
@@ -52,7 +30,7 @@ export default function Reservations() {
             <p>
               All
               <br />
-              Appointments
+              reservations
             </p>
           </div>
           <div
@@ -63,7 +41,7 @@ export default function Reservations() {
             <p>
               Future
               <br />
-              Appointments
+              reservations
             </p>
           </div>
           <div className="my-reserved-Appointment-component" onClick="function">
@@ -71,7 +49,7 @@ export default function Reservations() {
             <p>
               Done
               <br />
-              Appointments
+              reservations
             </p>
           </div>
         </div> */}
@@ -90,14 +68,14 @@ export default function Reservations() {
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
-                {appointments.map((appointment) => (
-                  <tr key={appointment.id}>
+                {reservations.map((reservation) => (
+                  <tr key={reservation.id}>
                     <td>
                       <div className="d-flex align-items-center">
                         <img
                           src={
                             process.env.REACT_APP_IMGE_API_URL +
-                            appointment.doctor.profileImgUrl
+                            reservation.doctor.profileImgUrl
                           }
                           alt="User_picture"
                           style={{ width: "45px", height: "45px" }}
@@ -106,19 +84,19 @@ export default function Reservations() {
                         <div className="ms-3">
                           <p className="fw-bold mb-0 pt-1 pb-1">
                             Dr.{" "}
-                            {appointment.doctor.first_name +
+                            {reservation.doctor.first_name +
                               " " +
-                              appointment.doctor.last_name}
+                              reservation.doctor.last_name}
                           </p>
                           <p className="text-muted mb-0 pt-1 pb-1">
-                            {appointment.doctor.phone}
+                            {reservation.doctor.phone}
                           </p>
                         </div>
                       </div>
                     </td>
-                    {/* <td>{appointment.doctor.specialization.name}</td> */}
+                    {/* <td>{reservation.doctor.specialization.name}</td> */}
                     {/* <td>
-                      {appointment.status === "A" ? (
+                      {reservation.status === "A" ? (
                         <MDBBadge color="success" pill>
                           Available
                         </MDBBadge>
@@ -128,11 +106,11 @@ export default function Reservations() {
                         </MDBBadge>
                       )}
                     </td> */}
-                    <td>{appointment.appointment_date}</td>
-                    <td>{appointment.appointment_time}</td>
-                    <td>{appointment.appointment_duration} minutes</td>
+                    <td>{reservation.appointment_date}</td>
+                    <td>{reservation.appointment_time}</td>
+                    <td>{reservation.appointment_duration} minutes</td>
                     <td>
-                      {appointment.status === "A" ? (
+                      {reservation.status === "A" ? (
                         <MDBBtn color="primary" size="sm">
                           Book Now
                         </MDBBtn>
