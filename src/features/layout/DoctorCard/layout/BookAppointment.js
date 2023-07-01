@@ -15,10 +15,8 @@ const BookAppointment = ({ doctorID }) => {
     const fetchDates = async () => {
       try {
         const datesAfterToday = [];
-        for (let i = 0; i < 6; i++) {
-          const date = moment()
-            .add(i + 1, "days")
-            .format("YYYY-MM-DD");
+        for (let i = 0; i < 7; i++) {
+          const date = moment().add(i, "days").format("YYYY-MM-DD");
           datesAfterToday.push(date);
         }
         setDates(datesAfterToday);
