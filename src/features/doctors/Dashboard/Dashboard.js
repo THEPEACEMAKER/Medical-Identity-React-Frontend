@@ -18,7 +18,134 @@ const Dashboard = () => {
     const dispatch = useDispatch();
 
     // const [appointment, setAppointment] = useState([]);
-    let appointment = []
+    let appointment = [
+        {
+            "id": 1,
+            "doctor": "omar",
+            "date": "2023-07-01",
+            "start_time": "14:00:00",
+            "duration": 60,
+            "price": "500.00",
+            "status": "R",
+            "end_time": "15:00:00",
+            "reservation_data": {
+                "patient": {
+                    "id": 3,
+                    "first_name": "Islam",
+                    "last_name": "sulaiman",
+                    "date_of_birth": "1990-12-12",
+                    "phone": "01013552667",
+                    "gender": "Male",
+                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
+                }
+            }
+        },
+        {
+            "id": 1,
+            "doctor": "omar",
+            "date": "2023-07-01",
+            "start_time": "14:00:00",
+            "duration": 60,
+            "price": "500.00",
+            "status": "R",
+            "end_time": "15:00:00",
+            "reservation_data": {
+                "patient": {
+                    "id": 4,
+                    "first_name": "omar",
+                    "last_name": "amgad",
+                    "date_of_birth": "1990-12-12",
+                    "phone": "01013552667",
+                    "gender": "Male",
+                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
+                }
+            }
+        },
+        {
+            "id": 1,
+            "doctor": "omar",
+            "date": "2023-07-01",
+            "start_time": "14:00:00",
+            "duration": 60,
+            "price": "500.00",
+            "status": "R",
+            "end_time": "15:00:00",
+            "reservation_data": {
+                "patient": {
+                    "id": 3,
+                    "first_name": "salah",
+                    "last_name": "mo",
+                    "date_of_birth": "1990-12-12",
+                    "phone": "01013552667",
+                    "gender": "Male",
+                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
+                }
+            }
+        },
+        {
+            "id": 1,
+            "doctor": "omar",
+            "date": "2023-07-01",
+            "start_time": "14:00:00",
+            "duration": 60,
+            "price": "500.00",
+            "status": "R",
+            "end_time": "15:00:00",
+            "reservation_data": {
+                "patient": {
+                    "id": 3,
+                    "first_name": "dar4",
+                    "last_name": "hoda",
+                    "date_of_birth": "1990-12-12",
+                    "phone": "01013552667",
+                    "gender": "Male",
+                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
+                }
+            }
+        },
+        {
+            "id": 1,
+            "doctor": "omar",
+            "date": "2023-07-01",
+            "start_time": "16:00:00",
+            "duration": 60,
+            "price": "570.00",
+            "status": "R",
+            "end_time": "15:00:00",
+            "reservation_data": {
+                "patient": {
+                    "id": 3,
+                    "first_name": "adel",
+                    "last_name": "elmogadel",
+                    "date_of_birth": "1990-12-12",
+                    "phone": "01013552667",
+                    "gender": "Male",
+                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
+                }
+            }
+        },
+        {
+            "id": 1,
+            "doctor": "omar",
+            "date": "2023-07-01",
+            "start_time": "16:00:00",
+            "duration": 60,
+            "price": "570.00",
+            "status": "A",
+            "end_time": "15:00:00",
+            "reservation_data": {
+                "patient": {
+                    "id": 3,
+                    "first_name": "adel",
+                    "last_name": "elmogadel",
+                    "date_of_birth": "1990-12-12",
+                    "phone": "01013552667",
+                    "gender": "Male",
+                    "profileImgUrl": "image/upload/v1688154577/zisjkqtoaoccotrkolul.png"
+                }
+            }
+        },
+    ]
 
     // const [action1, setAction1] = useState(null);
     // const [key, setKey] = useState(null)
@@ -60,7 +187,7 @@ const Dashboard = () => {
     
     }, [dispatch]);
 
-    appointment = useSelector((state) => state.doctor.appointments)
+    // appointment = useSelector((state) => state.doctor.appointments)
 
     console.log("Dashboard appointment")
     console.log(appointment)
@@ -140,13 +267,14 @@ const Dashboard = () => {
                                                             <div className='d-flex align-items-center'>
                                                                 <img
                                                                     src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                                                                    alt=''
+                                                                    alt='User_picture'
                                                                     style={{ width: '45px', height: '45px' }}
                                                                     className='rounded-circle'
                                                                 />
                                                                 <div className='ms-3'>
-                                                                    <p className='fw-bold mb-1'>John Doe</p>
-                                                                    <p className='text-muted mb-0'>john.doe@gmail.com</p>
+                                                                    <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.reservation_data.patient.first_name + " " + appoint.reservation_data.patient.last_name}</p>
+                                                                    <p className='text-muted mb-0 pt-1 pb-1'>{appoint.reservation_data.patient.phone}</p>
+                                                                    <p className='text-muted mb-0 pt-1 pb-1'>{appoint.reservation_data.patient.gender}</p>
                                                                 </div>
                                                             </div>
                                                         )
@@ -159,7 +287,7 @@ const Dashboard = () => {
                                                         Available
                                                         </MDBBadge>
                                                     ) : (
-                                                        <MDBBadge color='success' pill>
+                                                        <MDBBadge color='warning' pill>
                                                         Booked
                                                         </MDBBadge>
                                                     )
