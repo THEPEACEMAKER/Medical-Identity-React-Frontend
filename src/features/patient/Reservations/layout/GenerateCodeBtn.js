@@ -31,8 +31,36 @@ export default function GenerateCodeBtn({ reservation }) {
   };
 
   useEffect(() => {
-    setSessionCode(localStorage.getItem("sessionCode"));
-  }, []);
+    const storedSessionCode = localStorage.getItem("sessionCode");
+
+    if (storedSessionCode) {
+      const appointmentDateTime = moment.tz(
+        reservation.appointment_date + " " + reservation.appointment_time,
+        "YYYY-MM-DD hh:mm A",
+        "Africa/Cairo"
+      );
+
+      const isWithinSessionTime = moment().isBetween(
+        appointmentDateTime,
+        appointmentDateTime
+          .clone()
+          .add(reservation.appointment_duration, "minutes")
+      );
+
+      console.log("isWithinSessionTime in useEffect: " + isWithinSessionTime);
+
+      if (!isWithinSessionTime) {
+        localStorage.removeItem("sessionCode");
+        setSessionCode(null);
+      } else {
+        setSessionCode(storedSessionCode);
+      }
+    }
+  }, [
+    reservation.appointment_date,
+    reservation.appointment_duration,
+    reservation.appointment_time,
+  ]);
 
   // check timeRange to render the code generation button
   const appointmentDateTime = moment.tz(

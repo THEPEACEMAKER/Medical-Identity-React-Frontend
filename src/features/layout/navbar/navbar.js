@@ -168,7 +168,12 @@ function Navbar() {
                   </Link>
                   <ul
                     className={`dropdown-menu ${styles.dropdownMenu}`}
-                    style={{ padding: "0 30px", width: "300px" }}
+                    style={{
+                      padding: "0 30px",
+                      width: "300px",
+                      maxHeight: "300px",
+                      overflowY: "auto",
+                    }}
                   >
                     {specializations &&
                       specializations.map((el, i) => (
