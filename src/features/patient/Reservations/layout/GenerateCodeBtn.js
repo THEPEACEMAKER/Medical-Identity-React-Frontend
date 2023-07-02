@@ -19,10 +19,8 @@ export default function GenerateCodeBtn({ reservation }) {
 
   const toggleShow = async () => {
     try {
-      //   const response = await api.get("/code/");
-      // TODO: connect to server, and handle what gets sent
-      //   const sessionCode = response.data.result;
-      const sessionCode = "M1231XAQW";
+      const response = await api.get(`/code/${reservation.id}/`);
+      const sessionCode = response.data[0].code;
 
       setSessionCode(sessionCode);
       localStorage.setItem("sessionCode", sessionCode);
@@ -61,7 +59,7 @@ export default function GenerateCodeBtn({ reservation }) {
           </MDBBtn>
         )
       ) : (
-        <p>--------</p>
+        `available on session time`
       )}
 
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex="-1">

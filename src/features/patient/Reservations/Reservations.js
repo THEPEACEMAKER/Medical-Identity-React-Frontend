@@ -26,7 +26,7 @@ export default function Reservations() {
   const [pagesQuantity, setPagesQuantity] = useState(0);
 
   useEffect(() => {
-    // dispatch(fetchReservations({pageSize,page}));
+    dispatch(fetchReservations({ pageSize, page }));
   }, [dispatch, page, pageSize]);
 
   useEffect(() => {
