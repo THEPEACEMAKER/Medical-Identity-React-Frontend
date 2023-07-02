@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  MDBBtn,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
@@ -13,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReservations } from "./ReservationsSlice";
 import styles from "./stylee.module.css";
+import GenerateCodeBtn from "./layout/GenerateCodeBtn";
 
 export default function Reservations() {
   const dispatch = useDispatch();
@@ -131,13 +131,10 @@ export default function Reservations() {
                     <td>{reservation.appointment_time}</td>
                     <td>{reservation.appointment_duration} minutes</td>
                     <td>
-                      {reservation.status === "A" ? (
-                        <MDBBtn color="primary" size="sm">
-                          Book Now
-                        </MDBBtn>
-                      ) : (
-                        <span>Session Code</span>
-                      )}
+                      <GenerateCodeBtn
+                        appointmentId={reservation.id}
+                        doctorName={reservation.doctor.last_name}
+                      />
                     </td>
                   </tr>
                 ))}
