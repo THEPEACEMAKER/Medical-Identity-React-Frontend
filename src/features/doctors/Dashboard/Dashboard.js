@@ -2,14 +2,19 @@ import React from 'react';
 import './Dashboard.css';
 import { useEffect, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
-import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { MDBModal, MDBInput, MDBTextArea,MDBModalDialog, MDBModalContent, MDBModalHeader,MDBModalTitle,MDBModalBody, MDBModalFooter, MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import FullHeight from "react-full-height";
 import { useSelector,useDispatch } from 'react-redux';
 import { helpers } from '../../utils/helpers';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
 
+    const navigate = useNavigate();
+
     const [appointment, setAppointment] = useState([])
+
+    const [selectedAppointment, setSelectedAppointment] = useState(null)
 
     const [notAll, setNotAll] = useState(true)
 
@@ -53,6 +58,56 @@ const Dashboard = () => {
         setAppointment(reservedAppointments)
         
     }
+
+
+    const [basicModal, setBasicModal] = useState(false);
+
+    const toggleShow = (appoint) => {
+        setBasicModal(!basicModal);
+
+        console.log("inside toggle")
+        console.log(appoint)
+
+        setSelectedAppointment(appoint)
+        setInputValue("")
+    } 
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+    };
+
+
+    const handleSendingCode =  async () => {
+        console.log("send code")
+        console.log(inputValue)
+
+        const patientId = selectedAppointment.reservation_data.patient.id
+        const appointmentId = selectedAppointment.id
+
+        console.log(patientId, appointmentId)
+
+        console.log(selectedAppointment)
+
+
+        const result = await helpers.sendMedicalCode(inputValue, patientId, appointmentId)
+        console.log("result")
+        console.log(result)
+
+        console.log("returnM")
+
+        if(result === 200){
+            navigate('/doctorMidicalEntry')
+        }
+        
+
+    }
+
+    console.log("inputValue")
+    console.log(inputValue)
+
+    console.log("appointment")
+    console.log(appointment)
 
     return (
         <div className="dashboard">
@@ -111,6 +166,8 @@ const Dashboard = () => {
                                 </MDBTableHead>
                                 <MDBTableBody>
 
+                                {/* appointment && appointment.map((appoint) => ( */}
+
                                     {
                                         appointment.map((appoint) => (
                                             <tr>
@@ -161,8 +218,8 @@ const Dashboard = () => {
                                                     {appoint.price}
                                                 </td>
                                                 <td>
-                                                    <MDBBtn disabled={appoint.status === "A"} type='button' className='me-1' color='success'>
-                                                        Start
+                                                    <MDBBtn onClick={() => toggleShow(appoint)} disabled={appoint.status === "A"} type='button' className='me-1' color='success'>
+                                                        Start Session
                                                     </MDBBtn>
                                                 </td>
                                             </tr>
@@ -185,7 +242,32 @@ const Dashboard = () => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>
-            </FullHeight>            }
+            </FullHeight>            
+            }
+
+
+        <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
+        <MDBModalDialog>
+        <MDBModalContent>
+            <MDBModalHeader>
+            <MDBModalTitle>Enter medical Code</MDBModalTitle>
+            <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+                <MDBInput label='Enter code:' id='inputField' value={inputValue} onChange={handleInputChange} />
+                {/* <MDBTextArea label='Enter description:' id='textareaField' value={inputValue} onChange={handleInputChange} /> */}
+             </MDBModalBody>
+
+            <MDBModalFooter>
+            <MDBBtn color='secondary' onClick={toggleShow}>
+                Close
+            </MDBBtn>
+            <MDBBtn onClick={handleSendingCode}>Save changes</MDBBtn>
+            </MDBModalFooter>
+        </MDBModalContent>
+        </MDBModalDialog>
+        </MDBModal>
+
         </div>
     );
 };

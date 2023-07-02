@@ -99,8 +99,33 @@ function formatLongDate(dateStr) {
 }
 
 
+function  sendMedicalCode  (code, patientId, appointmentId)  {
+
+const data ={
+  "code" : code
+}  
+  return  api.post(`/code/doctor/patient/${patientId}/medical-entries/appointment/${appointmentId}/`,data)
+  .then((res)=> {
+      const newData = res.data
+      console.log("res")
+      console.log(res)
+      return res.status
+
+  }).catch((error) => {
+      console.log(error)
+      if(error.message === 'An error occurred. Please try again later.'){
+        alert("Please enter a valid medical code")
+      }else{
+        alert("Either wrong appointment or patient")
+      }
+      
+  })
+}
+
+
 export const helpers ={
     convertTimeTo12HourFormat,
     fetchDoctorData,
-    formatLongDate
+    formatLongDate,
+    sendMedicalCode
 }
