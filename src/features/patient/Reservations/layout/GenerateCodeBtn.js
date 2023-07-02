@@ -10,8 +10,9 @@ import {
 } from "mdb-react-ui-kit";
 import React, { useEffect, useState } from "react";
 import api from "../../../../api/api";
+import moment from "moment-timezone";
 
-export default function GenerateCodeBtn({ appointmentId, doctorName }) {
+export default function GenerateCodeBtn({ reservation }) {
   const [basicModal, setBasicModal] = useState(false);
   // session code
   const [sessionCode, setSessionCode] = useState(null);
@@ -35,16 +36,32 @@ export default function GenerateCodeBtn({ appointmentId, doctorName }) {
     setSessionCode(localStorage.getItem("sessionCode"));
   }, []);
 
+  // check timeRange to render the code generation button
+  const appointmentDateTime = moment.tz(
+    reservation.appointment_date + " " + reservation.appointment_time,
+    "YYYY-MM-DD hh:mm A",
+    "Africa/Cairo"
+  );
+
+  const isWithinSessionTime = moment().isBetween(
+    appointmentDateTime,
+    appointmentDateTime.clone().add(reservation.appointment_duration, "minutes")
+  );
+
   return (
     <>
-      {sessionCode ? (
-        <MDBBtn color="primary" size="sm" disabled>
-          {sessionCode}
-        </MDBBtn>
+      {isWithinSessionTime ? (
+        sessionCode ? (
+          <MDBBtn color="primary" size="sm" disabled>
+            {sessionCode}
+          </MDBBtn>
+        ) : (
+          <MDBBtn className={`btn btn-primary`} size="lg" onClick={toggleShow}>
+            Code
+          </MDBBtn>
+        )
       ) : (
-        <MDBBtn className={`btn btn-primary`} size="lg" onClick={toggleShow}>
-          Code
-        </MDBBtn>
+        <p>--------</p>
       )}
 
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex="-1">
@@ -63,8 +80,8 @@ export default function GenerateCodeBtn({ appointmentId, doctorName }) {
                 className="mb-5"
                 style={{ color: "#35558a" }}
               >
-                Dr. {doctorName} will need this code to access your medical
-                history
+                Dr. {reservation.doctor.last_name} will need this code to access
+                your medical history
               </MDBTypography>
               <hr
                 className="mt-2 mb-4"

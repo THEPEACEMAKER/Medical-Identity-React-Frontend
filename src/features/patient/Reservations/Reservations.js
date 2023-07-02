@@ -131,10 +131,7 @@ export default function Reservations() {
                     <td>{reservation.appointment_time}</td>
                     <td>{reservation.appointment_duration} minutes</td>
                     <td>
-                      <GenerateCodeBtn
-                        appointmentId={reservation.id}
-                        doctorName={reservation.doctor.last_name}
-                      />
+                      <GenerateCodeBtn reservation={reservation} />
                     </td>
                   </tr>
                 ))}

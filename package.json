@@ -31,6 +31,7 @@
     "mdb-react-ui-kit": "^6.0.0",
     "mdb-ui-kit": "^6.3.0",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-calendar": "^4.3.0",

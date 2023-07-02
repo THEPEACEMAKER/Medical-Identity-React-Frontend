@@ -24,7 +24,7 @@ const reservationsSlice = createSlice({
     reservations: [
       {
         id: 1,
-        appointment_time: "08:00 PM",
+        appointment_time: "05:04 AM",
         appointment_duration: 60,
         appointment_date: "2023-07-02",
         appointment_price: 1111.0,
