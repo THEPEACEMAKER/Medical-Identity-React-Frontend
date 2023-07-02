@@ -84,8 +84,23 @@ function fetchDoctorData (dispatch) {
     });
 }
 
+function formatLongDate(dateStr) {
+
+// const dateStr = '2023-07-03T10:00:00.000000Z';
+// const formattedDate = formatDate(dateStr);
+// console.log(formattedDate); // Output: "2023-July-3"
+
+  const dateObj = new Date(dateStr);
+  const year = dateObj.getFullYear();
+  const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(dateObj);
+  const day = dateObj.getDate();
+
+  return `${year}-${month}-${day}`;
+}
+
 
 export const helpers ={
     convertTimeTo12HourFormat,
-    fetchDoctorData
+    fetchDoctorData,
+    formatLongDate
 }

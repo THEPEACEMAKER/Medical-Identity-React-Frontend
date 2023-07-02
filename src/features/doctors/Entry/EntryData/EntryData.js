@@ -1,78 +1,16 @@
-import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import FullHeight from "react-full-height";
+import { helpers } from '../../../utils/helpers';
+import { useState } from 'react';
+import {MDBContainer, MDBRow,MDBCol,MDBCard, MDBCardBody, MDBCardImage,MDBTypography,MDBIcon,   MDBCardText, MDBBadge,MDBModal,MDBModalDialog,MDBModalContent, MDBModalBody, MDBModalFooter, MDBModalTitle, MDBModalHeader,  MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+
 
 const appointment = [
-    {
-      "id": 1,
-      "comment": "Medical comment for patient 1",
-      "prescription_image": null,
-      "analysis_image": null,
-      "patient": {
-        "id": 1,
-        "first_name": "John",
-        "last_name": "Doe",
-        "date_of_birth": "1980-01-01",
-        "phone": "555-1234",
-        "gender": "Male",
-        "profileImgUrl": "image/upload/v1688154577/johndoe.png"
-      },
-      "doctor": {
-        "id": 2,
-        "specialization": "Internal medicine ",
-        "city": "Cairo",
-        "district": "15 May",
-        "first_name": "omar",
-        "last_name": "amgad",
-        "email": "omar@gmail.com",
-        "date_of_birth": "1990-12-12",
-        "phone": "01033022410",
-        "national_id": "29510010402099",
-        "profileImgUrl": "image/upload/v1688154560/iuvk4eqvv59ogz61wh6a.jpg",
-        "gender": "male",
-        "profLicenseNo": "221133",
-        "address": "street 9"
-      },
-      "created_at": "2023-07-02T08:00:00.000000Z",
-      "updated_at": "2023-07-02T08:00:00.000000Z"
-    },
-    {
-      "id": 2,
-      "comment": "Medical comment for patient 2",
-      "prescription_image": null,
-      "analysis_image": null,
-      "patient": {
-        "id": 2,
-        "first_name": "Jane",
-        "last_name": "Doe",
-        "date_of_birth": "1985-01-01",
-        "phone": "555-5678",
-        "gender": "Female",
-        "profileImgUrl": "image/upload/v1688154577/janedoe.png"
-      },
-      "doctor": {
-        "id": 2,
-        "specialization": "Internal medicine",
-        "city": "Cairo",
-        "district": "15 May",
-        "first_name": "omar",
-        "last_name": "amgad",
-        "email": "omar@gmail.com",
-        "date_of_birth": "1990-12-12",
-        "phone": "01033022410",
-        "national_id": "29510010402099",
-        "profileImgUrl": "image/upload/v1688154560/iuvk4eqvv59ogz61wh6a.jpg",
-        "gender": "male",
-        "profLicenseNo": "221133",
-        "address": "street 9"
-      },
-      "created_at": "2023-07-02T09:00:00.000000Z",
-      "updated_at": "2023-07-02T09:00:00.000000Z"
-    },
+     
     {
       "id": 3,
       "comment": "Medical comment for patient 3",
-      "prescription_image": null,
-      "analysis_image": null,
+      "prescription_image": "Prescription for patient 3",
+      "analysis_image": "Radiology for patient 3",
       "patient": {
         "id": 3,
         "first_name": "Alice",
@@ -120,8 +58,8 @@ const appointment = [
         "specialization": "Internal medicine",
         "city": "Cairo",
         "district": "15 May",
-        "first_name": "omar",
-        "last_name": "amgad",
+        "first_name": "islam",
+        "last_name": "Sulaiman",
         "email": "omar@gmail.com",
         "date_of_birth": "1990-12-12",
         "phone": "01033022410",
@@ -153,8 +91,8 @@ const appointment = [
         "specialization": "Internal medicine",
         "city": "Cairo",
         "district": "15 May",
-        "first_name": "omar",
-        "last_name": "amgad",
+        "first_name": "dar4",
+        "last_name": "7oda",
         "email": "omar@gmail.com",
         "date_of_birth": "1990-12-12",
         "phone": "01033022410",
@@ -186,8 +124,8 @@ const appointment = [
         "specialization": "Internal medicine",
         "city": "Cairo",
         "district": "15 May",
-        "first_name": "omar",
-        "last_name": "amgad",
+        "first_name": "mo",
+        "last_name": "sala7",
         "email": "omar@gmail.com",
         "date_of_birth": "1990-12-12",
         "phone": "01033022410",
@@ -197,18 +135,73 @@ const appointment = [
         "profLicenseNo": "221133",
         "address": "street 9"
       },
-      "created_at": "2023-07-04T13:00:00.000000Z",
+      "created_at": "2023-09-04T13:00:00.000000Z",
       "updated_at": "2023-07-04T13:00:00.000000Z"
-    }
+    },
+    {
+        "id": 6,
+        "comment": "Medical comment for patient 6",
+        "prescription_image": null,
+        "analysis_image": null,
+        "patient": {
+          "id": 6,
+          "first_name": "David",
+          "last_name": "Lee",
+          "date_of_birth": "1995-01-01",
+          "phone": "555-6789",
+          "gender": "Male",
+          "profileImgUrl": "image/upload/v1688154577/davidlee.png"
+        },
+        "doctor": {
+          "id": 2,
+          "specialization": "Internal medicine",
+          "city": "Cairo",
+          "district": "15 May",
+          "first_name": "Adel",
+          "last_name": "elmogadel",
+          "email": "omar@gmail.com",
+          "date_of_birth": "1990-12-12",
+          "phone": "01033022410",
+          "national_id": "29510010402099",
+          "profileImgUrl": "image/upload/v1688154560/iuvk4eqvv59ogz61wh6a.jpg",
+          "gender": "male",
+          "profLicenseNo": "221133",
+          "address": "street 9"
+        },
+        "created_at": "2023-09-04T13:00:00.000000Z",
+        "updated_at": "2023-07-04T13:00:00.000000Z"
+      }
   ]
 
 
 const EntryData = () => {
 
+    const [centredModal, setCentredModal] = useState(false);
+    const [centredModalDoctor, setCentredModalDoctor] = useState(false)
+
+    const [selectedAppointment, setSelectedAppointment] = useState(null);
+
+    const [selectedDoctors, setSelectedDoctors] = useState(null);
+
     const doctor = JSON.parse(localStorage.getItem("user"))
     console.log(doctor)
 
     const isLoading = false;
+    // const toggleShowPatient = () => setCentredModal(!centredModal);
+    const toggleShowPatient = (appoint) => {
+        if(appoint !== null){
+            setSelectedAppointment(appoint);
+        }
+        setCentredModal(!centredModal);
+    };
+    
+    // const toggleShowDoctor = () => setCentredModalDoctor(!centredModalDoctor);
+    const toggleShowDoctor = (appoint) => {
+        if(appoint !== null){
+            setSelectedDoctors(appoint);
+        }
+        setCentredModalDoctor(!centredModalDoctor);
+    }
 
     return(
         <div className="dashboard">
@@ -246,77 +239,44 @@ const EntryData = () => {
                             <MDBTable align='middle' hover>
                                 <MDBTableHead>
                                     <tr>
-                                    <th scope='col'>Name</th>
-                                    <th scope='col'>Status</th>
-                                    <th scope='col'>Date</th>
-                                    <th scope='col'>Session Start </th>
-                                    <th scope='col'>Session End</th>
-                                    <th scope='col'>Price</th>
-                                    <th scope='col'>Start Session</th>
+                                        <th scope='col'>Dicipline</th>
+                                        <th scope='col'>Doctor Name</th>
+                                        <th scope='col'>Date</th>
+                                        <th scope='col'>Detailed History </th>
                                     </tr>
                                 </MDBTableHead>
-                                {/* <MDBTableBody>
+                                <MDBTableBody>
 
                                     {
                                         appointment.map((appoint) => (
                                             <tr>
-                                                <td>
-                                                    {
-                                                        appoint.status === "A" ? (
-                                                            <p>Not Booked yet</p>
-                                                        ) : (
-                                                            <div className='d-flex align-items-center'>
-                                                                <img
-                                                                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-                                                                    alt='User_picture'
-                                                                    style={{ width: '45px', height: '45px' }}
-                                                                    className='rounded-circle'
-                                                                />
-                                                                <div className='ms-3'>
-                                                                    <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.reservation_data.patient.first_name + " " + appoint.reservation_data.patient.last_name}</p>
-                                                                    <p className='text-muted mb-0 pt-1 pb-1'>{appoint.reservation_data.patient.phone}</p>
-                                                                    <p className='text-muted mb-0 pt-1 pb-1'>{appoint.reservation_data.patient.gender}</p>
-                                                                </div>
-                                                            </div>
-                                                        )
-
-                                                    }
-                                                </td>
                                                 <td>{
-                                                    appoint.status === "A" ? (
-                                                        <MDBBadge color='success' pill>
-                                                        Available
-                                                        </MDBBadge>
-                                                    ) : (
-                                                        <MDBBadge color='warning' pill>
-                                                        Booked
-                                                        </MDBBadge>
-                                                    )
+                                                        <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.doctor.specialization}</p>
                                                     }
+                                                </td>
+                                                <td>
+                                                    <MDBBtn onClick={() => toggleShowDoctor(appoint)}>
+                                                        {
+                                                            <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.doctor.first_name + " " + appoint.doctor.last_name}</p>
+                                                        }
+                                                        
+                                                        </MDBBtn>
+                                                    {/* {
+                                                        <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.doctor.first_name + " " + appoint.doctor.last_name}</p>
+                                                    } */}
+                                                </td>
 
-                                                </td>
-                                                <td>{appoint.date}</td>
+                                                <td>{helpers.formatLongDate(appoint.created_at)}</td>
 
                                                 <td>
-                                                    {helpers.convertTimeTo12HourFormat(appoint.start_time)}
-                                                </td>
-                                                <td>
-                                                    {helpers.convertTimeTo12HourFormat(appoint.end_time)}
-                                                </td>
-                                                <td>
-                                                    {appoint.price}
-                                                </td>
-                                                <td>
-                                                    <MDBBtn disabled={appoint.status === "A"} type='button' className='me-1' color='success'>
-                                                        Start
-                                                    </MDBBtn>
+                                                    <MDBBtn onClick={() => toggleShowPatient(appoint)}>Medical Record</MDBBtn>
                                                 </td>
                                             </tr>
 
                                         ))
                                     }
 
-                                </MDBTableBody> */}
+                                </MDBTableBody>
                                 </MDBTable>
                         </div>
                     </div>
@@ -331,7 +291,87 @@ const EntryData = () => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>
-            </FullHeight>            }
+            </FullHeight>            
+            }
+
+            <MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
+                <MDBModalDialog centered>
+                    <MDBModalContent>
+                    <MDBModalHeader>
+                        <MDBModalTitle>Modal title</MDBModalTitle>
+                        <MDBBtn className='btn-close' color='none' onClick={() => toggleShowPatient(null)}></MDBBtn>
+                    </MDBModalHeader>
+                    <MDBModalBody>
+                        {/* <p>
+                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                        egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                        </p> */}
+
+                        {
+                            selectedAppointment &&
+                            <div>
+                                <p><strong>Medical Analysis:</strong></p>
+                                <span>{selectedAppointment.comment }</span>
+
+                                <p><strong>Prescription:</strong></p>
+                                <span>{selectedAppointment.prescription_image }</span>
+
+                                <p><strong>Radiology:</strong></p>
+                                <span>{selectedAppointment.analysis_image }</span>
+                            </div>
+                        }
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                        <MDBBtn color='secondary' onClick={() => toggleShowPatient(null)}>
+                        Close
+                        </MDBBtn>
+                    </MDBModalFooter>
+                    </MDBModalContent>
+                </MDBModalDialog>
+            </MDBModal>
+
+
+            {/* Doctor model */}
+            <MDBModal tabIndex='-1' show={centredModalDoctor} setShow={setCentredModalDoctor}>
+                <MDBContainer className="container py-5 h-100">
+                    <MDBRow className="justify-content-center align-items-center h-100">
+                    <MDBCol md="12" xl="4">
+                        <MDBCard style={{ borderRadius: '15px' }}>
+                        <MDBCardBody className="text-center">
+
+                            {
+                                selectedDoctors &&
+                                <>
+                                <div className="mt-3 mb-4">
+                                    {/* <MDBCardImage src={`${process.env.REACT_APP_IMGE_API_URL}/${selectedDoctors.doctor.profileImgUrl}`}
+                                        className="rounded-circle" fluid style={{ width: '100px' }} /> */}
+                                        <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                                        className="rounded-circle" fluid style={{ width: '100px' }} />
+                                </div>
+                                <MDBTypography tag="h4">{selectedDoctors.doctor.first_name + " " + selectedDoctors.doctor.last_name}</MDBTypography>
+                                <MDBCardText className="text-muted mb-4">
+                                {selectedDoctors.doctor.specialization} <span className="mx-2">|</span> <a href="#!">{selectedDoctors.doctor.email}</a>
+                                </MDBCardText>
+                                </>
+
+                            }
+
+
+                        </MDBCardBody>
+                        <MDBModalFooter>
+                            <MDBBtn color='secondary' onClick={()=>toggleShowDoctor(null)}>
+                                Close
+                            </MDBBtn>
+                        </MDBModalFooter>
+                        </MDBCard>
+                    </MDBCol>
+                    </MDBRow>
+
+                </MDBContainer>
+            </MDBModal>
+
+
+    
         </div>
     )
 }
