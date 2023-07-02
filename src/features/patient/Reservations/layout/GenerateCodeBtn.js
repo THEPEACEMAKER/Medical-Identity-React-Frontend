@@ -47,8 +47,6 @@ export default function GenerateCodeBtn({ reservation }) {
           .add(reservation.appointment_duration, "minutes")
       );
 
-      console.log("isWithinSessionTime in useEffect: " + isWithinSessionTime);
-
       if (!isWithinSessionTime) {
         localStorage.removeItem("sessionCode");
         setSessionCode(null);
