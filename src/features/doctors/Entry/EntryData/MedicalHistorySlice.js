@@ -19,7 +19,7 @@ export const fetchMedicalHistory = createAsyncThunk(
     try {
       let url = "";
       if (specialization) {
-        patientId = JSON.parse(localStorage.getItem("user")).id;
+        patientId = patientId || JSON.parse(localStorage.getItem("user")).id;
         url = `/medical-entry/patient/${patientId}/medical-entries/?specialization=${specialization}`;
       } else if (isPatient) {
         url = "/medical-entry/patient/list/";
@@ -38,9 +38,10 @@ export const fetchMedicalHistory = createAsyncThunk(
       };
 
       // Adjust the request method based on isPatient value
-      const response = isPatient
-        ? await api.get(url, requestOptions)
-        : await api.post(url, { code }, requestOptions);
+      const response =
+        isPatient || specialization
+          ? await api.get(url, requestOptions)
+          : await api.post(url, { code }, requestOptions);
 
       return {
         result: specialization ? response.data.results : response.data.result,

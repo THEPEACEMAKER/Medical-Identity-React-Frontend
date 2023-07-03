@@ -48,13 +48,12 @@ const EntryData = () => {
   const [selectedDoctors, setSelectedDoctors] = useState(null);
 
   // pagination
-  const [pageSize, setPageSize] = useState(8);
+  const pageSize = 8;
   const [page, setPage] = useState(1);
   const [pagesQuantity, setPagesQuantity] = useState(0);
 
   const [specialization, setSpecialization] = useState(null);
 
-  const isLoading = false;
   // const toggleShowPatient = () => setCentredModal(!centredModal);
   const toggleShowPatient = (appoint) => {
     if (appoint !== null) {
