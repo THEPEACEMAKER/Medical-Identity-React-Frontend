@@ -18,9 +18,9 @@ import "./App.css";
 import DoctorsListPage from "./features/DoctorsListPage/DoctorsListPage";
 import { helpers } from "./features/utils/helpers";
 import MedicalEntry from "./features/medicalEntry/medicalEntry";
-import Entry from "./features/doctors/Entry/Entry";
 
 import Reservations from "./features/patient/Reservations/Reservations";
+import EntryData from "./features/doctors/Entry/EntryData/EntryData";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +42,17 @@ function App() {
           </Route>
           <Route
             element={
+              <ProtectedRoutes requiresLogin={true} redirectTo="/login" />
+            }
+          >
+            <Route path="medicalHistory" element={<EntryData />} />
+            <Route
+              path="medicalHistory/patient/:patientId/appointment/:appointmentId/code/:code/"
+              element={<EntryData />}
+            />
+          </Route>
+          <Route
+            element={
               <ProtectedRoutes
                 requiresLogin={true}
                 requiresDoctor={true}
@@ -52,7 +63,6 @@ function App() {
             <Route path="doctorDashboard" element={<Dashboard />} />
             <Route path="doctorAppointment" element={<DoctorsZone />} />
             <Route path="doctorPrescription" element={<Prescription />} />
-            <Route path="doctorMidicalEntry" element={<Entry />} />
           </Route>
 
           <Route
