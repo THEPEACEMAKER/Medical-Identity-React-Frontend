@@ -107,7 +107,11 @@ const EntryData = () => {
   };
 
   const handleSpecializationChange = (selectedOption) => {
-    setSpecialization(selectedOption);
+    if (selectedOption === "All") {
+      setSpecialization(null);
+    } else {
+      setSpecialization(selectedOption);
+    }
   };
 
   if (status === "loading" && !specialization) {

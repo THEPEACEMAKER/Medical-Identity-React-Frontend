@@ -13,7 +13,7 @@ const SpecializationSelect = ({ onChange }) => {
           value: item.id,
           label: item.name,
         }));
-        setOptions([{ value: null, label: "All" }, ...data]);
+        setOptions([{ value: "All", label: "All" }, ...data]);
       } catch (error) {
         console.error("Error fetching specializations:", error);
       }
