@@ -74,7 +74,7 @@ export default function GenerateCodeBtn({ reservation }) {
 
   return (
     <>
-      {isWithinSessionTime ? (
+      {!isWithinSessionTime ? (
         sessionCode ? (
           <MDBBtn color="primary" size="sm" disabled>
             {sessionCode}
