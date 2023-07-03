@@ -13,6 +13,7 @@ function DoctorsCarousel() {
       key={item.id}
       id={item.id}
       first_name={item.first_name}
+      last_name={item.last_name}
       profileImgUrl={item.profileImgUrl}
       phone={item.phone}
       city={item.city}
