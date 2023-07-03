@@ -1,18 +1,15 @@
-import EntryData from "./EntryData/EntryData"
-import EntrySubbmit from "./EntrySubbmit/EntrySubbmit"
+import EntryData from "./EntryData/EntryData";
+import EntrySubbmit from "./EntrySubbmit/EntrySubbmit";
 
-import "./Entry.css"
+import "./Entry.css";
 
 const Entry = () => {
-
-    return(
-        <>
-            <EntryData />
-            <EntrySubbmit/>
-        </>
-
-    )
-
-}
+  return (
+    <>
+      <EntryData />
+      {/* <EntrySubbmit/> */}
+    </>
+  );
+};
 
 export default Entry;
