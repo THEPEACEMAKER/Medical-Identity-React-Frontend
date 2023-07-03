@@ -16,6 +16,10 @@ const EntrySubmit = () => {
   const [varyingModal, setVaryingModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
 
+  const [editModel ,setEditModel] = useState(false)
+
+
+
   const [centredModal, setCentredModal] = useState(false);
 
 
@@ -76,30 +80,22 @@ const EntrySubmit = () => {
         console.log("response status")
         console.log(response)
 
-        if (response.status === 400) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: '400',
-              });
-              setVaryingModal(!varyingModal);
-        }
+        // if (response.status === 400) {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Error!',
+        //         text: '400',
+        //       });
+        //       setVaryingModal(!varyingModal);
+        // }
         console.log("inside response")
         console.log(response)
         setVaryingModal(!varyingModal);
 
-        // console.log("Current entry before")
-        // console.log(currentEntry)
-
-        // console.log("the response")
         setCurrentEntry(response.data)
         if(newEntry){
             setNewEntry(false)
         }
-
-        // console.log("Current entry after")
-        // console.log(currentEntry)
-
         Swal.fire({
             icon: 'success',
             title: 'Success!',
@@ -123,37 +119,103 @@ const EntrySubmit = () => {
         }else{
             console.log("outside of if")
         }
-
-
       });
   };
 
-
-//   {
-//     newEntry ? (
-//     <MDBBtn type="submit"  disabled={isSubmitting}>
-//     Submit
-//     </MDBBtn>) : 
-//     <>
-//     (
-//         <MDBBtn type="submit"  disabled={isSubmitting}>
-//             Submit
-//         </MDBBtn>
-//         <MDBBtn type="submit"  disabled={isSubmitting}>
-//             Submit
-//         </MDBBtn> )
-//     </>
-
-// }
-
-
     const toggleShowPatient = () => {
-        // if (appoint !== null) {
-        // setSelectedAppointment(appoint);
-        // }
         setCentredModal(!centredModal);
     };
 
+
+
+    const  medical_entry_id = currentEntry !== null ? currentEntry.id :  null
+    console.log("medical_entry_id")
+    console.log(medical_entry_id)
+
+
+
+    const handelEntryUpdate = (values, { setSubmitting, resetForm }) => {
+        const { medicalDiagnosis, prescription, profileImgUrl } = values;
+                // if (response.status === 400) {
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Error!',
+            //         text: '400',
+            //       });
+            //       setVaryingModal(!varyingModal);
+            // }
+    
+        console.log("profileImgUrl")
+        console.log(profileImgUrl)
+    
+        const formData = new FormData();
+        // formData.append('medical_diagnosis', medicalDiagnosis);
+        // formData.append('prescription', prescription);
+        // formData.append('analysis_image', profileImgUrl);
+        // formData.append('code', "JSXOU7KJLA");
+    
+        const data = {
+            'comment': medicalDiagnosis,
+            'prescription': prescription,
+            "code" :"JSXOU7KJLA",
+            "analysis_image":profileImgUrl
+        }
+    
+        console.log("data")
+        console.log(data)
+    
+        console.log("formData")
+        console.log(formData)
+    
+    
+        api.put(`/medical-entry/doctor/update/${medical_entry_id}/patient/${patientId}/appointment/${appointmentId}/`,data)
+          .then((response) => {
+    
+            console.log("response status")
+            console.log(response)
+    
+            // if (response.status === 400) {
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Error!',
+            //         text: '400',
+            //       });
+            //       setVaryingModal(!varyingModal);
+            // }
+            console.log("inside response")
+            console.log(response)
+            setEditModel(!editModel)
+    
+            setCurrentEntry(response.data)
+            if(newEntry){
+                setNewEntry(false)
+            }
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Diagnosis updated succefully.',
+            });
+            
+          })
+          .then((data) => {
+            setSubmitting(false);
+            resetForm();
+          })
+          .catch((error) => {
+            console.error('Error:', error.originalError.response.status);
+            setSubmitting(false);
+            if(error.originalError.response.status === 406){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'This appointment already has entry, please update only.',
+                  });
+            }else{
+                console.log("outside of if")
+            }
+          });
+      };
+    
 
   return (
     <>
@@ -172,21 +234,13 @@ const EntrySubmit = () => {
                 : 
                 <>
                     <MDBBtn
-                    type='button'
+                        type='button'
                         onClick={() => {
-                        setVaryingModal(!varyingModal);
+                        setEditModel(!editModel)
                         }}
                     >
                         Edit
                     </MDBBtn>
-                    {/* <MDBBtn
-                    type='button'
-                        onClick={() => {
-                        setVaryingModal(!varyingModal);
-                        }}
-                    >
-                        View
-                    </MDBBtn> */}
 
                     <MDBBtn onClick={toggleShowPatient}>
                         View
@@ -199,9 +253,108 @@ const EntrySubmit = () => {
         }
 
 
+    {/* edit the current history */}
+{
+    currentEntry !== null &&
+<MDBModal show={editModel} setShow={setEditModel} tabIndex='-1'>
+    <MDBModalDialog>
+        <MDBModalContent>
+            <MDBModalHeader>
+            <MDBModalTitle>Edit existing Appointment </MDBModalTitle>
+            <MDBBtn className='btn-close' color='none' onClick={() => setEditModel(!editModel)}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+
+                <Formik
+                initialValues={{
+                medicalDiagnosis: currentEntry.comment,
+                prescription: currentEntry.prescription,        
+                profileImgUrl: currentEntry.analysis_image,
+                
+                }}
+                onSubmit={handelEntryUpdate}
+                validationSchema={validationSchema}
+                validateOnChange={true}
+                validateOnBlur={true}
+            >
+                {({ isSubmitting, setFieldValue, errors, touched }) => (
+                <Form>
+                    <Field name="medicalDiagnosis">
+                    {({ field }) => (
+                        <MDBInput
+                        {...field}
+                        wrapperClass="mb-4"
+                        textarea
+                        id="form4Example1"
+                        rows={4}
+                        label="Medical Diagnosis"
+                        invalid={touched.medicalDiagnosis && !!errors.medicalDiagnosis}
+                        />
+                    )}
+                    </Field>
+                    {/* {touched.medicalDiagnosis && errors.medicalDiagnosis && (
+                        <div className='text-danger'>{errors.medicalDiagnosis}</div>
+                    )} */}
+
+                    <Field name="prescription">
+                    {({ field }) => (
+                        <MDBInput
+                        {...field}
+                        wrapperClass="mb-4"
+                        textarea
+                        id="form4Example2"
+                        rows={4}
+                        label="Prescription"
+                        invalid={touched.prescription && !!errors.prescription}
+                        />
+                    )}
+                    </Field>
+                    {/* {touched.prescription && errors.prescription && (
+                        <div className='text-danger'>{errors.prescription}</div>
+                    )} */}
 
 
 
+
+                    <label htmlFor="inputTag" className="file-input-label">
+                    <i className="fa fa-camera"></i>
+                    <Field
+                        id="inputTag"
+                        type="file"
+                        name="analysis_image"
+                        onChange={(e) => handleFileInputChange(e, setFieldValue)}
+                        invalid={touched.profileImgUrl && !!errors.profileImgUrl}
+                    />
+                    </label>
+
+                    {/* {touched.profileImgUrl && errors.profileImgUrl && (
+                        <div className='text-danger'>{errors.profileImgUrl}</div>
+                    )} */}
+
+
+                    <MDBModalFooter>
+                        <MDBBtn type="button" color='secondary' onClick={() => setEditModel(!editModel)}>
+                            Close
+                        </MDBBtn>
+                        <MDBBtn type="submit"  disabled={isSubmitting}>
+                            Edit
+                        </MDBBtn>
+
+                    </MDBModalFooter>
+                </Form>
+                )}
+            </Formik>
+            </MDBModalBody>
+
+        </MDBModalContent>
+    </MDBModalDialog>
+</MDBModal>
+
+
+}
+
+
+        {/* post new entry */}
         <MDBModal show={varyingModal} setShow={setVaryingModal} tabIndex='-1'>
             <MDBModalDialog>
                 <MDBModalContent>
