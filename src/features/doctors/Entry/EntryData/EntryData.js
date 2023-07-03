@@ -241,7 +241,7 @@ const EntryData = () => {
                     <p>
                       <strong>Prescription:</strong>
                     </p>
-                    <span>{selectedAppointment.prescription_image}</span>
+                    <span>{selectedAppointment.prescription}</span>
 
                     <p>
                       <strong>Radiology:</strong>
