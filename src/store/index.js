@@ -3,6 +3,7 @@ import authSlice from "../features/auth/authSlice";
 import doctorSlice from "./doctor/doctor-slice";
 import DoctorsListSlice from "../features/DoctorsListPage/DoctorsListSlice";
 import ReservationsSlice from "../features/patient/Reservations/ReservationsSlice";
+import DoctorsSlice from "../features/doctors/DoctorsData/DoctorsSlice/DoctorsSlice";
 import MedicalHistorySlice from "../features/doctors/Entry/EntryData/MedicalHistorySlice";
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
     doctor: doctorSlice.reducer,
     doctorsPage: DoctorsListSlice,
     patientReservations: ReservationsSlice,
+    doctorsData: DoctorsSlice,
     medicalHistory: MedicalHistorySlice,
   },
 });
