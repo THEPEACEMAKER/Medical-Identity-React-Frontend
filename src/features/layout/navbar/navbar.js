@@ -64,13 +64,13 @@ function Navbar() {
 
               {isPatient && (
                 <>
-                  <Link to="/patientDashboard" className="mx-2 text-dark">
-                    <i className="fas fa-bed-pulse"></i>
-                    <span> Patients</span>
-                  </Link>{" "}
                   <Link to="/reservations" className="mx-2 text-dark">
                     <i className="fas fa-calendar-check"></i>
                     <span> Reservations</span>
+                  </Link>{" "}
+                  <Link to="/medicalHistory" className="mx-2 text-dark">
+                    <i className="fas fa-file-medical"></i>
+                    <span>Medical History</span>
                   </Link>{" "}
                 </>
               )}

@@ -111,7 +111,7 @@ const Dashboard = () => {
 
     if (result === 200) {
       navigate(
-        `/doctorMidicalEntry/patient/${patientId}/appointment/${appointmentId}/code/${inputValue}/`
+        `/medicalHistory/patient/${patientId}/appointment/${appointmentId}/code/${inputValue}/`
       );
     }
   };

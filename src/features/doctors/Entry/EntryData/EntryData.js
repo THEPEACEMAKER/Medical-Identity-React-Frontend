@@ -9,9 +9,7 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBTypography,
-  MDBIcon,
   MDBCardText,
-  MDBBadge,
   MDBModal,
   MDBModalDialog,
   MDBModalContent,
@@ -35,7 +33,7 @@ const EntryData = () => {
   const { appointments, status, error, totalEntriesCount } = useSelector(
     (state) => state.medicalHistory
   );
-  const { isPatient } = useSelector((state) => state.auth);
+  const { isDoctor, isPatient } = useSelector((state) => state.auth);
 
   const [centredModal, setCentredModal] = useState(false);
   const [centredModalDoctor, setCentredModalDoctor] = useState(false);
@@ -67,6 +65,7 @@ const EntryData = () => {
   useEffect(() => {
     dispatch(
       fetchMedicalHistory({
+        isDoctor,
         isPatient,
         patientId,
         appointmentId,
@@ -77,101 +76,104 @@ const EntryData = () => {
     );
   }, [appointmentId, code, dispatch, isPatient, patientId]);
 
+  if (status === "loading") {
+    return (
+      <FullHeight>
+        <div style={{ margin: "350px 550px", display: "flex" }}>
+          <div className="spinner-grow text-info" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+          <div className="spinner-grow text-success" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      </FullHeight>
+    );
+  }
+
+  // Handle error state
+  if (status === "failed") {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <>
       <div className="dashboard">
         {/* <Sidebar></Sidebar> */}
-        {!isLoading ? (
-          <FullHeight>
-            <div className="dashboardTable">
-              <h4>Medical Records</h4>
-              <div className="dashboardHeading">
-                <div className="my-All-Appointment-component">
-                  {/* <h1>{totalCount.total}</h1> */}
-                  <p>
-                    All
-                    <br />
-                    Records
-                  </p>
-                </div>
-                <div className="my-available-Appointment-component">
-                  {/* <h1>{totalCount.Available}</h1> */}
-                  <p>
-                    {doctor.specialization}
-                    <br />
-                    Records
-                  </p>
-                </div>
+        <FullHeight>
+          <div className="dashboardTable">
+            <h4>Medical Records</h4>
+            <div className="dashboardHeading">
+              <div className="my-All-Appointment-component">
+                {/* <h1>{totalCount.total}</h1> */}
+                <p>
+                  All
+                  <br />
+                  Records
+                </p>
               </div>
-              <div className="dashboardTableDetails">
-                <div>
-                  <p>Records</p>
-                  <MDBTable align="middle" hover>
-                    <MDBTableHead>
-                      <tr>
-                        <th scope="col">Dicipline</th>
-                        <th scope="col">Doctor Name</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Detailed History </th>
-                      </tr>
-                    </MDBTableHead>
-                    <MDBTableBody>
-                      {appointments &&
-                        appointments.map((appoint) => (
-                          <tr>
-                            <td>
+              <div className="my-available-Appointment-component">
+                {/* <h1>{totalCount.Available}</h1> */}
+                <p>
+                  {doctor.specialization}
+                  <br />
+                  Records
+                </p>
+              </div>
+            </div>
+            <div className="dashboardTableDetails">
+              <div>
+                <p>Records</p>
+                <MDBTable align="middle" hover>
+                  <MDBTableHead>
+                    <tr>
+                      <th scope="col">Dicipline</th>
+                      <th scope="col">Doctor Name</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Detailed History </th>
+                    </tr>
+                  </MDBTableHead>
+                  <MDBTableBody>
+                    {appointments &&
+                      appointments.map((appoint) => (
+                        <tr key={appoint.id}>
+                          <td>
+                            {
+                              <p className="fw-bold mb-0 pt-1 pb-1">
+                                {appoint.doctor.specialization}
+                              </p>
+                            }
+                          </td>
+                          <td>
+                            <MDBBtn onClick={() => toggleShowDoctor(appoint)}>
                               {
                                 <p className="fw-bold mb-0 pt-1 pb-1">
-                                  {appoint.doctor.specialization}
+                                  {appoint.doctor.first_name +
+                                    " " +
+                                    appoint.doctor.last_name}
                                 </p>
                               }
-                            </td>
-                            <td>
-                              <MDBBtn onClick={() => toggleShowDoctor(appoint)}>
-                                {
-                                  <p className="fw-bold mb-0 pt-1 pb-1">
-                                    {appoint.doctor.first_name +
-                                      " " +
-                                      appoint.doctor.last_name}
-                                  </p>
-                                }
-                              </MDBBtn>
-                              {/* {
+                            </MDBBtn>
+                            {/* {
                                                         <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.doctor.first_name + " " + appoint.doctor.last_name}</p>
                                                     } */}
-                            </td>
+                          </td>
 
-                            <td>
-                              {helpers.formatLongDate(appoint.created_at)}
-                            </td>
+                          <td>{helpers.formatLongDate(appoint.created_at)}</td>
 
-                            <td>
-                              <MDBBtn
-                                onClick={() => toggleShowPatient(appoint)}
-                              >
-                                Medical Record
-                              </MDBBtn>
-                            </td>
-                          </tr>
-                        ))}
-                    </MDBTableBody>
-                  </MDBTable>
-                </div>
+                          <td>
+                            <MDBBtn onClick={() => toggleShowPatient(appoint)}>
+                              Medical Record
+                            </MDBBtn>
+                          </td>
+                        </tr>
+                      ))}
+                  </MDBTableBody>
+                </MDBTable>
               </div>
             </div>
-          </FullHeight>
-        ) : (
-          <FullHeight>
-            <div style={{ margin: "350px 550px", display: "flex" }}>
-              <div className="spinner-grow text-info" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-              <div className="spinner-grow text-success" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            </div>
-          </FullHeight>
-        )}
+          </div>
+        </FullHeight>
 
         <MDBModal tabIndex="-1" show={centredModal} setShow={setCentredModal}>
           <MDBModalDialog centered>
@@ -272,7 +274,7 @@ const EntryData = () => {
         </MDBModal>
       </div>
 
-      <EntrySubbmit code={code} />
+      {isDoctor && <EntrySubbmit code={code} />}
     </>
   );
 };
