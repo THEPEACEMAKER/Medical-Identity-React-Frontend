@@ -118,6 +118,7 @@ const data ={
       }else{
         alert("Either wrong appointment or patient")
       }
+      // throw { status: error.response.status, message: error.message };
       
   })
 }
