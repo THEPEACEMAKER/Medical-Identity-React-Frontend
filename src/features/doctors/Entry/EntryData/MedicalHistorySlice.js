@@ -4,12 +4,24 @@ import api from "../../../../api/api";
 export const fetchMedicalHistory = createAsyncThunk(
   "medicalHistory/fetchMedicalHistory",
   async (
-    { isDoctor, isPatient, patientId, appointmentId, code, page, pageSize },
+    {
+      specialization,
+      isDoctor,
+      isPatient,
+      patientId,
+      appointmentId,
+      code,
+      page,
+      pageSize,
+    },
     thunkAPI
   ) => {
     try {
       let url = "";
-      if (isPatient) {
+      if (specialization) {
+        patientId = JSON.parse(localStorage.getItem("user")).id;
+        url = `/medical-entry/patient/${patientId}/medical-entries/?specialization=${specialization}`;
+      } else if (isPatient) {
         url = "/medical-entry/patient/list/";
       } else if (isDoctor) {
         if (!patientId || !appointmentId || !code) {
@@ -30,7 +42,10 @@ export const fetchMedicalHistory = createAsyncThunk(
         ? await api.get(url, requestOptions)
         : await api.post(url, { code }, requestOptions);
 
-      return response.data;
+      return {
+        result: specialization ? response.data.results : response.data.result,
+        count: response.data.count,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

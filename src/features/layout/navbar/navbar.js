@@ -70,7 +70,7 @@ function Navbar() {
                   </Link>{" "}
                   <Link to="/medicalHistory" className="mx-2 text-dark">
                     <i className="fas fa-file-medical"></i>
-                    <span>Medical History</span>
+                    <span> Medical History</span>
                   </Link>{" "}
                 </>
               )}

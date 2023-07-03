@@ -30,6 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMedicalHistory } from "./MedicalHistorySlice";
 import { useParams } from "react-router-dom";
 import EntrySubbmit from "../EntrySubbmit/EntrySubbmit";
+import SpecializationSelect from "./layout/SpecializationSelect";
 
 const EntryData = () => {
   const { patientId, appointmentId, code } = useParams();
@@ -51,8 +52,7 @@ const EntryData = () => {
   const [page, setPage] = useState(1);
   const [pagesQuantity, setPagesQuantity] = useState(0);
 
-  const doctor = JSON.parse(localStorage.getItem("user"));
-  console.log(doctor);
+  const [specialization, setSpecialization] = useState(null);
 
   const isLoading = false;
   // const toggleShowPatient = () => setCentredModal(!centredModal);
@@ -81,6 +81,7 @@ const EntryData = () => {
         code,
         pageSize,
         page,
+        specialization,
       })
     );
   }, [
@@ -92,6 +93,7 @@ const EntryData = () => {
     page,
     pageSize,
     patientId,
+    specialization,
   ]);
 
   useEffect(() => {
@@ -105,7 +107,11 @@ const EntryData = () => {
     setPage(newPage);
   };
 
-  if (status === "loading") {
+  const handleSpecializationChange = (selectedOption) => {
+    setSpecialization(selectedOption);
+  };
+
+  if (status === "loading" && !specialization) {
     return (
       <FullHeight>
         <div style={{ margin: "350px 550px", display: "flex" }}>
@@ -133,22 +139,7 @@ const EntryData = () => {
           <div className="dashboardTable">
             <h4>Medical Records</h4>
             <div className="dashboardHeading">
-              <div className="my-All-Appointment-component">
-                {/* <h1>{totalCount.total}</h1> */}
-                <p>
-                  All
-                  <br />
-                  Records
-                </p>
-              </div>
-              <div className="my-available-Appointment-component">
-                {/* <h1>{totalCount.Available}</h1> */}
-                <p>
-                  {doctor.specialization}
-                  <br />
-                  Records
-                </p>
-              </div>
+              <SpecializationSelect onChange={handleSpecializationChange} />
             </div>
             <div className="dashboardTableDetails pb-4">
               <div>
