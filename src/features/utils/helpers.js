@@ -104,7 +104,7 @@ function  sendMedicalCode  (code, patientId, appointmentId)  {
 const data ={
   "code" : code
 }  
-  return  api.post(`/code/doctor/patient/${patientId}/medical-entries/appointment/${appointmentId}/`,data)
+  return  api.post(`/doctor/patient/${patientId}/medical-entries/appointment/${appointmentId}/`,data)
   .then((res)=> {
       const newData = res.data
       console.log("res")

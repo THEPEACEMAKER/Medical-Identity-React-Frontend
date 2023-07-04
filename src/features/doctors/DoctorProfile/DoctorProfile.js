@@ -24,6 +24,7 @@ export default function DoctorProfile() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const Doctor = `${process.env.REACT_APP_BASE_API_URL}/account/doctor/${id}/`;
+  console.log(Doctor);
   useEffect(() => {
     dispatch(fetchDoctor({ id }));
   }, [id, dispatch]);

@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import api from "../../../api/api";
 
 function Navbar() {
+  const user = localStorage.getItem("user");
   const dispatch = useDispatch();
   const { isLoggedIn, isDoctor, isPatient } = useSelector(
     (state) => state.auth
   );
+
   const [specializations, setSpecializations] = useState([]);
 
   const handleLogout = () => {
@@ -88,7 +90,7 @@ function Navbar() {
               )}
               {isLoggedIn && (
                 <>
-                  <Link to="/profile" className="mx-2 text-black">
+                  <Link to={`/doctor/${user.id}`} className="mx-2 text-black">
                     <i className="fa-solid fa-user "></i>
                     <span> Profile</span>
                   </Link>
