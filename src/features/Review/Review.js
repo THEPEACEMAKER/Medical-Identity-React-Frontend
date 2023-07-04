@@ -25,9 +25,11 @@ export default function Review() {
             </div>
           </div> */}
           {isLoggedIn ? (
-            <div className="d-flex mb-3">
-              <ReviewInput id={id} />
-            </div>
+            isPatient && (
+              <div className="d-flex mb-3">
+                <ReviewInput id={id} />
+              </div>
+            )
           ) : (
             <MDBTypography className="text-center">
               Please log in to leave a review.

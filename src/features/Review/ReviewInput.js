@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { MDBTextArea } from "mdb-react-ui-kit";
-import api from "../../api/api";
+import { createReview } from "./ReviewSlice";
+import { useDispatch } from "react-redux";
 
 function ReviewInput({ id }) {
+  const dispatch = useDispatch();
   const [comment, setContent] = useState("");
 
   const handleKeyDown = async (event) => {
     if (event.key === "Enter") {
-      const response = await api.post(`/review/create/${id}/`, {
-        comment,
-      });
-      console.log(response.data);
+      dispatch(createReview({ id, comment }));
       setContent("");
     }
   };

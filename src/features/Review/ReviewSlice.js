@@ -19,10 +19,24 @@ export const fetchReview = createAsyncThunk(
   }
 );
 
+export const createReview = createAsyncThunk(
+  "doctorReview/createReview",
+  async ({ id, comment }, thunkAPI) => {
+    try {
+      const response = await api.post(`/review/create/${id}/`, {
+        comment,
+      });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 const ReviewSlice = createSlice({
   name: "doctorReview",
   initialState: {
-    reviews: {},
+    reviews: [],
     status: "idle",
     error: null,
     totaldoctorsCount: 0,
@@ -41,6 +55,9 @@ const ReviewSlice = createSlice({
       .addCase(fetchReview.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload.error;
+      })
+      .addCase(createReview.fulfilled, (state, action) => {
+        state.reviews.push(action.payload);
       });
   },
 });
