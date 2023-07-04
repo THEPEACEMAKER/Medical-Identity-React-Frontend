@@ -146,7 +146,7 @@ export default function Reservations() {
           </div>
         </div>
 
-        <nav aria-label="..." className={`${styles.pagination}`}>
+        {/* <nav aria-label="..." className={`${styles.pagination}`}>
           <MDBPagination center size="lg" className="mb-0">
             {Array.from({ length: pagesQuantity }, (_, index) => (
               <MDBPaginationItem key={index} active={index + 1 === page}>
@@ -159,7 +159,7 @@ export default function Reservations() {
               </MDBPaginationItem>
             ))}
           </MDBPagination>
-        </nav>
+        </nav> */}
       </MDBCard>
     </MDBContainer>
   );

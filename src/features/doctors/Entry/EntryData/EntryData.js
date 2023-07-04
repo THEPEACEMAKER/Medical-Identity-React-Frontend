@@ -173,7 +173,6 @@ const EntryData = () => {
                                 }
                               </td>
                               <td>
-                                map
                                 <MDBBtn
                                   onClick={() => toggleShowDoctor(appoint)}
                                 >
@@ -260,7 +259,10 @@ const EntryData = () => {
                       <strong>Radiology:</strong>
                     </p>
                     {/* <span>{selectedAppointment.analysis_image}</span> */}
-                    <img src= {`${process.env.REACT_APP_IMGE_API_URL}/${selectedAppointment.analysis_image}`} alt='Radiology'></img>
+                    <img
+                      src={`${process.env.REACT_APP_IMGE_API_URL}/${selectedAppointment.analysis_image}`}
+                      alt="Radiology"
+                    ></img>
                   </div>
                 )}
               </MDBModalBody>
