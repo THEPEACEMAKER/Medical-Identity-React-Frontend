@@ -20,9 +20,8 @@ export default function GenerateCodeBtn({ reservation }) {
   const toggleShow = async () => {
     try {
       const response = await api.post(`/code/${reservation.appointment}/`);
-      console.log(reservation.appointment);
-      const sessionCode = response.data[0].code;
-      console.log(sessionCode);
+      const sessionCode = response.data.code;
+
       setSessionCode(sessionCode);
       setBasicModal(!basicModal);
     } catch (error) {
