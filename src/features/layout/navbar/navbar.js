@@ -7,10 +7,12 @@ import api from "../../../api/api";
 import logo from "../../../assets/logo2.png"
 
 function Navbar() {
+  const user = localStorage.getItem("user");
   const dispatch = useDispatch();
   const { isLoggedIn, isDoctor, isPatient } = useSelector(
     (state) => state.auth
   );
+
   const [specializations, setSpecializations] = useState([]);
 
   const handleLogout = () => {
@@ -90,7 +92,7 @@ function Navbar() {
               )}
               {isLoggedIn && (
                 <>
-                  <Link to="/profile" className="mx-2 text-black">
+                  <Link to={`/doctor/${user.id}`} className="mx-2 text-black">
                     <i className="fa-solid fa-user "></i>
                     <span> Profile</span>
                   </Link>
@@ -174,11 +176,15 @@ function Navbar() {
                     Home
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className={`nav-link `} aria-current="page" to="/home">
+                {/* <li className="nav-item">
+                  <Link
+                    className={`nav-link `}
+                    aria-current="page"
+                    to="/doctor"
+                  >
                     Doctors
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link
                     to="/orders"
