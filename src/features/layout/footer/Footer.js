@@ -38,7 +38,6 @@ export default function Footer() {
               <a href="#" ><FontAwesomeIcon icon={faInstagram} beat size="2xl" /></a>
               <a href="#" ><FontAwesomeIcon icon={faTwitter} beat size="2xl" /></a>
               <a href="#" ><FontAwesomeIcon icon={faLinkedin} beat size="2xl" /></a>
-
             </ul>
           </div>
         </div>
