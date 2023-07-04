@@ -25,8 +25,17 @@ import EntryData from "./features/doctors/Entry/EntryData/EntryData";
 function App() {
   const dispatch = useDispatch();
 
+  const isDoctor = localStorage.getItem("isDoctor")
+  const isPatient = localStorage.getItem("isPatient")
+
+  console.log("isDoctor, isPatient", isDoctor, isPatient)
+
   useEffect(() => {
-    helpers.fetchDoctorData(dispatch);
+
+    if(isDoctor){
+      helpers.fetchDoctorData(dispatch);
+    }
+    
   }, [dispatch]);
 
   return (
