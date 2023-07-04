@@ -1,24 +1,28 @@
 import { Formik, Form, Field } from 'formik';
 import { MDBInput, MDBBtn, MDBModalFooter, MDBModal, MDBModalDialog,MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody  } from 'mdb-react-ui-kit';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../../../../api/api';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup';
+import { helpers } from '../../../utils/helpers';
+import { useParams } from "react-router-dom";
 
 
-// {
-//     comment: " ",
-//     prescription: " ",
-//     analysis_image: " ",
-// }
 
 const EntrySubmit = () => {
+
+    // const patientId = "3"
+    // const appointmentId = "1"
+
+    const { patientId, appointmentId, code } = useParams();
+
+    console.log("patient, appointment code", patientId, appointmentId, code)
+
+
   const [varyingModal, setVaryingModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const [editModel ,setEditModel] = useState(false)
-
-
 
   const [centredModal, setCentredModal] = useState(false);
 
@@ -29,6 +33,42 @@ const EntrySubmit = () => {
 
   console.log("currentEntry")
   console.log(currentEntry)
+
+  useEffect(()=>{
+
+
+    const data ={
+        "code" : code
+      }  
+    api.post(`/code/doctor/patient/${patientId}/medical-entries/appointment/${appointmentId}/`,data)
+    .then((res)=> {
+        const newData = res.data
+        console.log("res")
+        console.log(res)
+        // return res.status
+
+        console.log(res.data.current_appointment)
+            
+        if(res.data.current_appointment !== null){
+            setCurrentEntry(res.data.current_appointment)
+            setNewEntry(false)
+            console.log("current_appointment is noooot null")
+        }else{
+            console.log("current_appointment is null")
+        }
+  
+    }).catch((error) => {
+        console.log(error)
+        if(error.message === 'An error occurred. Please try again later.'){
+          alert("Please enter a valid medical code")
+        }else{
+          alert("Either wrong appointment or patient")
+        }        
+    })
+
+
+
+  },[])
 
     const validationSchema = Yup.object().shape({
         medicalDiagnosis: Yup.string().required('Medical Diagnosis is required'),
@@ -42,8 +82,7 @@ const EntrySubmit = () => {
     };
 
 
-  const patientId = "4"
-  const appointmentId = "8"
+
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const { medicalDiagnosis, prescription, profileImgUrl } = values;
@@ -63,7 +102,7 @@ const EntrySubmit = () => {
     const data = {
         'comment': medicalDiagnosis,
         'prescription': prescription,
-        "code" :"JSXOU7KJLA",
+        "code" :code,
         "analysis_image":profileImgUrl
     }
 
@@ -80,14 +119,6 @@ const EntrySubmit = () => {
         console.log("response status")
         console.log(response)
 
-        // if (response.status === 400) {
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Error!',
-        //         text: '400',
-        //       });
-        //       setVaryingModal(!varyingModal);
-        // }
         console.log("inside response")
         console.log(response)
         setVaryingModal(!varyingModal);
@@ -136,15 +167,7 @@ const EntrySubmit = () => {
 
     const handelEntryUpdate = (values, { setSubmitting, resetForm }) => {
         const { medicalDiagnosis, prescription, profileImgUrl } = values;
-                // if (response.status === 400) {
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Error!',
-            //         text: '400',
-            //       });
-            //       setVaryingModal(!varyingModal);
-            // }
-    
+
         console.log("profileImgUrl")
         console.log(profileImgUrl)
     
@@ -157,7 +180,7 @@ const EntrySubmit = () => {
         const data = {
             'comment': medicalDiagnosis,
             'prescription': prescription,
-            "code" :"JSXOU7KJLA",
+            "code" :code,
             "analysis_image":profileImgUrl
         }
     
@@ -174,14 +197,6 @@ const EntrySubmit = () => {
             console.log("response status")
             console.log(response)
     
-            // if (response.status === 400) {
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Error!',
-            //         text: '400',
-            //       });
-            //       setVaryingModal(!varyingModal);
-            // }
             console.log("inside response")
             console.log(response)
             setEditModel(!editModel)
@@ -315,7 +330,7 @@ const EntrySubmit = () => {
 
 
 
-
+{/* 
                     <label htmlFor="inputTag" className="file-input-label">
                     <i className="fa fa-camera"></i>
                     <Field
@@ -325,7 +340,19 @@ const EntrySubmit = () => {
                         onChange={(e) => handleFileInputChange(e, setFieldValue)}
                         invalid={touched.profileImgUrl && !!errors.profileImgUrl}
                     />
-                    </label>
+                    </label> */}
+
+
+                        <label htmlFor="inputTag" className="file-input-label">
+                            <i className="fa fa-camera"></i>
+                            <input
+                                id="inputTag"
+                                type="file"
+                                name="profileImgUrl"
+                                onChange={(e) => handleFileInputChange(e, setFieldValue)}
+                                // onBlur={props.form.handleBlur}
+                            />
+                        </label>
 
                     {/* {touched.profileImgUrl && errors.profileImgUrl && (
                         <div className='text-danger'>{errors.profileImgUrl}</div>
@@ -463,10 +490,6 @@ const EntrySubmit = () => {
                 ></MDBBtn>
               </MDBModalHeader>
               <MDBModalBody>
-                {/* <p>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-                        egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                        </p> */}
 
                 {currentEntry && (
                   <div>

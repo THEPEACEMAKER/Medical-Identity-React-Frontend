@@ -22,6 +22,7 @@ import FullHeight from "react-full-height";
 import { useSelector, useDispatch } from "react-redux";
 import { helpers } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
+import StartSessionBtn from "./layout/StartSessionBtn";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -180,8 +181,6 @@ const Dashboard = () => {
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
-                    {/* appointment && appointment.map((appoint) => ( */}
-
                     {appointment.map((appoint) => (
                       <tr>
                         <td>
@@ -190,7 +189,8 @@ const Dashboard = () => {
                           ) : (
                             <div className="d-flex align-items-center">
                               <img
-                                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                // src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                src={`${process.env.REACT_APP_IMGE_API_URL}/${appoint.reservation_data.patient.profileImgUrl}`}
                                 alt="User_picture"
                                 style={{ width: "45px", height: "45px" }}
                                 className="rounded-circle"
@@ -234,15 +234,10 @@ const Dashboard = () => {
                         </td>
                         <td>{appoint.price}</td>
                         <td>
-                          <MDBBtn
-                            onClick={() => toggleShow(appoint)}
-                            disabled={appoint.status === "A"}
-                            type="button"
-                            className="me-1"
-                            color="success"
-                          >
-                            Start Session
-                          </MDBBtn>
+                          <StartSessionBtn
+                            appointment={appoint}
+                            toggleShow={toggleShow}
+                          />
                         </td>
                       </tr>
                     ))}

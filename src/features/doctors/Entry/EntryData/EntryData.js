@@ -134,6 +134,9 @@ const EntryData = () => {
     return <div>Error: {error}</div>;
   }
 
+  console.log("selectedDoctors")
+  console.log(selectedDoctors)
+
   return (
     <>
       <div className="dashboard">
@@ -282,7 +285,8 @@ const EntryData = () => {
                           {/* <MDBCardImage src={`${process.env.REACT_APP_IMGE_API_URL}/${selectedDoctors.doctor.profileImgUrl}`}
                                         className="rounded-circle" fluid style={{ width: '100px' }} /> */}
                           <MDBCardImage
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                            // src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                            src={`${process.env.REACT_APP_IMGE_API_URL}/${selectedDoctors.doctor.profileImgUrl}`}
                             className="rounded-circle"
                             fluid
                             style={{ width: "100px" }}
