@@ -508,7 +508,7 @@ const EntrySubmit = () => {
                     <p>
                       <strong>Radiology:</strong>
                     </p>
-                    <span>{currentEntry.analysis_image}</span>
+                    <img src= {`${process.env.REACT_APP_IMGE_API_URL}/${currentEntry.analysis_image}`} alt='Radiology'></img>
                   </div>
                 )}
               </MDBModalBody>
