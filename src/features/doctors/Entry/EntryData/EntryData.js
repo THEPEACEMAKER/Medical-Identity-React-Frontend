@@ -134,8 +134,8 @@ const EntryData = () => {
     return <div>Error: {error}</div>;
   }
 
-  console.log("selectedDoctors")
-  console.log(selectedDoctors)
+  console.log("selectedDoctors");
+  console.log(selectedDoctors);
 
   return (
     <>
@@ -161,39 +161,49 @@ const EntryData = () => {
                   </MDBTableHead>
                   <MDBTableBody>
                     {appointments &&
-                      appointments.map((appoint) => (
-                        <tr key={appoint.id}>
-                          <td>
-                            {
-                              <p className="fw-bold mb-0 pt-1 pb-1">
-                                {appoint.doctor.specialization}
-                              </p>
-                            }
-                          </td>
-                          <td>
-                            <MDBBtn onClick={() => toggleShowDoctor(appoint)}>
-                              {
-                                <p className="fw-bold mb-0 pt-1 pb-1">
-                                  {appoint.doctor.first_name +
-                                    " " +
-                                    appoint.doctor.last_name}
-                                </p>
-                              }
-                            </MDBBtn>
-                            {/* {
+                      appointments.map(
+                        (appoint) =>
+                          appoint.appointment.id != appointmentId && (
+                            <tr key={appoint.id}>
+                              <td>
+                                {
+                                  <p className="fw-bold mb-0 pt-1 pb-1">
+                                    {appoint.doctor.specialization}
+                                  </p>
+                                }
+                              </td>
+                              <td>
+                                map
+                                <MDBBtn
+                                  onClick={() => toggleShowDoctor(appoint)}
+                                >
+                                  {
+                                    <p className="fw-bold mb-0 pt-1 pb-1">
+                                      {appoint.doctor.first_name +
+                                        " " +
+                                        appoint.doctor.last_name}
+                                    </p>
+                                  }
+                                </MDBBtn>
+                                {/* {
                                                         <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.doctor.first_name + " " + appoint.doctor.last_name}</p>
                                                     } */}
-                          </td>
+                              </td>
 
-                          <td>{helpers.formatLongDate(appoint.created_at)}</td>
+                              <td>
+                                {helpers.formatLongDate(appoint.created_at)}
+                              </td>
 
-                          <td>
-                            <MDBBtn onClick={() => toggleShowPatient(appoint)}>
-                              Medical Record
-                            </MDBBtn>
-                          </td>
-                        </tr>
-                      ))}
+                              <td>
+                                <MDBBtn
+                                  onClick={() => toggleShowPatient(appoint)}
+                                >
+                                  Medical Record
+                                </MDBBtn>
+                              </td>
+                            </tr>
+                          )
+                      )}
                   </MDBTableBody>
                 </MDBTable>
                 <nav aria-label="..." className={`${styles.pagination}`}>
