@@ -12,6 +12,8 @@ export const fetchDoctorsBySpecializations = createAsyncThunk(
 
       if (selectedDistrict) {
         url = `/account/doctor/city/${selectedCity}/district/${selectedDistrict}/specialization/${specializationId}/`;
+      } else if (selectedCity && !selectedDistrict) {
+        url = `/account/doctor/city/${selectedCity}/specialization/${specializationId}/`;
       }
 
       const response = await api.get(url, {

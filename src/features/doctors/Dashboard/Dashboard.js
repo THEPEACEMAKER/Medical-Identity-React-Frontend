@@ -290,7 +290,7 @@ const Dashboard = () => {
               <MDBBtn color="secondary" onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <MDBBtn onClick={handleSendingCode}>Save changes</MDBBtn>
+              <MDBBtn onClick={handleSendingCode}>Submit</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

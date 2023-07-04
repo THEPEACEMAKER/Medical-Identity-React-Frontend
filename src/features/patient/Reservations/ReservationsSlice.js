@@ -5,7 +5,7 @@ export const fetchReservations = createAsyncThunk(
   "patientReservations/fetchReservations",
   async ({ pageSize, page }, thunkAPI) => {
     try {
-      const response = await api.get("/reservation/", {
+      const response = await api.get("/reservation/patient/list/reserved/", {
         params: {
           page,
           size: pageSize,
@@ -34,7 +34,7 @@ const reservationsSlice = createSlice({
       })
       .addCase(fetchReservations.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.reservations = action.payload;
+        state.reservations = action.payload.results;
         state.totalCount = action.payload.count;
       })
       .addCase(fetchReservations.rejected, (state, action) => {
