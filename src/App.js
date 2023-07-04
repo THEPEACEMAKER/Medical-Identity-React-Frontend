@@ -18,7 +18,7 @@ import "./App.css";
 import DoctorsListPage from "./features/DoctorsListPage/DoctorsListPage";
 import { helpers } from "./features/utils/helpers";
 import MedicalEntry from "./features/medicalEntry/medicalEntry";
-import FindDoctors from "./features/doctors/FindDoctors/FindDoctors";
+import DoctorProfile from "./features/doctors/DoctorProfile/DoctorProfile";
 import Reservations from "./features/patient/Reservations/Reservations";
 import EntryData from "./features/doctors/Entry/EntryData/EntryData";
 
@@ -88,7 +88,7 @@ function App() {
 
           <Route path="home" element={<Home />} />
           <Route path="" element={<Home />} />
-          <Route path="doctors" element={<FindDoctors />} />
+          <Route path="doctor/:id" element={<DoctorProfile />} />
 
           <Route path="*" element={<NotFound />} />
         </Route>

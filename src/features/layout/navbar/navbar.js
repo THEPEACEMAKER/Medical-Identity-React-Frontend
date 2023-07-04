@@ -198,11 +198,15 @@ function Navbar() {
                     Home
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className={`nav-link `} aria-current="page" to="/home">
+                {/* <li className="nav-item">
+                  <Link
+                    className={`nav-link `}
+                    aria-current="page"
+                    to="/doctor"
+                  >
                     Doctors
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link
                     to="/orders"

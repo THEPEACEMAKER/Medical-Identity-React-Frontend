@@ -5,7 +5,7 @@ import DoctorsListSlice from "../features/DoctorsListPage/DoctorsListSlice";
 import ReservationsSlice from "../features/patient/Reservations/ReservationsSlice";
 import DoctorsSlice from "../features/doctors/DoctorsData/DoctorsSlice/DoctorsSlice";
 import MedicalHistorySlice from "../features/doctors/Entry/EntryData/MedicalHistorySlice";
-
+import DoctorSlice from "../features/doctors/DoctorProfile/DoctorSlice";
 const store = configureStore({
   reducer: {
     auth: authSlice,
@@ -14,6 +14,7 @@ const store = configureStore({
     patientReservations: ReservationsSlice,
     doctorsData: DoctorsSlice,
     medicalHistory: MedicalHistorySlice,
+    doctorData: DoctorSlice,
   },
 });
 
