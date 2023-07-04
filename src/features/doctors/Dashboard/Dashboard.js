@@ -180,8 +180,6 @@ const Dashboard = () => {
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
-                    {/* appointment && appointment.map((appoint) => ( */}
-
                     {appointment.map((appoint) => (
                       <tr>
                         <td>
@@ -190,7 +188,8 @@ const Dashboard = () => {
                           ) : (
                             <div className="d-flex align-items-center">
                               <img
-                                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                // src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                src={`${process.env.REACT_APP_IMGE_API_URL}/${appoint.reservation_data.patient.profileImgUrl}`}
                                 alt="User_picture"
                                 style={{ width: "45px", height: "45px" }}
                                 className="rounded-circle"
