@@ -33,3 +33,9 @@ body {
 .bg-primary {
   background-color: #ffd333 !important;
 }
+
+:root{
+  --main-color : #1F2278 ;
+  --orange-color: #F17732 ;
+  --btn-color : #565acf
+}

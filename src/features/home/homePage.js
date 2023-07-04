@@ -8,10 +8,84 @@ import "swiper/css";
 import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import DoctorCard from "../layout/DoctorCard/DoctorCard";
 import DoctorsCarousel from "../doctors/DoctorsCarousel/DoctorsCarousel";
+import headerImg from "../../assets/doctor1.png"
+import PicOne from "../../assets/pic-1.jpg"
+import PicTwo from "../../assets/pic-2.jpg"
+import PicThree from "../../assets/pic-3.jpg"
+import PicFour from "../../assets/pic-1.jpg"
+
 function Home() {
   return (
     <div className={`${styles.body}`}>
       {" "}
+      <div>
+        <header>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6 col-lg-6">
+                <h5>We Provide All Health Care Solutions</h5>
+                <h2>Protect Your Health And Take Care To Your Health</h2>
+                <h6>Our Expert Team is Here to Support You Every Step of the Way!</h6>
+                <h6>Experience Personalized Care Tailored to Your Unique Needs</h6>
+              </div>
+              <div className="col-md-6 col-lg-6">
+                <img src={headerImg} alt="doctor-1" />
+              </div>
+            </div>
+          </div>
+        </header>
+        <header>
+          <div class="container">
+            <div class="row">
+            <div className="col-md-4 col-lg-4">
+                <Carousel className="align-self-stretch">
+                  <Carousel.Item interval={1000}>
+                    <img
+                      className="d-block w-100"
+                      src={PicOne}
+                      alt="First slide"
+                    />
+                    <div
+                      style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+                    >
+                    </div>
+                  </Carousel.Item>
+                  <Carousel.Item interval={500}>
+                    <img
+                      className="d-block w-100"
+                      src={PicTwo}
+                      alt="Second slide"
+                    />
+                    <div
+                      className="mask"
+                      style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+                    >
+                    </div>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={PicThree}
+                      alt="Third slide"
+                    />
+                    <div
+                      style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+                    >
+                    </div>
+                  </Carousel.Item>
+                </Carousel>
+              </div>
+              <div class="col-md-8 col-lg-8">
+                <h5>About Us</h5>
+                <h2>The Great Place Of Medical Hospital Center</h2>
+                <h6>Our Expert Team is Here to Support You Every Step of the Way!</h6>
+              </div>
+              
+            </div>
+          </div>
+        </header>
+
+      </div>
       <div className={`container-fluid py-5`}>
         <div className="d-flex gap-2 align-items-center">
           {
@@ -29,9 +103,10 @@ function Home() {
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
               >
                 <Carousel.Caption>
-                  <h3>First slide label</h3>
+                  <h3>Treatment</h3>
                   <p>
-                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                    Advanced treatments and compassionate care
+                    for your optimal health and well-being.
                   </p>
                 </Carousel.Caption>
               </div>
@@ -39,7 +114,7 @@ function Home() {
             <Carousel.Item interval={500}>
               <img
                 className="d-block w-100"
-                src={process.env.PUBLIC_URL + "assets/carousel-2.webp"}
+                src={process.env.PUBLIC_URL + "assets/surgy1.jpeg"}
                 alt="Second slide"
               />
               <div
@@ -47,9 +122,10 @@ function Home() {
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
               >
                 <Carousel.Caption>
-                  <h3>Second slide label</h3>
+                  <h3>Surgery</h3>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    State-of-the-art surgical interventions,
+                    guided by expertise and precision, to restore health and improve lives.
                   </p>
                 </Carousel.Caption>
               </div>
@@ -57,7 +133,7 @@ function Home() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src={process.env.PUBLIC_URL + "assets/carousel-3.jpg"}
+                src={process.env.PUBLIC_URL + "assets/vaccine.jpeg"}
                 alt="Third slide"
               />
               <div
@@ -65,10 +141,29 @@ function Home() {
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
               >
                 <Carousel.Caption>
-                  <h3>Third slide label</h3>
+                  <h3>Vaccine</h3>
                   <p>
-                    Praesent commodo cursus magna, vel scelerisque nisl
-                    consectetur.
+                    Protect yourself and others with safe and effective vaccines,
+                    safeguarding communities and promoting a healthier future.
+                  </p>
+                </Carousel.Caption>
+              </div>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={process.env.PUBLIC_URL + "assets/emergency.jpeg"}
+                alt="Third slide"
+              />
+              <div
+                className="mask"
+                style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+              >
+                <Carousel.Caption>
+                  <h3>Emergency</h3>
+                  <p>
+                    Rapid response to emergencies,
+                    ensuring swift and effective healthcare solutions when time is critical.
                   </p>
                 </Carousel.Caption>
               </div>
