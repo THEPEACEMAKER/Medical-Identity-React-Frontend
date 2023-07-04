@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../../api/api";
-const URL = process.env.REACT_APP_BASE_API_URL;
-export const fetchDoctor = createAsyncThunk(
-  "doctorData/fetchDoctor",
+import api from "../../api/api";
+export const fetchReview = createAsyncThunk(
+  "doctorReview/fetchReview",
   async ({ id, pageSize, page }, thunkAPI) => {
     try {
-      let url = `/account/doctor/${id}/`;
+      let url = `/review/${id}/`;
+      console.log(id);
       const response = await api.get(url, {
         params: {
           page,
@@ -19,10 +19,10 @@ export const fetchDoctor = createAsyncThunk(
   }
 );
 
-const DoctorSlice = createSlice({
-  name: "doctorData",
+const ReviewSlice = createSlice({
+  name: "doctorReview",
   initialState: {
-    doctor: {},
+    reviews: {},
     status: "idle",
     error: null,
     totaldoctorsCount: 0,
@@ -30,19 +30,19 @@ const DoctorSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDoctor.pending, (state) => {
+      .addCase(fetchReview.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchDoctor.fulfilled, (state, action) => {
+      .addCase(fetchReview.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.doctor = action.payload;
+        state.reviews = action.payload.results;
         state.totaldoctorsCount = action.payload.count;
       })
-      .addCase(fetchDoctor.rejected, (state, action) => {
+      .addCase(fetchReview.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload.error;
       });
   },
 });
 
-export default DoctorSlice.reducer;
+export default ReviewSlice.reducer;
