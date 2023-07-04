@@ -18,6 +18,18 @@ export const fetchReservations = createAsyncThunk(
   }
 );
 
+export const cancelReservation = createAsyncThunk(
+  "patientReservations/cancelReservation",
+  async (reservationId, thunkAPI) => {
+    try {
+      await api.delete(`/reservation/patient/delete/${reservationId}/`);
+      return reservationId;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 const reservationsSlice = createSlice({
   name: "patientReservations",
   initialState: {
@@ -25,6 +37,8 @@ const reservationsSlice = createSlice({
     status: "idle",
     error: null,
     totalCount: 1,
+    cancelStatus: "idle",
+    cancelError: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -40,6 +54,22 @@ const reservationsSlice = createSlice({
       .addCase(fetchReservations.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
+      })
+      .addCase(cancelReservation.pending, (state) => {
+        state.cancelStatus = "loading";
+        state.cancelError = null;
+      })
+      .addCase(cancelReservation.fulfilled, (state, action) => {
+        state.cancelStatus = "succeeded";
+        const reservationId = action.payload;
+        state.reservations = state.reservations.filter(
+          (reservation) => reservation.id !== reservationId
+        );
+        state.totalCount -= 1;
+      })
+      .addCase(cancelReservation.rejected, (state, action) => {
+        state.cancelStatus = "failed";
+        state.cancelError = action.error;
       });
   },
 });

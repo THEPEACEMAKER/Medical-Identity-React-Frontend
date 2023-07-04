@@ -8,11 +8,13 @@ import {
   MDBPagination,
   MDBPaginationItem,
   MDBPaginationLink,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReservations } from "./ReservationsSlice";
 import styles from "./stylee.module.css";
 import GenerateCodeBtn from "./layout/GenerateCodeBtn";
+import CancelBtn from "./layout/CancelBtn";
 
 export default function Reservations() {
   const dispatch = useDispatch();
@@ -86,6 +88,7 @@ export default function Reservations() {
                   <th scope="col">Session Start</th>
                   <th scope="col">Duration</th>
                   <th scope="col">Session Code</th>
+                  <th scope="col">Cancel</th>
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
@@ -132,6 +135,9 @@ export default function Reservations() {
                     <td>{reservation.appointment_duration} minutes</td>
                     <td>
                       <GenerateCodeBtn reservation={reservation} />
+                    </td>
+                    <td>
+                      <CancelBtn id={reservation.id} />
                     </td>
                   </tr>
                 ))}
