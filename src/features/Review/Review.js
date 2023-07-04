@@ -3,14 +3,16 @@ import {
   MDBCard,
   MDBCardBody,
   MDBContainer,
-  MDBTextArea,
+  MDBTypography,
 } from "mdb-react-ui-kit";
 import ReviewCard from "./ReviewCard";
+import ReviewInput from "./ReviewInput";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Review() {
-  const user = localStorage.getItem("user");
-  const URL = process.env.REACT_APP_IMGE_API_URL;
-
+  const { id } = useParams();
+  const { isLoggedIn, user, isPatient } = useSelector((state) => state.auth);
   return (
     <MDBContainer className="py-5">
       <MDBCard style={{ maxWidth: "42rem" }}>
@@ -22,14 +24,15 @@ export default function Review() {
               </a>
             </div>
           </div> */}
-          <div className="d-flex mb-3">
-            <MDBTextArea
-              label="Message"
-              id="textAreaExample"
-              rows={2}
-              wrapperClass="w-100"
-            />
-          </div>
+          {isLoggedIn ? (
+            <div className="d-flex mb-3">
+              <ReviewInput id={id} />
+            </div>
+          ) : (
+            <MDBTypography className="text-center">
+              Please log in to leave a review.
+            </MDBTypography>
+          )}
           <ReviewCard />
         </MDBCardBody>
       </MDBCard>
