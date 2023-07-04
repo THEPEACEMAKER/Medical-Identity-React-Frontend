@@ -22,6 +22,7 @@ import FullHeight from "react-full-height";
 import { useSelector, useDispatch } from "react-redux";
 import { helpers } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
+import StartSessionBtn from "./layout/StartSessionBtn";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -233,15 +234,10 @@ const Dashboard = () => {
                         </td>
                         <td>{appoint.price}</td>
                         <td>
-                          <MDBBtn
-                            onClick={() => toggleShow(appoint)}
-                            disabled={appoint.status === "A"}
-                            type="button"
-                            className="me-1"
-                            color="success"
-                          >
-                            Start Session
-                          </MDBBtn>
+                          <StartSessionBtn
+                            appointment={appoint}
+                            toggleShow={toggleShow}
+                          />
                         </td>
                       </tr>
                     ))}

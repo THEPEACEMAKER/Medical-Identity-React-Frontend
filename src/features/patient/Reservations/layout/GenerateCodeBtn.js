@@ -43,7 +43,7 @@ export default function GenerateCodeBtn({ reservation }) {
 
   return (
     <>
-      {!isWithinSessionTime ? (
+      {isWithinSessionTime ? (
         sessionCode ? (
           <div
             style={{
