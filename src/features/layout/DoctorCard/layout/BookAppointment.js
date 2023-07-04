@@ -48,6 +48,16 @@ const BookAppointment = ({ doctorID }) => {
     setSelectedAppointment(value);
   };
 
+  const filteredAppointments = appointments.filter((appointment) =>
+    moment
+      .tz(
+        appointment.date + " " + appointment.start_time,
+        "YYYY-MM-DD HH:mm:ss",
+        "Africa/Cairo"
+      )
+      .isAfter(moment.tz("Africa/Cairo"))
+  );
+
   return (
     <>
       <div>
@@ -74,7 +84,7 @@ const BookAppointment = ({ doctorID }) => {
             }}
             className="time-select mt-2"
             placeholder="Select a Time | Price"
-            options={appointments
+            options={filteredAppointments
               .filter((appointment) => appointment.date === selectedDate)
               .map((appointment) => ({
                 label: `${moment(appointment.start_time, "HH:mm:ss").format(
