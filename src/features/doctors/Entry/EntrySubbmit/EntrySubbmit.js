@@ -68,7 +68,7 @@ const EntrySubmit = () => {
 
 
 
-  },[])
+  },[appointmentId, code, patientId])
 
     const validationSchema = Yup.object().shape({
         medicalDiagnosis: Yup.string().required('Medical Diagnosis is required'),
@@ -158,6 +158,8 @@ const EntrySubmit = () => {
     };
 
 
+    console.log("current eentru")
+    console.log(currentEntry)
 
     const  medical_entry_id = currentEntry !== null ? currentEntry.id :  null
     console.log("medical_entry_id")

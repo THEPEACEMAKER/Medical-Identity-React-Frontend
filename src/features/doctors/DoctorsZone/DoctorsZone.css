@@ -6,6 +6,7 @@
     display: flex;
     margin-left: 280px;
     flex-wrap: wrap;
+    
 }
 .zoneAppointment h4{
     padding-top: 20px;
@@ -15,7 +16,7 @@
     margin-top: 50px;
     margin-left: 40px;
     width: 500px;
-    height: 600px;
+    height: 650px;
     font-size: 20px;
     padding: 0px 5px;
     padding-top: 80px;
@@ -36,8 +37,8 @@
     background-color: white;
     margin-top: 50px;
     margin-left: 40px;
-    width: 500px;
-    height: 600px;
+    width: 550px;
+    height: 650px;
     font-size: 20px;
     padding: 0px 5px;
     padding-top: 80px;
