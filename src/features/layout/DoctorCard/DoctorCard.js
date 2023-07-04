@@ -8,6 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import BookAppointment from "./layout/BookAppointment";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function DoctorCard({ doctor }) {
   const { id, first_name, last_name, specialization, profileImgUrl } = doctor;
@@ -16,25 +17,28 @@ function DoctorCard({ doctor }) {
   return (
     <MDBCol md="12" lg="3" className="mb-4">
       <MDBCard>
-        <MDBRipple
-          rippleColor="light"
-          rippleTag="div"
-          className="bg-image rounded hover-zoom"
-        >
-          <MDBCardImage
-            src={process.env.REACT_APP_IMGE_API_URL + profileImgUrl}
-            fluid
-            className="w-100"
-          />
-          <div className="hover-overlay">
-            <div
-              className="mask"
-              style={{
-                backgroundColor: "rgba(251, 251, 251, 0.15)",
-              }}
-            ></div>
-          </div>
-        </MDBRipple>
+        <Link className={`nav-link `} aria-current="page" to={`/doctor/${id}`}>
+          <MDBRipple
+            rippleColor="light"
+            rippleTag="div"
+            className="bg-image rounded hover-zoom"
+          >
+            <MDBCardImage
+              src={process.env.REACT_APP_IMGE_API_URL + profileImgUrl}
+              fluid
+              className="w-100"
+            />
+
+            <div className="hover-overlay">
+              <div
+                className="mask"
+                style={{
+                  backgroundColor: "rgba(251, 251, 251, 0.15)",
+                }}
+              ></div>
+            </div>
+          </MDBRipple>
+        </Link>
         <MDBCardBody>
           <h5 className="card-title mb-3">{`${first_name} ${last_name}`}</h5>
           <p>{specialization.name}</p>
