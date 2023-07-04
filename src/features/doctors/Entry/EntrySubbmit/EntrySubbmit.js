@@ -5,14 +5,18 @@ import api from '../../../../api/api';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup';
 import { helpers } from '../../../utils/helpers';
+import { useParams } from "react-router-dom";
+
 
 
 const EntrySubmit = () => {
 
-    const patientId = "3"
-    const appointmentId = "1"
+    // const patientId = "3"
+    // const appointmentId = "1"
 
+    const { patientId, appointmentId, code } = useParams();
 
+    console.log("patient, appointment code", patientId, appointmentId, code)
 
 
   const [varyingModal, setVaryingModal] = useState(false);
@@ -32,10 +36,9 @@ const EntrySubmit = () => {
 
   useEffect(()=>{
 
-    // `code/doctor/patient/${patientId}/medical-entries/appointment/${appointmentId}/`
 
     const data ={
-        "code" : "A36QVWK8LB"
+        "code" : code
       }  
     api.post(`/code/doctor/patient/${patientId}/medical-entries/appointment/${appointmentId}/`,data)
     .then((res)=> {
@@ -60,12 +63,9 @@ const EntrySubmit = () => {
           alert("Please enter a valid medical code")
         }else{
           alert("Either wrong appointment or patient")
-        }
-        // throw { status: error.response.status, message: error.message };
-        
+        }        
     })
 
-    // helpers.sendMedicalCode("A36QVWK8LB", patientId, appointmentId)
 
 
   },[])
@@ -102,7 +102,7 @@ const EntrySubmit = () => {
     const data = {
         'comment': medicalDiagnosis,
         'prescription': prescription,
-        "code" :"A36QVWK8LB",
+        "code" :code,
         "analysis_image":profileImgUrl
     }
 
@@ -180,7 +180,7 @@ const EntrySubmit = () => {
         const data = {
             'comment': medicalDiagnosis,
             'prescription': prescription,
-            "code" :"A36QVWK8LB",
+            "code" :code,
             "analysis_image":profileImgUrl
         }
     
@@ -330,7 +330,7 @@ const EntrySubmit = () => {
 
 
 
-
+{/* 
                     <label htmlFor="inputTag" className="file-input-label">
                     <i className="fa fa-camera"></i>
                     <Field
@@ -340,7 +340,19 @@ const EntrySubmit = () => {
                         onChange={(e) => handleFileInputChange(e, setFieldValue)}
                         invalid={touched.profileImgUrl && !!errors.profileImgUrl}
                     />
-                    </label>
+                    </label> */}
+
+
+                        <label htmlFor="inputTag" className="file-input-label">
+                            <i className="fa fa-camera"></i>
+                            <input
+                                id="inputTag"
+                                type="file"
+                                name="profileImgUrl"
+                                onChange={(e) => handleFileInputChange(e, setFieldValue)}
+                                // onBlur={props.form.handleBlur}
+                            />
+                        </label>
 
                     {/* {touched.profileImgUrl && errors.profileImgUrl && (
                         <div className='text-danger'>{errors.profileImgUrl}</div>
