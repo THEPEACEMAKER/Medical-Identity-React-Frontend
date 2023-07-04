@@ -23,42 +23,11 @@ export default function GenerateCodeBtn({ reservation }) {
       const sessionCode = response.data[0].code;
 
       setSessionCode(sessionCode);
-      localStorage.setItem("sessionCode", sessionCode);
       setBasicModal(!basicModal);
     } catch (error) {
       console.error("Error generating session code:", error);
     }
   };
-
-  useEffect(() => {
-    const storedSessionCode = localStorage.getItem("sessionCode");
-
-    if (storedSessionCode) {
-      const appointmentDateTime = moment.tz(
-        reservation.appointment_date + " " + reservation.appointment_time,
-        "YYYY-MM-DD hh:mm A",
-        "Africa/Cairo"
-      );
-
-      const isWithinSessionTime = moment().isBetween(
-        appointmentDateTime,
-        appointmentDateTime
-          .clone()
-          .add(reservation.appointment_duration, "minutes")
-      );
-
-      if (!isWithinSessionTime) {
-        localStorage.removeItem("sessionCode");
-        setSessionCode(null);
-      } else {
-        setSessionCode(storedSessionCode);
-      }
-    }
-  }, [
-    reservation.appointment_date,
-    reservation.appointment_duration,
-    reservation.appointment_time,
-  ]);
 
   // check timeRange to render the code generation button
   const appointmentDateTime = moment.tz(
@@ -76,9 +45,18 @@ export default function GenerateCodeBtn({ reservation }) {
     <>
       {!isWithinSessionTime ? (
         sessionCode ? (
-          <MDBBtn color="primary" size="sm" disabled>
+          <div
+            style={{
+              backgroundColor: "#35558a",
+              padding: "10px",
+              color: "white",
+              borderRadius: "5px",
+              marginBottom: "10px",
+              width: "110px",
+            }}
+          >
             {sessionCode}
-          </MDBBtn>
+          </div>
         ) : (
           <MDBBtn className={`btn btn-primary`} size="lg" onClick={toggleShow}>
             Code
@@ -119,14 +97,17 @@ export default function GenerateCodeBtn({ reservation }) {
             </MDBModalBody>
 
             <MDBModalFooter className="d-flex justify-content-center border-top-0 pt-0 pb-4">
-              <MDBBtn
-                size="lg"
-                style={{ backgroundColor: "#35558a" }}
-                className="mb-1"
-                disabled
+              <div
+                style={{
+                  backgroundColor: "#35558a",
+                  padding: "10px",
+                  color: "white",
+                  borderRadius: "5px",
+                  marginBottom: "10px",
+                }}
               >
                 {sessionCode}
-              </MDBBtn>
+              </div>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

@@ -27,7 +27,11 @@ function DoctorsListPage() {
   };
 
   const handleDistrictChange = (value) => {
-    setSelectedDistrict(value);
+    if (value === "All") {
+      setSelectedDistrict(null);
+    } else {
+      setSelectedDistrict(value);
+    }
   };
 
   // pagination
@@ -44,7 +48,14 @@ function DoctorsListPage() {
         page,
       })
     );
-  }, [specializationId, dispatch, page, pageSize, selectedDistrict]);
+  }, [
+    specializationId,
+    dispatch,
+    page,
+    pageSize,
+    selectedDistrict,
+    selectedCity,
+  ]);
 
   useEffect(() => {
     // calculate the total number of pages

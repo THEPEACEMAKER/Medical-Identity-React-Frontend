@@ -198,6 +198,38 @@ function Navbar() {
                     Home
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className={`nav-link `} aria-current="page" to="/home">
+                    Doctors
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/orders"
+                    className={`nav-link `}
+                    aria-current="page"
+                  >
+                    Hospitals
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className={`nav-link `}
+                    aria-current="page"
+                    to="/aboutus"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/contactus"
+                    className={`nav-link `}
+                    aria-current="page"
+                  >
+                    Contact Us
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

@@ -17,7 +17,7 @@ const PlaceSelect_DoctorsListPage = ({
         const data = response.data.map((city) => ({
           label: city.name_en,
           value: city.id,
-          districts: city.districts,
+          districts: [{ id: "All", name_en: "All" }, ...city.districts],
         }));
         setCities(data);
       } catch (error) {
