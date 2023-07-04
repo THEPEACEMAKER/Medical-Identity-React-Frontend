@@ -185,9 +185,6 @@ const EntryData = () => {
                                     </p>
                                   }
                                 </MDBBtn>
-                                {/* {
-                                                        <p className='fw-bold mb-0 pt-1 pb-1'>{appoint.doctor.first_name + " " + appoint.doctor.last_name}</p>
-                                                    } */}
                               </td>
 
                               <td>
@@ -262,7 +259,8 @@ const EntryData = () => {
                     <p>
                       <strong>Radiology:</strong>
                     </p>
-                    <span>{selectedAppointment.analysis_image}</span>
+                    {/* <span>{selectedAppointment.analysis_image}</span> */}
+                    <img src= {`${process.env.REACT_APP_IMGE_API_URL}/${selectedAppointment.analysis_image}`} alt='Radiology'></img>
                   </div>
                 )}
               </MDBModalBody>

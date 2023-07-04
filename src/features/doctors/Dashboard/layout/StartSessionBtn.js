@@ -16,7 +16,7 @@ export default function StartSessionBtn({ appointment, toggleShow }) {
 
   return (
     <>
-      {isWithinSessionTime && appointment.status !== "A" ? (
+      {!isWithinSessionTime && appointment.status !== "A" ? (
         <MDBBtn
           onClick={() => toggleShow(appointment)}
           type="button"

@@ -113,6 +113,10 @@ const DoctorsZone = () => {
     }
   };
 
+  // useEffect(()=> {
+
+  // },[])
+
   function formatDate(dateString) {
     const [year, month, day] = dateString.split("-");
     const formattedMonth = parseInt(month, 10) < 10 ? `0${month}` : month;
@@ -220,7 +224,7 @@ const DoctorsZone = () => {
                       <th scope="col">Session Start</th>
                       <th scope="col">Session End</th>
                       <th scope="col">Price</th>
-                      <th scope="col">Date</th>
+                      {/* <th scope="col">Date</th> */}
                       <th scope="col">Delete</th>
                     </tr>
                   </MDBTableHead>
@@ -237,7 +241,7 @@ const DoctorsZone = () => {
                           {helpers.convertTimeTo12HourFormat(appoint.end_time)}
                         </td>
                         <td>{appoint.price}</td>
-                        <td>{appoint.date}</td>
+                        {/* <td>{appoint.date}</td> */}
                         <td>
                           <MDBBtn
                             type="button"
@@ -254,10 +258,10 @@ const DoctorsZone = () => {
                   </MDBTableBody>
                 </MDBTable>
 
-                <div>
+                <div className="d-flex justify-content-center">
                   <button
                     onClick={prevPage}
-                    class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 rounded-l dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="opacity-50 cursor-default items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 rounded-l dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <svg
                       aria-hidden="true"
@@ -276,7 +280,7 @@ const DoctorsZone = () => {
                   </button>
                   <button
                     onClick={nextPage}
-                    class="items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 border-0 border-l border-gray-700 rounded-r dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="opacity-50 cursor-default items-center px-4 py-2 text-sm font-medium text-black bg-gray-800 border-0 border-l border-gray-700 rounded-r dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <span class="text-black hover:text-white">Next</span>
                     <svg

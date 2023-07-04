@@ -32,9 +32,9 @@ function App() {
 
   useEffect(() => {
 
-    if(isDoctor){
+    // if(isDoctor){
       helpers.fetchDoctorData(dispatch);
-    }
+    // }
     
   }, [dispatch]);
 

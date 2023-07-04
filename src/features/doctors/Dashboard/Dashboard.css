@@ -1,6 +1,7 @@
 .dashboard{
     background-color: #e1f1f3;
     display: flex;
+    height: auto; ;
 
 }
 .dashboardTable{

@@ -4,6 +4,7 @@ import styles from "./stylee.module.css";
 import { logout } from "../../auth/authSlice";
 import { useEffect, useState } from "react";
 import api from "../../../api/api";
+import logo from "../../../assets/logo2.png"
 
 function Navbar() {
   const user = localStorage.getItem("user");
@@ -37,6 +38,7 @@ function Navbar() {
         <div className={`${styles.top}`}>
           <div className="d-flex  w-100 justify-content-between align-items-center container-fluid">
             <div className="social-links my-2 ">
+              
               <Link>
                 <i className="fa-brands mx-1 fa-facebook text-dark"></i>
               </Link>
@@ -104,41 +106,6 @@ function Navbar() {
             </div>
           </div>
         </div>
-
-        <div className="container-fluid mt-3">
-          <div className="d-flex align-items-center justify-content-between">
-            <Link to="home">
-              <div className="col-lg-4 w-100">
-                <Link to="/home" className="text-decoration-none">
-                  <span className="h1 text-uppercase text-primary bg-dark px-2">
-                    Medical
-                  </span>
-                  <span className="h1 text-uppercase text-dark bg-primary px-2 ml-n1">
-                    Identity
-                  </span>
-                </Link>
-              </div>
-            </Link>
-
-            <div className="cart d-flex">
-              <Link to="/wishlist" className="btn-new p-2">
-                <i className="fa-regular fa-lg fa-heart text-black"></i>
-              </Link>
-
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar"
-                aria-label="Toggle navigation"
-              >
-                <i className="fa-solid fa-bars text-black"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
         <div className="bg-dark py-2 mt-3">
           {" "}
           <div
@@ -151,6 +118,15 @@ function Navbar() {
               <ul
                 className={`navbar-nav ${styles.ulNavbar} d-lg-flex align-items-lg-center gap-lg-3`}
               >
+                {/* <li className="nav-item">
+                  <Link
+                    to="/home"
+                    // aria-current="page"
+                    className="footerLogo" 
+                  >
+                    <img src={logo} alt="logo" className="footerLogo" />
+                  </Link>
+                </li> */}
                 <li className="nav-item dropdown">
                   <Link
                     className="btn d-flex align-items-center justify-content-between  bg-primary"
