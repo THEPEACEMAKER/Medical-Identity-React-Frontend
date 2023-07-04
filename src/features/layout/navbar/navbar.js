@@ -198,6 +198,15 @@ function Navbar() {
                     Home
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link
+                    className={`nav-link ${styles.active}`}
+                    aria-current="page"
+                    to="/doctors"
+                  >
+                    Doctors
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
