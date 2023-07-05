@@ -1,0 +1,8 @@
+.contact-section {
+    height: 500px; /* Adjust the height value as needed */
+  }
+  
+  .contact-section .row {
+    height: 100%;
+    align-items: center;
+  }

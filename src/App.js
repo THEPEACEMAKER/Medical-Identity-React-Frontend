@@ -21,6 +21,7 @@ import MedicalEntry from "./features/medicalEntry/medicalEntry";
 import DoctorProfile from "./features/doctors/DoctorProfile/DoctorProfile";
 import Reservations from "./features/patient/Reservations/Reservations";
 import EntryData from "./features/doctors/Entry/EntryData/EntryData";
+import ContactUs from "./features/contact-us/ContactUS";
 
 function App() {
   const dispatch = useDispatch();
@@ -97,6 +98,7 @@ function App() {
 
           <Route path="home" element={<Home />} />
           <Route path="" element={<Home />} />
+          <Route path="contactus" element={<ContactUs />} />
           <Route path="doctor/:id" element={<DoctorProfile />} />
 
           <Route path="*" element={<NotFound />} />
