@@ -57,7 +57,7 @@ const ReviewSlice = createSlice({
         state.error = action.payload.error;
       })
       .addCase(createReview.fulfilled, (state, action) => {
-        state.reviews.push(action.payload);
+        state.reviews.unshift(action.payload);
       });
   },
 });

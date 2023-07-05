@@ -5,6 +5,7 @@ import { fetchReview } from "./ReviewSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { MDBTypography } from "mdb-react-ui-kit";
 
 export default function ReviewCard() {
   const URL = process.env.REACT_APP_IMGE_API_URL;

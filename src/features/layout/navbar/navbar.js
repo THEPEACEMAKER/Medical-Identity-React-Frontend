@@ -4,12 +4,11 @@ import styles from "./stylee.module.css";
 import { logout } from "../../auth/authSlice";
 import { useEffect, useState } from "react";
 import api from "../../../api/api";
-import logo from "../../../assets/logo2.png"
+import logo from "../../../assets/logo2.png";
 
 function Navbar() {
-  const user = localStorage.getItem("user");
   const dispatch = useDispatch();
-  const { isLoggedIn, isDoctor, isPatient } = useSelector(
+  const { isLoggedIn, isDoctor, isPatient, user } = useSelector(
     (state) => state.auth
   );
 
@@ -38,7 +37,6 @@ function Navbar() {
         <div className={`${styles.top}`}>
           <div className="d-flex  w-100 justify-content-between align-items-center container-fluid">
             <div className="social-links my-2 ">
-              
               <Link>
                 <i className="fa-brands mx-1 fa-facebook text-dark"></i>
               </Link>
@@ -90,13 +88,16 @@ function Navbar() {
                   </Link>
                 </>
               )}
-              {isLoggedIn && (
+              {isDoctor && user && (
                 <>
                   <Link to={`/doctor/${user.id}`} className="mx-2 text-black">
                     <i className="fa-solid fa-user "></i>
                     <span> Profile</span>
                   </Link>
-
+                </>
+              )}
+              {isLoggedIn && (
+                <>
                   <Link className="mx-2 text-black" onClick={handleLogout}>
                     <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                     <span> Logout</span>

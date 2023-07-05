@@ -130,9 +130,9 @@ export default function DoctorProfile() {
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
+            <Review />
           </MDBCol>
         </MDBRow>
-        <Review />
       </MDBContainer>
     </section>
   );
