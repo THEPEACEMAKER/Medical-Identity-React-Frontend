@@ -161,15 +161,15 @@ export default function ContactUs() {
                         <ul className="list-unstyled mb-0">
                             <li>
                                 <i className="fas fa-map-marker-alt fa-2x"></i>
-                                <p>San Francisco, CA 94126, USA</p>
+                                <p>New Capital, Cairo, Egypt</p>
                             </li>
                             <li>
                                 <i className="fas fa-phone mt-4 fa-2x"></i>
-                                <p>+ 01 234 567 89</p>
+                                <p>+ 01111112222</p>
                             </li>
                             <li>
                                 <i className="fas fa-envelope mt-4 fa-2x"></i>
-                                <p>contact@mdbootstrap.com</p>
+                                <p>iti@mail.com</p>
                             </li>
                         </ul>
                     </div>
